@@ -9,6 +9,7 @@ import{UserListComponent} from '../components/user-list/user-list.component';
 import{ProductComponent} from '../components/product/product.component';
 import{CategoryComponent} from '../components/category/category.component';
 import {EveryOneOptionsComponent} from '../components/every-one-options/every-one-options.component';
+import {UserEditComponent} from '../components/user-edit/user-edit.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -23,7 +24,8 @@ const routes: Routes = [
   { path: 'user-list', component: UserListComponent },
   { path: 'product', component: ProductComponent },
   { path: 'category', component: CategoryComponent },
-  { path: 'every-one-options', component: EveryOneOptionsComponent }
+  { path: 'every-one-options', component: EveryOneOptionsComponent },
+  { path: 'user-edit', component: UserEditComponent }
  
 ];
 

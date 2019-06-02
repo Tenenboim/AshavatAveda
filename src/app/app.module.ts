@@ -13,6 +13,7 @@ import { UserLostsComponent } from './components/user-info/components/user-losts
 import { EveryOneOptionsComponent } from './components/every-one-options/every-one-options.component';
 import { UserListComponent } from './components/user-list/user-list.component';
 import { CategoryComponent } from './components/category/category.component';
+import { UserEditComponent } from './components/user-edit/user-edit.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { CategoryComponent } from './components/category/category.component';
     UserLostsComponent,
     EveryOneOptionsComponent,
     UserListComponent,
-    CategoryComponent
+    CategoryComponent,
+    UserEditComponent
   ],
   imports: [
     BrowserModule,
