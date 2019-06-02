@@ -1,0 +1,9 @@
+<form #myForm="ngForm" (ngSubmit)="OnLogin(myForm)"  >
+  <label>שם משתמש:</label>
+  <input type="text" ngModel name="UserRecognizeName"><br><br>
+  <label>ת"ז:</label>
+  <input type="password" ngModel name="UserPassword"><br><br>
+  <input type="submit" value="login">
+  <button type="button" routerLink="/register" *ngIf="!isManager">משתמש חדש? הרשם עכשיו</button>
+  
+</form>

@@ -1,0 +1,40 @@
+<form #myForm="ngForm" (ngSubmit)="OnAddProduct(myForm)"  >
+ 
+
+  <label>קטגוריה:</label>
+  <select name="CategoryId" (change)="onCategoryChanged()" [(ngModel)]="selectedParentID">
+    <ng-container *ngFor="let item of categories">
+        <!-- <option value="-1" hidden>בחר:</option> -->
+      <option *ngIf="!item.ParentId" [value]="item.CategoryId">{{item.CategoryName}}</option>
+    </ng-container>
+  </select>
+
+  <label>תת קטגוריה:</label>
+  <select name="SubCategoryId" [(ngModel)]="product.CategoryId">
+    <ng-container *ngFor="let item of categories">
+      <option value="-1" hidden>בחר:</option>
+      <option *ngIf="item.ParentId == selectedParentID" [value]="item.CategoryId">{{item.CategoryName}}</option>
+    </ng-container>
+  </select>
+
+
+  <label>product name:</label>
+  <input type="text" ngModel name="productName"><br><br>
+  <label>תאור:</label>
+  <input type="text" ngModel name="productDescription"><br><br>
+  <label>address point x:</label>
+  <input type="number" ngModel name="addressPointX"><br><br>
+  <label>address point y:</label>
+  <input type="number" ngModel name="addressPointY"><br><br>
+  <label>תאריך אבידה/מציאה:</label>
+  <input type="date" ngModel name="Date"><br><br>
+choose kind:
+<br>
+<select [(ngModel)]="product.lostOrFound" name="lostOrFound" id="">
+  <option value="0" >lost</option>
+  <option value="1">found</option>
+</select>
+  <input type="submit" value="addProduct">
+ 
+</form>
+
