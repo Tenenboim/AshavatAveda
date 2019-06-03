@@ -1,19 +1,21 @@
-<form #myForm="ngForm" (ngSubmit)="OnAddProduct(myForm)"  >
- 
+<form #myForm="ngForm" (ngSubmit)="OnAddProduct(myForm)">
+
+
+
 
   <label>קטגוריה:</label>
-  <select name="CategoryId" (change)="onCategoryChanged()" [(ngModel)]="selectedParentID">
+  <select name="CategoryId" (change)="onCategoryChanged()" [(ngModel)]="product.CategoryId">
     <ng-container *ngFor="let item of categories">
-        <!-- <option value="-1" hidden>בחר:</option> -->
+      
       <option *ngIf="!item.ParentId" [value]="item.CategoryId">{{item.CategoryName}}</option>
     </ng-container>
   </select>
 
   <label>תת קטגוריה:</label>
-  <select name="SubCategoryId" [(ngModel)]="product.CategoryId">
+  <select name="SubCategoryId" *ngIf="selectOnlyCategory" (change)="onCategoryChanged()" [(ngModel)]="product.CategoryId">
     <ng-container *ngFor="let item of categories">
       <option value="-1" hidden>בחר:</option>
-      <option *ngIf="item.ParentId == selectedParentID" [value]="item.CategoryId">{{item.CategoryName}}</option>
+      <option *ngIf="item.ParentId == product.CategoryId" [value]="item.CategoryId">{{item.CategoryName}}</option>
     </ng-container>
   </select>
 
@@ -28,13 +30,23 @@
   <input type="number" ngModel name="addressPointY"><br><br>
   <label>תאריך אבידה/מציאה:</label>
   <input type="date" ngModel name="Date"><br><br>
-choose kind:
-<br>
-<select [(ngModel)]="product.lostOrFound" name="lostOrFound" id="">
-  <option value="0" >lost</option>
-  <option value="1">found</option>
-</select>
+  בחר סוג:
+  <br>
+  <select [(ngModel)]="product.lostOrFound" name="lostOrFound" id="">
+    <option value="0">lost</option>
+    <option value="1">found</option>
+  </select>
+  <div *ngIf="product.CategoryId">
+    פרמטרים קיימים:
+  </div>
+  <div>
+    הוספת פרמטר חדש:
+    <div *ngFor="let item of parameters; let i = index">
+      <input name="item-{{i}}" [(ngModel)]="item.ParamterName" type="text">
+      <input name="item-{{i}}" [(ngModel)]="item.ParamterName" type="text">  
+    </div>
+  </div>
+  <button (click)="addParameter()">+</button>
   <input type="submit" value="addProduct">
- 
-</form>
 
+</form>

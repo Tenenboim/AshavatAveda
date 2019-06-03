@@ -4,9 +4,10 @@ import { NgForm } from '@angular/forms';
 import { Category } from 'src/app/models/category';
 import { CategoryService } from '../../services/category.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Parameter } from 'src/app/models/parameter';
+import { ParameterOfProduct } from 'src/app/models/parameter-of-product';
 
 
-import { from } from 'rxjs';
 @Component({
   selector: 'app-product',
   templateUrl: './product.component.html',
@@ -15,28 +16,39 @@ import { from } from 'rxjs';
 export class ProductComponent {
   product: Product = new Product();
   categories: Category[] = [];
-  selectedParentID: number;
+  selectOnlyCategory:boolean;
+parameters: Parameter[] = [];
+ParameterOfProduct:ParameterOfProduct[];
+
   constructor(private CategoryService: CategoryService) {
 
 
   }
 
+  addParameter() {
+    this.parameters.push(new Parameter());
+  }
+
   ngOnInit() {
+
+   this.parameters.push(new Parameter());
+
     this.CategoryService.getCategories().subscribe((res: Category[]) => {
       if (res != null) {
         this.categories = res;
-        if (this.categories.length) {
-          this.product.CategoryId = -1;
-          this.selectedParentID = this.categories[0].CategoryId;
+        
         }
-      }
+      
     }, (err: HttpErrorResponse) => {
       alert(err.error.Message);
     });
   }
 
+
   onCategoryChanged() {
-    this.product.CategoryId = -1;
+    this.selectOnlyCategory=true;
+    
+
   }
 
   OnAddProduct(myForm: NgForm) {
