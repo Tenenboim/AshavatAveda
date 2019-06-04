@@ -34,9 +34,10 @@ export class LoginComponent implements OnInit {
         else if (res.RoleId === 2)
           localStorage.setItem("RoleId", "2");
         else
-        localStorage.setItem("RoleId", "3");
+      {localStorage.setItem("RoleId", "3");}
         localStorage.setItem("UserID", res.UserId.toString());
         localStorage.setItem("UserName", res.UserFullName.toString());
+        localStorage.setItem("UserEmail", res.UserEmail.toString());
       }
     }, (err: HttpErrorResponse) => {
       alert(err.error.Message);

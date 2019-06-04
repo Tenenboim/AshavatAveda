@@ -6,13 +6,13 @@
   <label>קטגוריה:</label>
   <select name="CategoryId" (change)="onCategoryChanged()" [(ngModel)]="product.CategoryId">
     <ng-container *ngFor="let item of categories">
-      
       <option *ngIf="!item.ParentId" [value]="item.CategoryId">{{item.CategoryName}}</option>
     </ng-container>
   </select>
 
   <label>תת קטגוריה:</label>
-  <select name="SubCategoryId" *ngIf="selectOnlyCategory" (change)="onCategoryChanged()" [(ngModel)]="product.CategoryId">
+  <select name="SubCategoryId" *ngIf="selectOnlyCategory" (change)="onCategoryChanged()"
+    [(ngModel)]="product.CategoryId">
     <ng-container *ngFor="let item of categories">
       <option value="-1" hidden>בחר:</option>
       <option *ngIf="item.ParentId == product.CategoryId" [value]="item.CategoryId">{{item.CategoryName}}</option>
@@ -36,17 +36,34 @@
     <option value="0">lost</option>
     <option value="1">found</option>
   </select>
-  <div *ngIf="product.CategoryId">
+  <div *ngIf="parametersAreExist!=null">
     פרמטרים קיימים:
+    <label>שם:</label>
+    <label>ערך</label><br><br>
+    <div *ngFor="let item of parametersAreExist; let i = index">
+      <label >{{item.name}}</label>
+      <input name="parameterExistValue-{{i}}" [(ngModel)]="ParameterOfProductAreExist[i].value" type="text">
+      <!-- לא עדכנתי את ה parameterOfProduct.ProductId -->
+      <br><br>
+    </div>
   </div>
   <div>
     הוספת פרמטר חדש:
     <div *ngFor="let item of parameters; let i = index">
       <input name="item-{{i}}" [(ngModel)]="item.ParamterName" type="text">
-      <input name="item-{{i}}" [(ngModel)]="item.ParamterName" type="text">  
+      <input name="item-{{i}}" [(ngModel)]="item.ParamterName" type="text">
+      <!-- לא עדכנתי את ה parameter.categoryId -->
+
     </div>
   </div>
   <button (click)="addParameter()">+</button>
+  <!-- ?checkbox הגדרת סוכן חכם כדאי להחליף ל  -->
+  <!-- selected doesnt work -->
+  בחר אפשרות:
+  <select [(ngModel)]="product.CleverAgent" >
+    <option value="false" >אני מעונין לקבל עדכונים למייל שלי</option>
+    <option value="true" selected="selected">>אני לא מעונין לקבל עדכונים למייל שלי</option><br><br>
+  </select>
   <input type="submit" value="addProduct">
 
 </form>
