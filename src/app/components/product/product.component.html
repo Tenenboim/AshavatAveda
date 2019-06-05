@@ -1,26 +1,24 @@
-<form #myForm="ngForm" (ngSubmit)="OnAddProduct(myForm)">
-
-
-
-
+<!--  לא מסודר העמוד כלומר לבדוק את הפרמטרים החדשים הפרמטרים הישניםקטגוריה תת קטגוריה וכו'   -->
+<form dir="rtl" #myForm="ngForm" (submit)="OnAddProduct(myForm)">
   <label>קטגוריה:</label>
-  <select name="CategoryId" (change)="onCategoryChanged()" [(ngModel)]="product.CategoryId">
+  <select name="CategoryId" (change)="onCategoryChanged(true)" [(ngModel)]="mainCategoryID">
     <ng-container *ngFor="let item of categories">
       <option *ngIf="!item.ParentId" [value]="item.CategoryId">{{item.CategoryName}}</option>
     </ng-container>
   </select>
-
+<br>
   <label>תת קטגוריה:</label>
-  <select name="SubCategoryId" *ngIf="selectOnlyCategory" (change)="onCategoryChanged()"
+  <select name="SubCategoryId" (change)="onCategoryChanged()"
     [(ngModel)]="product.CategoryId">
     <ng-container *ngFor="let item of categories">
       <option value="-1" hidden>בחר:</option>
-      <option *ngIf="item.ParentId == product.CategoryId" [value]="item.CategoryId">{{item.CategoryName}}</option>
+      <option *ngIf="item.ParentId == mainCategoryID" [value]="item.CategoryId">{{item.CategoryName}}</option>
     </ng-container>
   </select>
 
+<br>
 
-  <label>product name:</label>
+  <label>שם מוצר:</label>
   <input type="text" ngModel name="productName"><br><br>
   <label>תאור:</label>
   <input type="text" ngModel name="productDescription"><br><br>
@@ -33,37 +31,37 @@
   בחר סוג:
   <br>
   <select [(ngModel)]="product.lostOrFound" name="lostOrFound" id="">
-    <option value="0">lost</option>
-    <option value="1">found</option>
+    <option value="0">אבידה</option>
+    <option value="1">מציאה</option>
   </select>
   <div *ngIf="parametersAreExist!=null">
-    פרמטרים קיימים:
-    <label>שם:</label>
-    <label>ערך</label><br><br>
+    <!-- פרמטרים קיימים: -->
     <div *ngFor="let item of parametersAreExist; let i = index">
-      <label >{{item.name}}</label>
+      <label >{{item.ParameterName}}</label>
       <input name="parameterExistValue-{{i}}" [(ngModel)]="ParameterOfProductAreExist[i].value" type="text">
       <!-- לא עדכנתי את ה parameterOfProduct.ProductId -->
       <br><br>
     </div>
   </div>
   <div>
-    הוספת פרמטר חדש:
-    <div *ngFor="let item of parameters; let i = index">
-      <input name="item-{{i}}" [(ngModel)]="item.ParamterName" type="text">
-      <input name="item-{{i}}" [(ngModel)]="item.ParamterName" type="text">
-      <!-- לא עדכנתי את ה parameter.categoryId -->
-
+    <label>הוספת פרמטר חדש: </label>
+    <div *ngFor="let item of NewParameters; let index = index">
+      <label for="NewParametersd-{{index}}-Name">שם</label>
+       <input name="NewParameters-{{index}}-Name" [(ngModel)]="item.ParameterName" type="text">
+   
+      <label for="NewParametersd-{{index}}-Value">ערך</label>
+       <input name="NewParameters-{{index}}-Value" [(ngModel)]="NewParameterOfProduct[index].value" type="text"> <br>
+      <!-- לא עדכנתי את ה parameter.categoryId  -->
     </div>
   </div>
-  <button (click)="addParameter()">+</button>
+  
   <!-- ?checkbox הגדרת סוכן חכם כדאי להחליף ל  -->
   <!-- selected doesnt work -->
-  בחר אפשרות:
-  <select [(ngModel)]="product.CleverAgent" >
-    <option value="false" >אני מעונין לקבל עדכונים למייל שלי</option>
-    <option value="true" selected="selected">>אני לא מעונין לקבל עדכונים למייל שלי</option><br><br>
+  <label>בחר אפשרות:</label>
+  <select name="test-r" [(ngModel)]="product.CleverAgent" >
+    <option value="true" >אני מעונין לקבל עדכונים למייל שלי</option>
+    <option value="false">אני לא מעונין לקבל עדכונים למייל שלי</option><br><br>
   </select>
-  <input type="submit" value="addProduct">
-
+  <button type="submit">addProduct</button> 
+  <button (click)="addParameter()">+</button> 
 </form>
