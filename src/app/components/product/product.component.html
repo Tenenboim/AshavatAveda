@@ -8,7 +8,7 @@
   </select>
 <br>
   <label>תת קטגוריה:</label>
-  <select name="SubCategoryId" (change)="onCategoryChanged()"
+  <select name="SubCategoryId" (change)="onCategoryChanged(false)"
     [(ngModel)]="product.CategoryId">
     <ng-container *ngFor="let item of categories">
       <option value="-1" hidden>בחר:</option>
@@ -30,38 +30,41 @@
   <input type="date" ngModel name="Date"><br><br>
   בחר סוג:
   <br>
-  <select [(ngModel)]="product.lostOrFound" name="lostOrFound" id="">
-    <option value="0">אבידה</option>
-    <option value="1">מציאה</option>
+  <select [(ngModel)]="product.LostOrFound" name="lostOrFound" >
+    <option [ngValue]="true"></option>אבידה</option>
+    <option [ngValue]="false">מציאה</option>
+   
   </select>
   <div *ngIf="parametersAreExist!=null">
     <!-- פרמטרים קיימים: -->
     <div *ngFor="let item of parametersAreExist; let i = index">
       <label >{{item.ParameterName}}</label>
       <input name="parameterExistValue-{{i}}" [(ngModel)]="ParameterOfProductAreExist[i].value" type="text">
-      <!-- לא עדכנתי את ה parameterOfProduct.ProductId -->
+   
       <br><br>
     </div>
   </div>
   <div>
     <label>הוספת פרמטר חדש: </label>
     <div *ngFor="let item of NewParameters; let index = index">
-      <label for="NewParametersd-{{index}}-Name">שם</label>
+      <label for="NewParameters-{{index}}-Name">שם</label>
        <input name="NewParameters-{{index}}-Name" [(ngModel)]="item.ParameterName" type="text">
    
       <label for="NewParametersd-{{index}}-Value">ערך</label>
        <input name="NewParameters-{{index}}-Value" [(ngModel)]="NewParameterOfProduct[index].value" type="text"> <br>
-      <!-- לא עדכנתי את ה parameter.categoryId  -->
+      
     </div>
   </div>
   
-  <!-- ?checkbox הגדרת סוכן חכם כדאי להחליף ל  -->
-  <!-- selected doesnt work -->
-  <label>בחר אפשרות:</label>
-  <select name="test-r" [(ngModel)]="product.CleverAgent" >
+  <!-- הגדרת סוכן חכם   -->
+  <!-- <label>בחר אפשרות:</label> -->
+  
+  <input type="checkbox" name="cleverAgent" [(ngModel)]="product.CleverAgent">
+  <label>אני מעונין לקבל עדכונים למייל שלי</label>
+  <!-- <select name="test-r" [(ngModel)]="product.CleverAgent" >
     <option value="true" >אני מעונין לקבל עדכונים למייל שלי</option>
     <option value="false">אני לא מעונין לקבל עדכונים למייל שלי</option><br><br>
-  </select>
+  </select> -->
   <button type="submit">addProduct</button> 
   <button (click)="addParameter()">+</button> 
 </form>

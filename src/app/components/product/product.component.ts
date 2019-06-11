@@ -15,7 +15,9 @@ import { ProductService } from '../../services/product.service';
   templateUrl: './product.component.html',
   styleUrls: ['./product.component.css']
 })
-export class ProductComponent {
+export class ProductComponent implements OnInit{
+  
+  
   product: Product = new Product();
   categories: Category[] = [];
   parametersAreExist: Parameter[] = [];
@@ -23,20 +25,32 @@ export class ProductComponent {
   mainCategoryID: number;
   NewParameters: Parameter[] = [];
   NewParameterOfProduct: ParameterOfProduct[] = [];
+  UserRoleId:Number;
 
   constructor(private CategoryService: CategoryService, private ParameterService: ParameterService
-    , private ProductService: ProductService) { }
+    , private ProductService: ProductService) {
+      
+     }
 
   addParameter() {
     this.NewParameters.push(new Parameter());
     this.NewParameterOfProduct.push(new ParameterOfProduct());
   }
+ 
 
-  ngOnInit() {
+  ngOnInit(){
 
     this.NewParameterOfProduct.push(new ParameterOfProduct());
     this.NewParameters.push(new Parameter());
     this.product.CleverAgent = false;
+    this.product.LostOrFound=false;
+
+    
+   
+    if(+localStorage.getItem("RoleId") == 3)
+    this.product.UserId=+localStorage.getItem("UserID");
+    // this.UserRoleId=0+localStorage.getItem("RoleId");
+    // if(this.UserRoleId==3)
     this.CategoryService.getCategories().subscribe((res: Category[]) => {
       if (res != null) {
 
@@ -78,7 +92,7 @@ export class ProductComponent {
   }
 
   OnAddProduct(myForm: NgForm) {
-    // עדכון קוד הפרמטר בטבלת פרמטרים למוצר
+    // עדכון קוד הפרמטר-פרמטרים קיימים בטבלת פרמטרים למוצר
     for (let i = 0; i < this.parametersAreExist.length; i++) {
       this.ParameterOfProductAreExist[i].ParameterId = this.parametersAreExist[i].ParameterId;
     }
@@ -87,7 +101,10 @@ export class ProductComponent {
     for (var i = 0; i < this.NewParameters.length; i++) {
       this.NewParameters[i].CategoryId = this.product.CategoryId?this.product.CategoryId:this.mainCategoryID;
     }
-    this.ProductService.AddProduct(this.product,this.ParameterOfProductAreExist,
-     [],[]).subscribe();
+    //כלומר כאשר יש רק קטגורית אב
+    if (this.product.CategoryId==-1)
+    this.product.CategoryId=this.mainCategoryID;
+  
+    this.ProductService.AddProduct(this.product,this.ParameterOfProductAreExist,this.NewParameters,this.NewParameterOfProduct).subscribe();
   }
 }

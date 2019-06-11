@@ -13,13 +13,13 @@ export class ProductService {
   constructor(private http: HttpClient) { }
 
    AddProduct(product:Product,ParameterOfProductAreExist:ParameterOfProduct[]
-    , NewParameters:any,parametersAreExist:Parameter[]) {
+    , NewParameters:Parameter[],NewParameterOfProduct:ParameterOfProduct[]) {
 
       let dynamicObj = {
-        prod: product,
-        ParameterOf: ParameterOfProductAreExist,
+        product: product,
+        ParameterOfProductAreExist: ParameterOfProductAreExist,
         NewParameters: NewParameters,
-        parametersAreExist: parametersAreExist
+        NewParameterOfProduct: NewParameterOfProduct
       }
     //subscribe דוגמא לשליחת הרבה אוביקטים ע"י שליחה להרבה פונקציות בקונטרולר ועד שלא כל הפונקציות מחזירות תשובה לא יאותחל ה
    /*    let product_request = this.http.post(url + "api/product/AddProduct", product ) ;
