@@ -13,6 +13,8 @@ import { UserLostsComponent } from './components/user-info/components/user-losts
 import { EveryOneOptionsComponent } from './components/every-one-options/every-one-options.component';
 import { UserListComponent } from './components/user-list/user-list.component';
 import { CategoryComponent } from './components/category/category.component';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { AngularMaterialModule } from './modules/angular-material/angular-material.module';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,9 @@ import { CategoryComponent } from './components/category/category.component';
     BrowserModule,
     HttpClientModule,
     FormsModule,
-    RoutingModule
+    RoutingModule,
+    BrowserAnimationsModule,
+    AngularMaterialModule
   ],
   providers: [UserService],
   bootstrap: [AppComponent]
