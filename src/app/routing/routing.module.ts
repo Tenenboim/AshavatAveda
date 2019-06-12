@@ -25,7 +25,7 @@ const routes: Routes = [
   { path: 'product', component: ProductComponent },
   { path: 'category', component: CategoryComponent },
   { path: 'every-one-options', component: EveryOneOptionsComponent },
-  { path: 'user-edit', component: UserEditComponent }
+  { path: 'user-edit/:user', component: UserEditComponent }
  
 ];
 

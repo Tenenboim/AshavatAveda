@@ -1,19 +1,24 @@
-<!-- <from >
+ <form #myForm="ngForm" (ngSubmit)="OnUpdateEditUser()">
     <label>שם מלא: </label>
-    <input type="text" name="userFullName" [(ngModel)]="user.userFullName" /><br><br>
+    <input type="text" name="UserFullName" [(ngModel)]=u.UserFullName  value="{{u.UserFullName}}"/><br><br>
     <label>תעודת זהות:</label>
-    <input type="password" name="userPassword" [(ngModel)]="user.userPassword" /><br><br>
+    <input type="number" name="UserPassword" [(ngModel)]="u.UserPassword" value="{{u.UserPassword}}" /><br><br>
     <label>שם זהוי המשתמש:</label>
-    <input type="text" name="userRecognizeName" [(ngModel)]="user.userRecognizeName" /><br><br>
+    <input type="text" name="UserRecognizeName" [(ngModel)]="u.UserRecognizeName" value={{u.UserRecognizeName}} /><br><br>
     <label>כתובת: </label>
-    <input type="text" name="userAddress" [(ngModel)]="user.userAddress" /><br><br>
+    <input type="text" name="UserAddress" [(ngModel)]="u.UserAddress" value="{{u.UserAddress}}"/><br><br>
     <label>מייל: </label>
-    <input type="email" name="userEmail" [(ngModel)]="user.userEmail" /><br><br>
+    <input type="email" name="UserEmail" [(ngModel)]="u.UserEmail" value="{{u.UserEmail}}"/><br><br>
   
     <label>טלפון: </label>
-    <input type="text" name="userPhone" [(ngModel)]="user.UserPhone" /><br><br>
-    
-</from> -->
-<p>
-  work
-</p>
+    <input type="text" name="UserPhone" [(ngModel)]="u.UserPhone" value="{{u.UserPhone}}"/><br><br>
+    <div *ngIf="roleId != null && roleId == 1" >
+      <input type="radio" name="RoleId" value="2" [(ngModel)]="u.RoleId"  [checked]="u.RoleId==2?'checked':''"/>
+      <label for="2">מוקדן</label>
+      <br><br>
+      <input type="radio" name="RoleId" value="3" [(ngModel)]="u.RoleId"  [checked]="u.RoleId==3?'checked':''" />
+      <label for="3" >משתמש רגיל</label>
+    </div>
+    <input type="submit" value="שמור" routerLink="/user-list">
+ </form>
+ 

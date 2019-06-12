@@ -5,7 +5,7 @@
   <td>{{user.UserFullName}}</td>
   <td>{{user.UserAddress}}</td>
   <td>
-    <button routerLink="/user-edit">עריכת משתמש</button>
+    <button [routerLink]="['/user-edit',user | json]">עריכת משתמש</button>
 </td>
 </tr>
 </table>

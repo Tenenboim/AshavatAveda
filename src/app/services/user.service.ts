@@ -20,4 +20,8 @@ export class UserService {
   {
     return this.http.get(url+"api/user/UserList");
   }
+  UpdateEditUser(user:User)
+  {
+    return this.http.post(url+"api/user/UpdateEditUser",user);
+  }
 }
