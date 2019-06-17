@@ -10,13 +10,14 @@ import{ProductComponent} from '../components/product/product.component';
 import{CategoryComponent} from '../components/category/category.component';
 import {EveryOneOptionsComponent} from '../components/every-one-options/every-one-options.component';
 import {UserEditComponent} from '../components/user-edit/user-edit.component';
+import {AddMokdanOrUserComponent} from '../components/add-mokdan-or-user/add-mokdan-or-user.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'login/:isManager', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
-  {path: 'user-info', component: UserInfoComponent, children: [
+  {path: 'user-info/:userId', component: UserInfoComponent, children: [
       { path: '', redirectTo: 'user-losts', pathMatch: 'full' },
       { path: 'user-losts', component: UserLostsComponent },
     ]
@@ -25,7 +26,8 @@ const routes: Routes = [
   { path: 'product', component: ProductComponent },
   { path: 'category', component: CategoryComponent },
   { path: 'every-one-options', component: EveryOneOptionsComponent },
-  { path: 'user-edit/:user', component: UserEditComponent }
+  { path: 'user-edit/:user', component: UserEditComponent },
+  { path: 'add-mokdan-or-user', component: AddMokdanOrUserComponent }
  
 ];
 

@@ -2,8 +2,8 @@
   <th>שם</th>
   <th>כתובת</th>
 <tr *ngFor="let user of users"> 
-  <td>{{user.UserFullName}}</td>
-  <td>{{user.UserAddress}}</td>
+  <td [routerLink]="['/user-info',user.UserId]">{{user.UserFullName}}</td>
+  <td [routerLink]="['/user-info',user.UserId]">{{user.UserAddress}}</td>
   <td>
     <button [routerLink]="['/user-edit',user | json]">עריכת משתמש</button>
 </td>
