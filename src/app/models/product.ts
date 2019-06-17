@@ -6,12 +6,13 @@ export class Product {
     ProductDescription:String;
     AddressPointX:number;
     AddressPointY:number;
+    AddressDescription:String;
     DateFound:Date;
     LostOrFound:boolean;
     WasDone:boolean;
     CleverAgent:boolean;
     
-    constructor(ProductId?,UserId?,CategoryId?,ProductName?,ProductDescription?,AddressPointX?,AddressPointY?,DateFound?,LostOrFound?,WasDone?,CleverAgent?) {
+    constructor(ProductId?,UserId?,CategoryId?,ProductName?,ProductDescription?,AddressPointX?,AddressPointY?,AddressDescription?,DateFound?,LostOrFound?,WasDone?,CleverAgent?) {
       this.ProductId=ProductId,
       this.UserId=UserId,
       this.CategoryId=CategoryId,
@@ -19,6 +20,7 @@ export class Product {
       this.ProductDescription=ProductDescription,
       this.AddressPointX=AddressPointX,
       this.AddressPointY=AddressPointY,
+      this.AddressDescription=AddressDescription,
       this.DateFound=DateFound,
       this.LostOrFound=LostOrFound,
       this.WasDone=WasDone,

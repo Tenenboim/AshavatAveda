@@ -8,6 +8,8 @@ import { ParameterOfProduct } from 'src/app/models/parameter-of-product';
 import { ParameterService } from '../../services/parameter.service';
 import { Parameter } from 'src/app/models/parameter';
 import { ProductService } from '../../services/product.service';
+import {UserService} from '../../services/user.service';
+import{User} from '../../models/user';
 
 
 @Component({
@@ -17,7 +19,7 @@ import { ProductService } from '../../services/product.service';
 })
 export class ProductComponent implements OnInit{
   
-  
+  model = { options: '' };
   product: Product = new Product();
   categories: Category[] = [];
   parametersAreExist: Parameter[] = [];
@@ -25,10 +27,11 @@ export class ProductComponent implements OnInit{
   mainCategoryID: number;
   NewParameters: Parameter[] = [];
   NewParameterOfProduct: ParameterOfProduct[] = [];
-  UserRoleId:Number;
+  UserRoleId:Number=+localStorage.getItem("RoleId") ;
+  UserList:User[]=[];
 
   constructor(private CategoryService: CategoryService, private ParameterService: ParameterService
-    , private ProductService: ProductService) {
+    , private ProductService: ProductService,private UserService:UserService ) {
       
      }
 
@@ -42,15 +45,25 @@ export class ProductComponent implements OnInit{
 
     this.NewParameterOfProduct.push(new ParameterOfProduct());
     this.NewParameters.push(new Parameter());
+    //ברירת מחדל לא יהיה סוכן החכם 
+    // ברירת מחדל החפץ יהיה של מציאה
     this.product.CleverAgent = false;
     this.product.LostOrFound=false;
 
     
    
-    if(+localStorage.getItem("RoleId") == 3)
-    this.product.UserId=+localStorage.getItem("UserID");
-    // this.UserRoleId=0+localStorage.getItem("RoleId");
-    // if(this.UserRoleId==3)
+    if(this.UserRoleId&&this.UserRoleId == 3)
+    this.product.UserId=+this.UserRoleId;
+    //הבאת הרשימה של המשתמשים לבחירת המשתמש שאליו שייך החפץ
+    else{
+      this.product.UserId=-1;
+      this.UserService.UserList().subscribe((res:User[])=>{
+        if(res!=null){
+          this.UserList=res;
+       }
+      },(err:HttpErrorResponse)=>{ 
+      });
+    }
     this.CategoryService.getCategories().subscribe((res: Category[]) => {
       if (res != null) {
 
@@ -99,7 +112,7 @@ export class ProductComponent implements OnInit{
     // עדכון הקטגוריה בכל פרמטרים החדשים
     
     for (var i = 0; i < this.NewParameters.length; i++) {
-      this.NewParameters[i].CategoryId = this.product.CategoryId?this.product.CategoryId:this.mainCategoryID;
+      this.NewParameters[i].CategoryId = this.product.CategoryId!=-1?this.product.CategoryId:this.mainCategoryID;
     }
     //כלומר כאשר יש רק קטגורית אב
     if (this.product.CategoryId==-1)
