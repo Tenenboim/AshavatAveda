@@ -1,0 +1,26 @@
+<form (ngSubmit)="OnRegister()">
+
+  <label>שם מלא: </label>
+  <input type="text" name="UserFullName" [(ngModel)]="user.UserFullName" /><br><br>
+  <label>תעודת זהות:</label>
+  <input type="password" name="UserPassword" [(ngModel)]="user.UserPassword" /><br><br>
+  <label>שם זהוי המשתמש:</label>
+  <input type="text" name="UserRecognizeName" [(ngModel)]="user.UserRecognizeName" /><br><br>
+  <label>כתובת: </label>
+  <input type="text" name="UserAddress" [(ngModel)]="user.UserAddress" /><br><br>
+  <label>מייל: </label>
+  <input type="email" name="UserEmail" [(ngModel)]="user.UserEmail" /><br><br>
+
+  <label>טלפון: </label>
+  <input type="text" name="UserPhone" [(ngModel)]="user.UserPhone" /><br><br>
+  <div *ngIf="roleId != null && roleId == 1" >
+    <input type="radio" name="RoleId" value="2" [(ngModel)]="user.RoleId"  />
+    <label for="2">מוקדן</label>
+    <br><br>
+    <input type="radio" name="RoleId" value="3" [(ngModel)]="user.RoleId" 
+      checked="checked" />
+    <label for="3" >משתמש רגיל</label>
+  </div>
+ <input type="submit" value="הוסף"> 
+
+</form>

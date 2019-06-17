@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
   }
 
   OnLogin(myForm: NgForm) {
-    this.UserService.Login(myForm.form.value.UserRecognizeName, myForm.form.value.UserPassword).subscribe((res: User) => {
+    this.UserService.Login(myForm.form.value.UserPhone).subscribe((res: User) => {
       if (res) {
         if (res.RoleId === 1)
            localStorage.setItem("RoleId", "1");

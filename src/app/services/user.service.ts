@@ -9,8 +9,8 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
-  Login(name: string, password: string) {
-    return this.http.get(url + "api/user/Login?UserRecognizeName=" + name + "&Password=" + password);
+  Login(phone: string) {
+    return this.http.get(url + "api/user/Login?UserPhone=" + phone);
   } 
 
   Register(user: User) {
@@ -19,5 +19,9 @@ export class UserService {
   UserList()
   {
     return this.http.get(url+"api/user/UserList");
+  }
+  UpdateEditUser(user:User)
+  {
+    return this.http.post(url+"api/user/UpdateEditUser",user);
   }
 }

@@ -14,6 +14,7 @@ import { EveryOneOptionsComponent } from './components/every-one-options/every-o
 import { UserListComponent } from './components/user-list/user-list.component';
 import { CategoryComponent } from './components/category/category.component';
 import { UserEditComponent } from './components/user-edit/user-edit.component';
+import { AddMokdanOrUserComponent } from './components/add-mokdan-or-user/add-mokdan-or-user.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { UserEditComponent } from './components/user-edit/user-edit.component';
     EveryOneOptionsComponent,
     UserListComponent,
     CategoryComponent,
-    UserEditComponent
+    UserEditComponent,
+    AddMokdanOrUserComponent
   ],
   imports: [
     BrowserModule,
