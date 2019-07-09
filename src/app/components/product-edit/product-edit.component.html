@@ -1,4 +1,3 @@
-<!--  לא מסודר העמוד כלומר לבדוק את הפרמטרים החדשים הפרמטרים הישניםקטגוריה תת קטגוריה וכו'   -->
 <form dir="rtl" #myForm="ngForm" (submit)="OnAddProduct(myForm)">
   <label>קטגוריה:</label>
   <select name="CategoryId" (change)="onCategoryChanged(true)" [(ngModel)]="mainCategoryID">
@@ -22,13 +21,13 @@
   <label>תאור:</label>
   <input type="text" [(ngModel)]="product.ProductDescription" name="productDescription"><br><br>
   <!-- לא חייבתי לבחור משתמש כלשהוא -->
-  <select *ngIf="UserList!=null" [(ngModel)]="product.UserId" name="UserId">
+  <!-- <select *ngIf="UserList!=null" [(ngModel)]="product.UserId" name="UserId">
     <option value="-1" hidden>בחר את בעל החפץ:</option>
     <ng-container *ngFor="let item of UserList">
       <option [value]="item.UserId">ת"ז:{{item.UserPassword}}, שם: {{item.UserFullName}}</option>
     </ng-container>
   </select>
-  <br>
+  <br> -->
   <input type="radio" name="kindOfPlace" value="googleMap" [(ngModel)]="kindOfPlace.options"/>
   <label >ציין מיקום במפה</label><br>
   
@@ -45,12 +44,8 @@
 </div>
   <label>תאריך אבידה/מציאה:</label>
   <input type="date" [(ngModel)]="product.DateFound" name="Date"><br><br>
-  <label for="lostOrFound"> בחר סוג:</label>
-  <select [(ngModel)]="product.LostOrFound" name="lostOrFound">
-    <option [ngValue]="true">אבידה</option>
-    <option [ngValue]="false">מציאה</option>
-
-  </select>
+  <!-- <label for="lostOrFound"> בחר סוג:</label> -->
+  
   <div *ngIf="parametersAreExist!=null">
     <!-- פרמטרים קיימים: -->
     <div *ngFor="let item of parametersAreExist; let i = index">
@@ -77,10 +72,7 @@
 
   <input type="checkbox" name="cleverAgent" [(ngModel)]="product.CleverAgent">
   <label>אני מעונין לקבל עדכונים למייל שלי</label>
-  <!-- <select name="test-r" [(ngModel)]="product.CleverAgent" >
-    <option value="true" >אני מעונין לקבל עדכונים למייל שלי</option>
-    <option value="false">אני לא מעונין לקבל עדכונים למייל שלי</option><br><br>
-  </select> -->
-  <button type="submit">addProduct</button>
+  
+  <button type="submit">Edit</button>
   <button (click)="addParameter()">+</button>
 </form>

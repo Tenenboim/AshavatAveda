@@ -15,6 +15,7 @@ import { UserListComponent } from './components/user-list/user-list.component';
 import { CategoryComponent } from './components/category/category.component';
 import { UserEditComponent } from './components/user-edit/user-edit.component';
 import { AddMokdanOrUserComponent } from './components/add-mokdan-or-user/add-mokdan-or-user.component';
+import { ProductEditComponent } from './components/product-edit/product-edit.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { AddMokdanOrUserComponent } from './components/add-mokdan-or-user/add-mo
     UserListComponent,
     CategoryComponent,
     UserEditComponent,
-    AddMokdanOrUserComponent
+    AddMokdanOrUserComponent,
+    ProductEditComponent
   ],
   imports: [
     BrowserModule,

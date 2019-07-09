@@ -4,7 +4,7 @@
   <<label>ת"ז:</label>
   <input type="password" ngModel name="UserPassword"><br><br> -->
   <label>הקש טלפון:</label>
-  <input type="number" ngModel name="UserPhone">
+  <input type="number" [(ngModel)]="user.UserPhone" name="UserPhone">
   <input type="submit" value="login">
   <button type="button" routerLink="/register" *ngIf="!isManager">משתמש חדש? הרשם עכשיו</button>
   

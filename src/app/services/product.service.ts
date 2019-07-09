@@ -30,5 +30,11 @@ export class ProductService {
         // results[1] is our ParameterOfProductAreExist_request */
 
      return this.http.post(url + "api/product/AddProduct", dynamicObj )  ;
+     
+  }
+  getLosts(userId:number)
+  {
+    return this.http.get(url+"api/product/getLosts?userId=" + userId);
   }
 }
+//getLosts צריך לטפל ב
