@@ -14,7 +14,7 @@ export class UserLostsComponent implements OnInit {
   user:User=new User();
   losts:Product[]=[];
   constructor(route: ActivatedRoute,private ProductService:ProductService) {
-    route.params.subscribe(params=>{
+    route.parent.params.subscribe(params=>{
     this.user.UserId=params['userId'];
     });
    }
