@@ -17,7 +17,10 @@ import { UserEditComponent } from './components/user-edit/user-edit.component';
 import { AddMokdanOrUserComponent } from './components/add-mokdan-or-user/add-mokdan-or-user.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { MyMaterialModule } from './modules/my-material/my-material.module';
-import{ProductEditComponent} from './components/product-edit/product-edit.component'
+import{ProductEditComponent} from './components/product-edit/product-edit.component';
+import { AgmCoreModule } from '@agm/core';
+import { MatGoogleMapsAutocompleteModule } from '@angular-material-extensions/google-maps-autocomplete';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -39,7 +42,12 @@ import{ProductEditComponent} from './components/product-edit/product-edit.compon
     FormsModule,
     RoutingModule,
     BrowserAnimationsModule,
-    MyMaterialModule
+    MyMaterialModule,
+    AgmCoreModule.forRoot({
+      apiKey: 'AIzaSyB6XGmiIhsaoXzLTu611HLGNL74ZEWIaSE',
+      libraries: ['places']
+    }),
+    MatGoogleMapsAutocompleteModule.forRoot()
   ],
   providers: [UserService],
   bootstrap: [AppComponent]

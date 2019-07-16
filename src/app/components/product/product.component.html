@@ -34,7 +34,45 @@
   
   <input type="radio" name="kindOfPlace" value="otherPlace"  [(ngModel)]="kindOfPlace.options">
   <label>אחר</label><br>
-  <button *ngIf="kindOfPlace.options=='googleMap'" type="button" >map</button> 
+
+  <ng-container *ngIf="kindOfPlace.options == 'googleMap'">
+
+  <mat-form-field>
+    <input matInput
+         matGoogleMapsAutocomplete
+         [country]="de"
+         (onAutocompleteSelected)="onAutocompleteSelected($event)"
+         (onLocationSelected)="onLocationSelected($event)">
+  </mat-form-field>
+
+  <agm-map
+      [latitude]="latitude"
+      [longitude]="longitude"
+      [zoom]="2"
+      (mapClick)="addMarker($event.coords.lat, $event.coords.lng)"
+    >
+      <agm-marker
+        [latitude]="latitude"
+        [longitude]="longitude"
+        [opacity]="1"
+        [markerDraggable]="true"
+        (markerClick)="selectMarker($event)"
+      >
+      </agm-marker>
+      <agm-rectangle
+        [north]="max('lat')"
+        [east]="max('lng')"
+        [south]="min('lat')"
+        [west]="min('lng')"
+      >
+      </agm-rectangle>
+    </agm-map>
+    <p *ngIf="selectedMarker">
+      Lat: {{ selectedMarker.lat }} Lng: {{ selectedMarker.lng }}
+    </p>
+
+  </ng-container>
+
   <!-- <label>address point x:</label>
   <input type="number" [(ngModel)]="product.AddressPointX" name="addressPointX"><br><br>
   <label>address point y:</label>
@@ -84,3 +122,5 @@
   <button type="submit">addProduct</button>
   <button (click)="addParameter()">+</button>
 </form>
+
+
