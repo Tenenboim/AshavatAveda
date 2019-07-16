@@ -1,4 +1,3 @@
-<!--  לא מסודר העמוד כלומר לבדוק את הפרמטרים החדשים הפרמטרים הישניםקטגוריה תת קטגוריה וכו'   -->
 <form dir="rtl" #myForm="ngForm" (submit)="OnAddProduct(myForm)">
   <label>קטגוריה:</label>
   <select name="CategoryId" (change)="onCategoryChanged(true)" [(ngModel)]="mainCategoryID">
@@ -21,45 +20,43 @@
   <input type="text" [(ngModel)]="product.ProductName" name="productName"><br><br>
   <label>תאור:</label>
   <input type="text" [(ngModel)]="product.ProductDescription" name="productDescription"><br><br>
-  <!-- לא חייבתי לבחור משתמש כלשהוא -->
-  <select *ngIf="UserList!=null" [(ngModel)]="product.UserId" name="UserId">
-    <option value="-1" hidden>בחר את בעל החפץ:</option>
-    <ng-container *ngFor="let item of UserList">
-      <option [value]="item.UserId">ת"ז:{{item.UserPassword}}, שם: {{item.UserFullName}}</option>
-    </ng-container>
-  </select>
-  <br>
-  <input type="radio" name="kindOfPlace" value="googleMap" [(ngModel)]="kindOfPlace.options"/>
-  <label >ציין מיקום במפה</label><br>
-  
-  <input type="radio" name="kindOfPlace" value="otherPlace"  [(ngModel)]="kindOfPlace.options">
+
+  <input type="radio" name="kindOfPlace" value="googleMap" [(ngModel)]="kindOfPlace.options" />
+  <label>ציין מיקום במפה</label><br>
+
+  <input type="radio" name="kindOfPlace" value="otherPlace" [(ngModel)]="kindOfPlace.options">
   <label>אחר</label><br>
-  <button *ngIf="kindOfPlace.options=='googleMap'" type="button" >map</button> 
+  <button *ngIf="kindOfPlace.options=='googleMap'" type="button">map</button>
   <!-- <label>address point x:</label>
   <input type="number" [(ngModel)]="product.AddressPointX" name="addressPointX"><br><br>
   <label>address point y:</label>
   <input type="number" [(ngModel)]="product.AddressPointY" name="addressPointY"><br><br> -->
-  <div  *ngIf="kindOfPlace.options=='otherPlace'">
-  <label>כתוב מיקום:</label>
-<input type="text" name="otherPlace" [(ngModel)]="product.AddressDescription">
-</div>
+  <div *ngIf="kindOfPlace.options=='otherPlace'">
+    <label>כתוב מיקום:</label>
+    <input type="text" name="otherPlace" [(ngModel)]="product.AddressDescription">
+  </div>
   <label>תאריך אבידה/מציאה:</label>
   <input type="date" [(ngModel)]="product.DateFound" name="Date"><br><br>
-  <label for="lostOrFound"> בחר סוג:</label>
-  <select [(ngModel)]="product.LostOrFound" name="lostOrFound">
-    <option [ngValue]="true">אבידה</option>
-    <option [ngValue]="false">מציאה</option>
 
-  </select>
-  <div *ngIf="parametersAreExist!=null">
+
+  <div *ngIf="parametersAreExist">
     <!-- פרמטרים קיימים: -->
     <div *ngFor="let item of parametersAreExist; let i = index">
       <label>{{item.ParameterName}}</label>
       <input name="parameterExistValue-{{i}}" [(ngModel)]="ParameterOfProductAreExist[i].Value" type="text">
-
       <br><br>
     </div>
   </div>
+
+  <div *ngIf="parametersWithParametersOfProduct.length">
+    <!-- פרמטרים קיימים: -->
+    <div *ngFor="let item of parametersWithParametersOfProduct; let i = index">
+      <label>{{item.ParameterName}}</label>
+      <input name="ParameterOfProductValue-{{i}}" [(ngModel)]="item.ParameterOfProductValue" type="text">
+      <br><br>
+    </div>
+  </div>
+
   <div>
     <label>הוספת פרמטר חדש: </label>
     <div *ngFor="let item of NewParameters; let index = index">
@@ -77,10 +74,7 @@
 
   <input type="checkbox" name="cleverAgent" [(ngModel)]="product.CleverAgent">
   <label>אני מעונין לקבל עדכונים למייל שלי</label>
-  <!-- <select name="test-r" [(ngModel)]="product.CleverAgent" >
-    <option value="true" >אני מעונין לקבל עדכונים למייל שלי</option>
-    <option value="false">אני לא מעונין לקבל עדכונים למייל שלי</option><br><br>
-  </select> -->
-  <button type="submit">addProduct</button>
-  <button (click)="addParameter()">+</button>
+
+  <button type="submit">Edit</button>
+  <button type="button" (click)="addParameter()">+</button>
 </form>

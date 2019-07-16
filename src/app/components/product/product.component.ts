@@ -19,7 +19,7 @@ import{User} from '../../models/user';
 })
 export class ProductComponent implements OnInit{
   
-  model = { options: '' };
+  kindOfPlace = { options: '' };
   product: Product = new Product();
   categories: Category[] = [];
   parametersAreExist: Parameter[] = [];
@@ -53,7 +53,7 @@ export class ProductComponent implements OnInit{
     
    
     if(this.UserRoleId&&this.UserRoleId == 3)
-    this.product.UserId=+this.UserRoleId;
+    this.product.UserId=+localStorage.getItem("UserID") ;
     //הבאת הרשימה של המשתמשים לבחירת המשתמש שאליו שייך החפץ
     else{
       this.product.UserId=-1;
@@ -65,6 +65,7 @@ export class ProductComponent implements OnInit{
       });
     }
     this.CategoryService.getCategories().subscribe((res: Category[]) => {
+      
       if (res != null) {
 
         this.categories = res;

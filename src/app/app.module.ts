@@ -17,7 +17,7 @@ import { UserEditComponent } from './components/user-edit/user-edit.component';
 import { AddMokdanOrUserComponent } from './components/add-mokdan-or-user/add-mokdan-or-user.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { MyMaterialModule } from './modules/my-material/my-material.module';
-
+import{ProductEditComponent} from './components/product-edit/product-edit.component'
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,7 +30,8 @@ import { MyMaterialModule } from './modules/my-material/my-material.module';
     UserListComponent,
     CategoryComponent,
     UserEditComponent,
-    AddMokdanOrUserComponent
+    AddMokdanOrUserComponent,
+    ProductEditComponent
   ],
   imports: [
     BrowserModule,

@@ -24,4 +24,5 @@ export class UserService {
   {
     return this.http.post(url+"api/user/UpdateEditUser",user);
   }
+  
 }
