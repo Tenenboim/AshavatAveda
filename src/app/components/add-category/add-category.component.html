@@ -5,9 +5,9 @@
   <label>קטגורית אב:</label>
   <!-- <input type="number" #ParentId name="ParentId" [(ngModel)]="category.ParentId" /><br><br> -->
   <select name="ParentId" [(ngModel)]="category.ParentId">
-    <option [value]="-1" hidden>בחר:</option>
+    <option value="-1" hidden>בחר:</option>
     <ng-container *ngFor="let item of categories">
-      <option *ngIf="!item.ParentId" [value]="item.CategoryId"  (change)="onCategoryChanged(item.CategoryId)">{{item.CategoryName}}</option>
+      <option *ngIf="!item.ParentId" [value]="item.CategoryId">{{item.CategoryName}}</option>
     </ng-container>
   </select><br><br>
  

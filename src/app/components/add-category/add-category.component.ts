@@ -15,6 +15,8 @@ categories:Category[]=[];
   constructor(private CategoryService:CategoryService,private router:Router) { }
   OnAddCategory()
   {
+    if(this.category.ParentId==-1)
+    this.category.ParentId=null;
     this.CategoryService.AddCategory(this.category).subscribe((res:Category)=>{
       if(res)
       {
@@ -26,13 +28,7 @@ categories:Category[]=[];
   }
     );
 }
-onCategoryChanged(parentId:number)
-{
-  if(parentId!=-1)
-  this.category.ParentId=parentId;
-  else 
-  this.category.ParentId=null;
-}
+
   ngOnInit() {
 
     this.CategoryService.getCategories().subscribe((res: Category[]) => {
@@ -46,6 +42,7 @@ onCategoryChanged(parentId:number)
       }
     }, (err: HttpErrorResponse) => {
     });
+    //השורה הבאה גורמת שבהתחלה יהיה בחר בסלקט של האב קטגוריה
     this.category.ParentId=-1;
   }
 
