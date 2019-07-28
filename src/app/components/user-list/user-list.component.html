@@ -9,7 +9,7 @@ class="mat-elevation-z8">
   <td [routerLink]="['/user-info',user.UserId]">{{user.UserFullName}}</td>
   <td [routerLink]="['/user-info',user.UserId]">{{user.UserPhone}}</td>
   <td>
-    <button [routerLink]="['/user-edit',user | json]">עריכת משתמש</button>
+    <button *ngIf="user.RoleId!=1" [routerLink]="['/user-edit',user | json]">עריכת משתמש</button>
  </td>
  </tr>
 </ng-container>
