@@ -4,8 +4,15 @@
   <<label>ת"ז:</label>
   <input type="password" ngModel name="UserPassword"><br><br> -->
   <label>הקש טלפון:</label>
-  <input type="text" [(ngModel)]="user.UserPhone" name="UserPhone">
+  <input type="text" [(ngModel)]="user.UserPhone" name="UserPhone" required #phone="ngModel">
   <input type="submit" value="login">
   <button type="button" routerLink="/register" *ngIf="!isManager">משתמש חדש? הרשם עכשיו</button>
-  
+   <!-- הודעות ולידציה -->
+   <div *ngIf="phone.invalid && (phone.dirty || phone.touched)"
+   class="alert alert-danger">
+
+ <div *ngIf="phone.errors.required">
+   חובה לציין שם מוצר
+ </div>
+</div>
 </form>

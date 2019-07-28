@@ -21,6 +21,7 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   {path: 'user-info/:userId', component: UserInfoComponent, children: [
       { path: 'user-losts', component: UserLostsComponent },
+      { path: 'user-founds', component: UserLostsComponent },
     ]
   },
   { path: 'user-list', component: UserListComponent },

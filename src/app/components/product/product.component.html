@@ -1,5 +1,5 @@
-<!--  לא מסודר העמוד כלומר לבדוק את הפרמטרים החדשים הפרמטרים הישניםקטגוריה תת קטגוריה וכו'   -->
-<form dir="rtl" #myForm="ngForm" (submit)="OnAddProduct(myForm)">
+<!-- (keydown.enter)="$event.preventDefault()"גורם שרק לחיצה על כפתור שלח יערוך את המוצר -->
+<form dir="rtl" #myForm="ngForm" (submit)="OnAddProduct(myForm)" (keydown.enter)="$event.preventDefault()">
   <label>קטגוריה:</label>
   <select name="CategoryId" (change)="onCategoryChanged(true)" [(ngModel)]="mainCategoryID">
     <ng-container *ngFor="let item of categories">
@@ -8,7 +8,7 @@
   </select>
   <br>
   <label>תת קטגוריה:</label>
-  <select name="SubCategoryId" (change)="onCategoryChanged(false)" [(ngModel)]="product.CategoryId">
+  <select name="SubCategoryId" (change)="onCategoryChanged(false)" [(ngModel)]="product.CategoryId" min="1">
     <option value="-1" hidden>בחר:</option>
     <ng-container *ngFor="let item of categories">
       <option *ngIf="item.ParentId == mainCategoryID" [value]="item.CategoryId">{{item.CategoryName}}</option>
@@ -18,69 +18,71 @@
   <br>
 
   <label>שם מוצר:</label>
-  <input type="text" [(ngModel)]="product.ProductName" name="productName"><br><br>
+  <input type="text" [(ngModel)]="product.ProductName" name="productName" required #ProductName="ngModel"><br><br>
   <label>תאור:</label>
   <input type="text" [(ngModel)]="product.ProductDescription" name="productDescription"><br><br>
   <!-- לא חייבתי לבחור משתמש כלשהוא -->
-  <select *ngIf="UserList!=null" [(ngModel)]="product.UserId" name="UserId">
+  <select *ngIf="UserList!=null" [(ngModel)]="product.UserId" name="UserId" >
     <option value="-1" hidden>בחר את בעל החפץ:</option>
     <ng-container *ngFor="let item of UserList">
       <option [value]="item.UserId">ת"ז:{{item.UserPassword}}, שם: {{item.UserFullName}}</option>
     </ng-container>
   </select>
   <br>
-  <input type="radio" name="kindOfPlace" value="googleMap" [(ngModel)]="kindOfPlace.options"/>
-  <label >ציין מיקום במפה</label><br>
-  
-  <input type="radio" name="kindOfPlace" value="otherPlace"  [(ngModel)]="kindOfPlace.options">
+  <label>מקום האבידה/מציאה:</label>
+  <br>
+  <input type="radio" name="kindOfPlace" value="googleMap" (change)="getCurrentLocation() ;optionsOfPlaceAreChange()"
+    [(ngModel)]="kindOfPlace.options" />
+  <label>ציין מיקום במפה</label><br>
+  <input type="radio" name="kindOfPlace" value="otherPlace" (change)="optionsOfPlaceAreChange()" [(ngModel)]="kindOfPlace.options">
   <label>אחר</label><br>
 
   <ng-container *ngIf="kindOfPlace.options == 'googleMap'">
 
-  <mat-form-field>
-    <input matInput
-         matGoogleMapsAutocomplete
-         [country]="de"
-         (onAutocompleteSelected)="onAutocompleteSelected($event)"
-         (onLocationSelected)="onLocationSelected($event)">
-  </mat-form-field>
+    <mat-form-field
+     class="googleInput">
+      <input matInput matGoogleMapsAutocomplete 
+      [country]="il" 
+      [ngModel]="googleAddress"
+       name="googleAddress"
+        (onAutocompleteSelected)="onAutocompleteSelected($event)" 
+        (onLocationSelected)="onLocationSelected($event)">
+    </mat-form-field>
 
-  <agm-map
-      [latitude]="latitude"
-      [longitude]="longitude"
-      [zoom]="2"
-      (mapClick)="addMarker($event.coords.lat, $event.coords.lng)"
-    >
-      <agm-marker
-        [latitude]="latitude"
+    <agm-map 
+    [latitude]="latitude" 
         [longitude]="longitude"
-        [opacity]="1"
-        [markerDraggable]="true"
-        (markerClick)="selectMarker($event)"
-      >
+     [zoom]="zoom"
+      (mapClick)="addMarker($event.coords.lat, $event.coords.lng)">
+
+      <agm-marker 
+      [latitude]="latitude" 
+      [longitude]="longitude"
+       [opacity]="1" 
+       [markerDraggable]="true" 
+       (markerClick)="selectMarker($event)"
+        (dragEnd)="markerDragEnd($event)">
+        <!-- markerDraggable - האם אפשר לגרור -->
       </agm-marker>
-      <agm-rectangle
-        [north]="max('lat')"
-        [east]="max('lng')"
-        [south]="min('lat')"
-        [west]="min('lng')"
-      >
+      <agm-rectangle 
+      [north]="max('lat')" 
+      [east]="max('lng')" 
+      [south]="min('lat')"
+       [west]="min('lng')">
       </agm-rectangle>
     </agm-map>
-    <p *ngIf="selectedMarker">
+    <hr>
+    <!-- <p *ngIf="selectedMarker">
       Lat: {{ selectedMarker.lat }} Lng: {{ selectedMarker.lng }}
-    </p>
+    </p> -->
 
   </ng-container>
 
-  <!-- <label>address point x:</label>
-  <input type="number" [(ngModel)]="product.AddressPointX" name="addressPointX"><br><br>
-  <label>address point y:</label>
-  <input type="number" [(ngModel)]="product.AddressPointY" name="addressPointY"><br><br> -->
-  <div  *ngIf="kindOfPlace.options=='otherPlace'">
-  <label>כתוב מיקום:</label>
-<input type="text" name="otherPlace" [(ngModel)]="product.AddressDescription">
-</div>
+
+  <div *ngIf="kindOfPlace.options=='otherPlace'">
+    <label>כתוב מיקום:</label>
+    <input type="text" name="otherPlace" [(ngModel)]="product.AddressDescription">
+  </div>
   <label>תאריך אבידה/מציאה:</label>
   <input type="date" [(ngModel)]="product.DateFound" name="Date"><br><br>
   <label for="lostOrFound"> בחר סוג:</label>
@@ -99,6 +101,7 @@
     </div>
   </div>
   <div>
+    <button type="button" (click)="addParameter()">+</button>
     <label>הוספת פרמטר חדש: </label>
     <div *ngFor="let item of NewParameters; let index = index">
       <label for="NewParameters-{{index}}-Name">שם</label>
@@ -119,8 +122,14 @@
     <option value="true" >אני מעונין לקבל עדכונים למייל שלי</option>
     <option value="false">אני לא מעונין לקבל עדכונים למייל שלי</option><br><br>
   </select> -->
-  <button type="submit">addProduct</button>
-  <button (click)="addParameter()">+</button>
+  <button type="submit">שמירה</button>
+
+  <!-- הודעות ולידציה -->
+  <div *ngIf="ProductName.invalid && (ProductName.dirty || ProductName.touched)"
+    class="alert alert-danger">
+
+  <div *ngIf="ProductName.errors.required">
+    חובה לציין שם מוצר
+  </div>
+</div>
 </form>
-
-

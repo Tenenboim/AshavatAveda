@@ -20,6 +20,8 @@ import { MyMaterialModule } from './modules/my-material/my-material.module';
 import{ProductEditComponent} from './components/product-edit/product-edit.component';
 import { AgmCoreModule } from '@agm/core';
 import { MatGoogleMapsAutocompleteModule } from '@angular-material-extensions/google-maps-autocomplete';
+import { UserFoundsComponent } from './components/user-info/components/user-founds/user-founds.component';
+//import { Forbidden1Directive } from './forbidden--1.directive';
 
 @NgModule({
   declarations: [
@@ -34,7 +36,10 @@ import { MatGoogleMapsAutocompleteModule } from '@angular-material-extensions/go
     CategoryComponent,
     UserEditComponent,
     AddMokdanOrUserComponent,
-    ProductEditComponent
+    ProductEditComponent,
+    UserFoundsComponent,
+    //Forbidden1Directive,
+   
   ],
   imports: [
     BrowserModule,

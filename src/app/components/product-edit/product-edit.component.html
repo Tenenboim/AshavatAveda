@@ -1,4 +1,5 @@
-<form dir="rtl" #myForm="ngForm" (submit)="OnAddProduct(myForm)">
+<form dir="rtl" #myForm="ngForm" (submit)="OnEditProduct(myForm)" (keydown.enter)="$event.preventDefault()">
+  <!-- (keydown.enter)="$event.preventDefault()"גורם שרק לחיצה על כפתור שלח יערוך את המוצר -->
   <label>קטגוריה:</label>
   <select name="CategoryId" (change)="onCategoryChanged(true)" [(ngModel)]="mainCategoryID">
     <ng-container *ngFor="let item of categories">
@@ -20,25 +21,66 @@
   <input type="text" [(ngModel)]="product.ProductName" name="productName"><br><br>
   <label>תאור:</label>
   <input type="text" [(ngModel)]="product.ProductDescription" name="productDescription"><br><br>
-
-  <input type="radio" name="kindOfPlace" value="googleMap" [(ngModel)]="kindOfPlace.options" />
+  <label *ngIf="product.LostOrFound==true">מקום האבידה:</label>
+  <label *ngIf="product.LostOrFound==false">מקום המציאה:</label>
+  <br>
+  <input type="radio" name="kindOfPlace" value="googleMap" (change)="getCurrentLocation() ;optionsOfPlaceAreChange()" [(ngModel)]="kindOfPlace.options" />
   <label>ציין מיקום במפה</label><br>
-
-  <input type="radio" name="kindOfPlace" value="otherPlace" [(ngModel)]="kindOfPlace.options">
+  <input type="radio" name="kindOfPlace" value="otherPlace" (change)="optionsOfPlaceAreChange()" [(ngModel)]="kindOfPlace.options">
   <label>אחר</label><br>
-  <button *ngIf="kindOfPlace.options=='googleMap'" type="button">map</button>
-  <!-- <label>address point x:</label>
-  <input type="number" [(ngModel)]="product.AddressPointX" name="addressPointX"><br><br>
-  <label>address point y:</label>
-  <input type="number" [(ngModel)]="product.AddressPointY" name="addressPointY"><br><br> -->
-  <div *ngIf="kindOfPlace.options=='otherPlace'">
-    <label>כתוב מיקום:</label>
-    <input type="text" name="otherPlace" [(ngModel)]="product.AddressDescription">
-  </div>
-  <label>תאריך אבידה/מציאה:</label>
-  <input type="date" [(ngModel)]="product.DateFound" name="Date"><br><br>
+  
+  <ng-container *ngIf="kindOfPlace.options == 'googleMap'">
+
+  <mat-form-field class="googleInput">
+    <input matInput 
+         matGoogleMapsAutocomplete
+         [country]="il" [ngModel]="googleAddress" name="googleAddress"
+         (onAutocompleteSelected)="onAutocompleteSelected($event)"
+         (onLocationSelected)="onLocationSelected($event)">
+  </mat-form-field>
+  
+  <agm-map
+      [latitude]="latitude"
+      [longitude]="longitude"
+      [zoom]="zoom"
+      (mapClick)="addMarker($event.coords.lat, $event.coords.lng)"
+    >
+      <agm-marker
+        [latitude]="latitude"
+        [longitude]="longitude"
+        [opacity]="1"
+        [markerDraggable]="true"
+        (markerClick)="selectMarker($event)"
+        (dragEnd)="markerDragEnd($event)"
+      >
+      <!-- markerDraggable - האם אפשר לגרור -->
+      </agm-marker>
+      <agm-rectangle
+        [north]="max('lat')"
+        [east]="max('lng')"
+        [south]="min('lat')"
+        [west]="min('lng')"
+      >
+      </agm-rectangle>
+    </agm-map>
+    <hr>
+    <!-- <p *ngIf="selectedMarker">
+      Lat: {{ selectedMarker.lat }} Lng: {{ selectedMarker.lng }}
+    </p> -->
+
+  </ng-container>
 
 
+  <div  *ngIf="kindOfPlace.options=='otherPlace'">
+  <label>כתוב מיקום:</label>
+<input type="text" name="otherPlace" [(ngModel)]="product.AddressDescription">
+</div>
+
+
+
+  <label *ngIf="product.LostOrFound==true">תאריך אבידה:</label>
+  <label *ngIf="product.LostOrFound==false">תאריך מציאה:</label>
+  <input type="date" [ngModel]="product.DateFound| date:'yyyy-MM-dd'" (ngModelChange)="product.DateFound = $event"name="Date"><br><br>
   <div *ngIf="parametersAreExist">
     <!-- פרמטרים קיימים: -->
     <div *ngFor="let item of parametersAreExist; let i = index">
@@ -48,9 +90,9 @@
     </div>
   </div>
 
-  <div *ngIf="parametersWithParametersOfProduct.length">
-    <!-- פרמטרים קיימים: -->
-    <div *ngFor="let item of parametersWithParametersOfProduct; let i = index">
+  <div *ngIf="parametersOfCategoryWithParametersOfProduct.length">
+    <!-- פרמטרים קיימים על המוצר הנוכחי מוצג עד שנעשה שנוי בקטגוריה -->
+    <div *ngFor="let item of parametersOfCategoryWithParametersOfProduct; let i = index">
       <label>{{item.ParameterName}}</label>
       <input name="ParameterOfProductValue-{{i}}" [(ngModel)]="item.ParameterOfProductValue" type="text">
       <br><br>
@@ -58,7 +100,9 @@
   </div>
 
   <div>
-    <label>הוספת פרמטר חדש: </label>
+    <button type="button" (click)="addParameter()">+</button>
+    <label>הוספת פרמטר חדש: </label> 
+    <br>
     <div *ngFor="let item of NewParameters; let index = index">
       <label for="NewParameters-{{index}}-Name">שם</label>
       <input name="NewParameters-{{index}}-Name" [(ngModel)]="item.ParameterName" type="text">
@@ -68,13 +112,12 @@
 
     </div>
   </div>
-
   <!-- הגדרת סוכן חכם   -->
   <!-- <label>בחר אפשרות:</label> -->
 
   <input type="checkbox" name="cleverAgent" [(ngModel)]="product.CleverAgent">
   <label>אני מעונין לקבל עדכונים למייל שלי</label>
 
-  <button type="submit">Edit</button>
-  <button type="button" (click)="addParameter()">+</button>
+  <button type="submit">ערוך</button>
+
 </form>

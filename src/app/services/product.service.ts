@@ -3,12 +3,13 @@ import { HttpClient } from '@angular/common/http';
 import {Product} from '../models/product';
 import {Parameter} from '../models/parameter';
 import {ParameterOfProduct} from '../models/parameter-of-product';
-
+import{ParametersWithParametersOfProduct}from '../models/parametersOfCategoryWithParametersOfProduct';
 const url = "http://localhost:65051/";
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
+  
 
   constructor(private http: HttpClient) { }
 
@@ -33,13 +34,15 @@ export class ProductService {
      
   }
   EditProduct(product:Product,ParameterOfProductAreExist:ParameterOfProduct[]
-    , NewParameters:Parameter[],NewParameterOfProduct:ParameterOfProduct[]) {
+    , NewParameters:Parameter[],NewParameterOfProduct:ParameterOfProduct[],parametersOfCategoryWithParametersOfProduct:ParametersWithParametersOfProduct[]) {
 
       let dynamicObj = {
         product: product,
         ParameterOfProductAreExist: ParameterOfProductAreExist,
         NewParameters: NewParameters,
-        NewParameterOfProduct: NewParameterOfProduct
+        NewParameterOfProduct: NewParameterOfProduct,
+        parametersOfCategoryWithParametersOfProduct:parametersOfCategoryWithParametersOfProduct
+
       }
     //subscribe דוגמא לשליחת הרבה אוביקטים ע"י שליחה להרבה פונקציות בקונטרולר ועד שלא כל הפונקציות מחזירות תשובה לא יאותחל ה
    /*    let product_request = this.http.post(url + "api/product/AddProduct", product ) ;
@@ -49,16 +52,19 @@ export class ProductService {
         // results[0] is our product_request
         // results[1] is our ParameterOfProductAreExist_request */
 
-     return this.http.post(url + "api/product/AddProduct", dynamicObj )  ;
+     return this.http.post(url + "api/product/EditProduct", dynamicObj )  ;
      
   }
   getLosts(userId:number)
   {
     return this.http.get(url+"api/product/getLosts?userId=" + userId);
   }
-  
+  getFounds(userId:number)
+  {
+    return this.http.get(url+"api/product/getFounds?userId=" + userId);
+  }
   getProductParametersWithValue(ProductId: number) {
     return this.http.get(url+ `api/product/getParametersWithValue/${ProductId}`);
   }
 }
-//getLosts צריך לטפל ב
+

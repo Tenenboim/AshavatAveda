@@ -1,10 +1,11 @@
 <table>
   <th>שם</th>
   <th>תאור</th>
+  <th>תאור מיקום האבידה</th>
 <tr *ngFor="let product of losts"> 
   <td>{{product.ProductName}}</td>
-  <td>{{product.ProductDescription}}</td>
-  <td *ngIf="product.AddressDescription!=null">{{product.ProductDescription}}</td>
+  <td >{{product.ProductDescription}}</td>
+  <td >{{product.AddressDescription}}</td>
   <td>
     <button [routerLink]="['/product-edit',product | json]">עריכת המוצר</button>
 </td>
