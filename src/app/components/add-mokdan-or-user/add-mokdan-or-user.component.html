@@ -1,26 +1,23 @@
-<form (ngSubmit)="OnAddMokdanOrUser()">
-
-  <label>שם מלא: </label>
-  <input type="text" name="UserFullName" [(ngModel)]="user.UserFullName" /><br><br>
+<form #AddMokdanOrUserForm="ngForm" (ngSubmit)="OnAddMokdanOrUser()">
+  <label>שם:</label>
+  <input type="text" #UserFullName name="UserFullName" [(ngModel)]="user.UserFullName" required/><br><br>
   <label>תעודת זהות:</label>
-  <input type="password" name="UserPassword" [(ngModel)]="user.UserPassword" /><br><br>
-  <label>שם זהוי המשתמש:</label>
-  <input type="text" name="UserRecognizeName" [(ngModel)]="user.UserRecognizeName" /><br><br>
+  <input type="password" #UserPassword name="UserPassword" [(ngModel)]="user.UserPassword" required/><br><br>
   <label>כתובת: </label>
   <input type="text" name="UserAddress" [(ngModel)]="user.UserAddress" /><br><br>
   <label>מייל: </label>
   <input type="email" name="UserEmail" [(ngModel)]="user.UserEmail" /><br><br>
 
   <label>טלפון: </label>
-  <input type="text" name="UserPhone" [(ngModel)]="user.UserPhone" /><br><br>
+  <input type="text" #UserPhone name="UserPhone" [(ngModel)]="user.UserPhone" required/><br><br>
   <div *ngIf="roleId != null && roleId == 1" >
-    <input type="radio" name="RoleId" value="2" [(ngModel)]="user.RoleId"  />
+    <input type="radio" name="RoleId" [value]="2" [(ngModel)]="user.RoleId"  />
     <label for="2">מוקדן</label>
     <br><br>
-    <input type="radio" name="RoleId" value="3" [(ngModel)]="user.RoleId" 
-      checked="checked" />
+    <input type="radio" name="RoleId" [value]="3" [(ngModel)]="user.RoleId" 
+       />
     <label for="3" >משתמש רגיל</label>
   </div>
- <input type="submit" value="הוסף"> 
+ <input type="submit" value="הוסף" [disabled]="!AddMokdanOrUserForm.form.valid"> 
 
 </form>

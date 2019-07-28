@@ -22,6 +22,7 @@ import { AgmCoreModule } from '@agm/core';
 import { MatGoogleMapsAutocompleteModule } from '@angular-material-extensions/google-maps-autocomplete';
 import { UserFoundsComponent } from './components/user-info/components/user-founds/user-founds.component';
 //import { Forbidden1Directive } from './forbidden--1.directive';
+import { AddCategoryComponent } from './components/add-category/add-category.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +41,7 @@ import { UserFoundsComponent } from './components/user-info/components/user-foun
     UserFoundsComponent,
     //Forbidden1Directive,
    
+    AddCategoryComponent
   ],
   imports: [
     BrowserModule,

@@ -6,10 +6,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./every-one-options.component.css']
 })
 export class EveryOneOptionsComponent implements OnInit {
-
+  public roleId:number;
   constructor() { }
 
   ngOnInit() {
+    this.roleId = +localStorage.getItem('RoleId');
   }
 
 }

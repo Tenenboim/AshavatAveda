@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/models/user';
 import {UserService} from '../../services/user.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import {animate, state, style, transition, trigger} from '@angular/animations';
 
 @Component({
   selector: 'app-user-list',
@@ -10,9 +11,11 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 export class UserListComponent implements OnInit {
 users:User[]=[];
+public roleId:number;
   constructor(private UserService:UserService) { }
 
   ngOnInit() {
+    this.roleId = +localStorage.getItem('RoleId');
     this.UserService.UserList().subscribe((res:User[])=>{
    if(res)
    {

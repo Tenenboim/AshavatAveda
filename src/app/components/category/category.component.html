@@ -1,3 +1,11 @@
-<p>
-  category works!
-</p>
+<table>
+  <th>קוד</th>
+  <th>שם</th>
+  <th>קוד קטגורית אב</th>
+<tr *ngFor="let category of categories"> 
+  <td >{{category.CategoryId}}</td>
+  <td >{{category.CategoryName}}</td>
+ <td>{{category.ParentId}}</td>
+</tr>
+</table>
+<button *ngIf="roleId == 1" routerLink="/add-category">להוספת קטגוריה </button>

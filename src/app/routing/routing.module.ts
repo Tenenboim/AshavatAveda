@@ -13,6 +13,7 @@ import {UserEditComponent} from '../components/user-edit/user-edit.component';
 import {AddMokdanOrUserComponent} from '../components/add-mokdan-or-user/add-mokdan-or-user.component';
 import {ProductEditComponent} from '../components/product-edit/product-edit.component';
 
+import {AddCategoryComponent} from '../components/add-category/add-category.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -30,7 +31,8 @@ const routes: Routes = [
   { path: 'every-one-options', component: EveryOneOptionsComponent },
   { path: 'user-edit/:user', component: UserEditComponent },
   { path: 'add-mokdan-or-user', component: AddMokdanOrUserComponent },
-  { path: 'product-edit/:product', component: ProductEditComponent }
+  { path: 'product-edit/:product', component: ProductEditComponent },
+  { path: 'add-category', component: AddCategoryComponent }
  
 ];
 

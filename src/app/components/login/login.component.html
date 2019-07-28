@@ -1,18 +1,18 @@
 <form #myForm="ngForm" (ngSubmit)="OnLogin(myForm)">
-  <!-- <label>שם משתמש:</label>
-  <input type="text" ngModel name="UserRecognizeName"><br><br>
-  <<label>ת"ז:</label>
-  <input type="password" ngModel name="UserPassword"><br><br> -->
-  <label>הקש טלפון:</label>
-  <input type="text" [(ngModel)]="user.UserPhone" name="UserPhone" required #phone="ngModel">
-  <input type="submit" value="login">
-  <button type="button" routerLink="/register" *ngIf="!isManager">משתמש חדש? הרשם עכשיו</button>
-   <!-- הודעות ולידציה -->
-   <div *ngIf="phone.invalid && (phone.dirty || phone.touched)"
-   class="alert alert-danger">
+  <mat-form-field  appearance="outline" color="accent">
+      <mat-label>הקש טלפון:</mat-label>
+    <input matInput type="text" color="accent"  name="UserPhone" [(ngModel)]="user.UserPhone" required #phone="ngModel">
+  </mat-form-field>
 
- <div *ngIf="phone.errors.required">
-   חובה לציין שם מוצר
- </div>
+    <button type="submit" mat-flat-button color="accent">כניסה</button>
+
+  <button type="button" mat-flat-button color="accent" routerLink="/register" *ngIf="!isManager">משתמש חדש? הרשם עכשיו</button>
+<!-- הודעות ולידציה -->
+<div *ngIf="phone.invalid && (phone.dirty || phone.touched)"
+class="alert alert-danger">
+
+<div *ngIf="phone.errors.required">
+חובה לציין שם מוצר
+</div>
 </div>
 </form>

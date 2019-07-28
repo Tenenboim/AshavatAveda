@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/models/user';
 import {UserService} from '../../services/user.service';
 import { HttpErrorResponse } from '@angular/common/http';
+import {Router}from '@angular/router';
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -12,7 +13,7 @@ export class RegisterComponent implements OnInit {
   user:User=new User();
   public roleId:number;
 
-  constructor(private UserService:UserService) { }
+  constructor(private UserService:UserService,private router:Router) { }
 
   OnRegister()
   {
@@ -25,9 +26,11 @@ export class RegisterComponent implements OnInit {
         {
           localStorage.setItem("RoleId", "3");
           localStorage.setItem("UserID", res.UserId.toString());
-          localStorage.setItem("UserName", res.UserFullName.toString());
-
+          localStorage.setItem("UserName", res.UserFullName);
+          localStorage.setItem("UserEmail", res.UserEmail);
         }
+        //this.Router.navigate(['/every-one-option']);
+        this.router.navigate(['/every-one-options']);
         // if (res.RoleId === 1)
         //    localStorage.setItem("RoleId", "1");
         // else if (res.RoleId === 2)

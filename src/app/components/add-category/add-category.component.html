@@ -1,0 +1,16 @@
+<form #AddCategoryForm="ngForm" (ngSubmit)="OnAddCategory()">
+  <label>שם קטגוריה: </label>
+  <input type="text" #CategoryName name="CategoryName" [(ngModel)]="category.CategoryName" required/><br><br>
+  <!-- //לעשות שיבחר מרשימה -->
+  <label>קטגורית אב:</label>
+  <!-- <input type="number" #ParentId name="ParentId" [(ngModel)]="category.ParentId" /><br><br> -->
+  <select name="ParentId" [(ngModel)]="category.ParentId">
+    <option value="-1" hidden>בחר:</option>
+    <ng-container *ngFor="let item of categories">
+      <option *ngIf="!item.ParentId" [value]="item.CategoryId">{{item.CategoryName}}</option>
+    </ng-container>
+  </select><br><br>
+ 
+  <input type="submit" value="הוסף"  [disabled]="!AddCategoryForm.form.valid "> 
+
+</form>
