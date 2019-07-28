@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import {Category} from 'src/app/models/category';
+import {CategoryService} from 'src/app/services/category.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-category',
@@ -6,10 +9,19 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./category.component.css']
 })
 export class CategoryComponent implements OnInit {
-
-  constructor() { }
+  categories:Category[]=[];
+  public roleId:number;
+  constructor(public categoryService:CategoryService) { }
 
   ngOnInit() {
+    this.roleId=+localStorage.getItem('RoleId');
+    this.categoryService.getCategories().subscribe((res: Category[]) => {
+      if (res) {
+        this.categories = res;
+      }
+    },(err: HttpErrorResponse) => {
+        alert(err.error.Message);
+    });  
   }
 
 }

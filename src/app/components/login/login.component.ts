@@ -42,7 +42,7 @@ export class LoginComponent implements OnInit {
         localStorage.setItem("UserID", res.UserId.toString());
         localStorage.setItem("UserName", res.UserFullName.toString());
         localStorage.setItem("UserEmail", res.UserEmail.toString());
-       this.router.navigate(['/product']);
+       this.router.navigate(['/every-one-options']);
       }
     }, (err: HttpErrorResponse) => {
       alert(err.error.Message);

@@ -24,4 +24,8 @@ export class UserService {
   {
     return this.http.post(url+"api/user/UpdateEditUser",user);
   }
+  AddMokdanOrUser(user:User)
+  {
+    return this.http.post(url+"api/user/AddMokdanOrUser",user);
+  }
 }

@@ -1,26 +1,23 @@
-<form (ngSubmit)="OnRegister()">
+<form #RegisterForm="ngForm" (ngSubmit)="OnRegister()">
 
-  <label>שם מלא: </label>
-  <input type="text" name="userFullName" [(ngModel)]="user.userFullName" /><br><br>
+  <label>שם: </label>
+  <input type="text" #userFullName name="userFullName" [(ngModel)]="user.userFullName" required/><br><br>
   <label>תעודת זהות:</label>
-  <input type="password" name="userPassword" [(ngModel)]="user.userPassword" /><br><br>
-  <label>שם זהוי המשתמש:</label>
-  <input type="text" name="userRecognizeName" [(ngModel)]="user.userRecognizeName" /><br><br>
+  <input type="password" #userPassword name="userPassword" [(ngModel)]="user.userPassword" required/><br><br>
   <label>כתובת: </label>
   <input type="text" name="userAddress" [(ngModel)]="user.userAddress" /><br><br>
   <label>מייל: </label>
   <input type="email" name="userEmail" [(ngModel)]="user.userEmail" /><br><br>
-
   <label>טלפון: </label>
-  <input type="text" name="userPhone" [(ngModel)]="user.UserPhone" /><br><br>
-  <div *ngIf="roleId != null && roleId == 1" >
+  <input type="text" #userPhone name="userPhone" [(ngModel)]="user.UserPhone" ng-model="noneSelected" required/><br><br>
+  <!-- <div *ngIf="roleId != null && roleId == 1" >
     <input type="radio" name="RoleId" value="2" [(ngModel)]="user.RoleId"  />
     <label for="2">מוקדן</label>
     <br><br>
-    <input type="radio" name="RoleId" value="3" [(ngModel)]="user.RoleId" 
+    <input type="radio" name="RoleId" value="3" 
       checked="checked" />
     <label for="3" >משתמש רגיל</label>
-  </div>
- <input type="submit" value="register"> 
+  </div> -->
+ <input type="submit" value="register" [disabled]="!RegisterForm.form.valid"> 
  <button routerLink="/every-one-options" >כניסה לאפשרויות</button>
 </form>

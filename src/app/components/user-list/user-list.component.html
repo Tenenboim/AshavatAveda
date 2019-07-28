@@ -1,11 +1,16 @@
-<table>
-  <th>שם</th>
-  <th>כתובת</th>
-<tr *ngFor="let user of users"> 
+<table mat-table 
+ multiTemplateDataRows
+class="mat-elevation-z8">
+  <th >שם</th>
+  <th >טלפון</th>
+<ng-container *ngFor="let user of users">
+  <tr > 
+      <!-- *ngIf="roleId != 1" -->
   <td [routerLink]="['/user-info',user.UserId]">{{user.UserFullName}}</td>
-  <td [routerLink]="['/user-info',user.UserId]">{{user.UserAddress}}</td>
+  <td [routerLink]="['/user-info',user.UserId]">{{user.UserPhone}}</td>
   <td>
     <button [routerLink]="['/user-edit',user | json]">עריכת משתמש</button>
-</td>
-</tr>
+ </td>
+ </tr>
+</ng-container>
 </table>

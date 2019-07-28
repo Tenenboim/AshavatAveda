@@ -11,6 +11,7 @@ import{CategoryComponent} from '../components/category/category.component';
 import {EveryOneOptionsComponent} from '../components/every-one-options/every-one-options.component';
 import {UserEditComponent} from '../components/user-edit/user-edit.component';
 import {AddMokdanOrUserComponent} from '../components/add-mokdan-or-user/add-mokdan-or-user.component';
+import {AddCategoryComponent} from '../components/add-category/add-category.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -27,7 +28,8 @@ const routes: Routes = [
   { path: 'category', component: CategoryComponent },
   { path: 'every-one-options', component: EveryOneOptionsComponent },
   { path: 'user-edit/:user', component: UserEditComponent },
-  { path: 'add-mokdan-or-user', component: AddMokdanOrUserComponent }
+  { path: 'add-mokdan-or-user', component: AddMokdanOrUserComponent },
+  { path: 'add-category', component: AddCategoryComponent }
  
 ];
 
