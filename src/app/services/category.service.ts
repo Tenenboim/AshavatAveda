@@ -8,7 +8,8 @@ const url = "http://localhost:65051/";
   providedIn: 'root'
 })
 export class CategoryService {
-
+  
+ 
   constructor(private http:HttpClient) { }
   getCategories()
   {
@@ -17,5 +18,11 @@ export class CategoryService {
   AddCategory(category:Category)
   {
     return this.http.post(url+"api/category/AddCategory",category);
+  }
+  getCategoryNameByID(CategoryId: number) {
+   return this.http.get(url+"api/category/getCategoryNameByID"+CategoryId);
+  }
+  editCategory(Category:Category) {
+  return this.http.post(url+"api/category/EditCategory",Category);
   }
 }

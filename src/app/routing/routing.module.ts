@@ -5,6 +5,7 @@ import { LoginComponent } from '../components/login/login.component';
 import { RegisterComponent } from '../components/register/register.component';
 import { UserInfoComponent } from '../components/user-info/user-info.component';
 import { UserLostsComponent } from '../components/user-info/components/user-losts/user-losts.component';
+import{UserFoundsComponent} from '../components/user-info/components/user-founds/user-founds.component';
 import{UserListComponent} from '../components/user-list/user-list.component';
 import{ProductComponent} from '../components/product/product.component';
 import{CategoryComponent} from '../components/category/category.component';
@@ -12,8 +13,10 @@ import {EveryOneOptionsComponent} from '../components/every-one-options/every-on
 import {UserEditComponent} from '../components/user-edit/user-edit.component';
 import {AddMokdanOrUserComponent} from '../components/add-mokdan-or-user/add-mokdan-or-user.component';
 import {ProductEditComponent} from '../components/product-edit/product-edit.component';
-
 import {AddCategoryComponent} from '../components/add-category/add-category.component';
+import { EditCategoryComponent } from '../components/edit-category/edit-category.component';
+
+
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -22,7 +25,7 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
   {path: 'user-info/:userId', component: UserInfoComponent, children: [
       { path: 'user-losts', component: UserLostsComponent },
-      { path: 'user-founds', component: UserLostsComponent },
+     { path: 'user-founds', component: UserFoundsComponent },
     ]
   },
   { path: 'user-list', component: UserListComponent },
@@ -32,7 +35,8 @@ const routes: Routes = [
   { path: 'user-edit/:user', component: UserEditComponent },
   { path: 'add-mokdan-or-user', component: AddMokdanOrUserComponent },
   { path: 'product-edit/:product', component: ProductEditComponent },
-  { path: 'add-category', component: AddCategoryComponent }
+  { path: 'add-category', component: AddCategoryComponent },
+  { path: 'edit-category', component: EditCategoryComponent }
  
 ];
 

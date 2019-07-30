@@ -20,7 +20,7 @@ export class CategoryComponent implements OnInit {
         this.categories = res;
       }
     },(err: HttpErrorResponse) => {
-        alert(err.error.Message);
+        console.log(err.error.Message);
     });  
   }
 

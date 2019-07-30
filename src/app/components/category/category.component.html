@@ -6,6 +6,10 @@
   <td >{{category.CategoryId}}</td>
   <td >{{category.CategoryName}}</td>
  <td>{{category.ParentId}}</td>
+ <td *ngIf="roleId==1">
+  <button [routerLink]="['/edit-category',category | json]">עריכה</button>
+</td>
 </tr>
 </table>
-<button *ngIf="roleId == 1" routerLink="/add-category">להוספת קטגוריה </button>
+<button *ngIf="roleId==1" routerLink="/add-category">להוספת קטגוריה </button>
+

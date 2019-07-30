@@ -2,12 +2,12 @@
     <th>שם</th>
     <th>תאור</th>
     <th>תאור מיקום המציאה</th>
-  <tr *ngFor="let product of losts"> 
+  <tr *ngFor="let product of founds"> 
     <td>{{product.ProductName}}</td>
     <td >{{product.ProductDescription}}</td>
     <td >{{product.AddressDescription}}</td>
     <td>
-      <button [routerLink]="['/product-edit',product | json]">עריכת המוצר</button>
+      <button [routerLink]="['/product-edit',product | json]">עריכה</button>
   </td>
   </tr>
   </table>

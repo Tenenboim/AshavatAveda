@@ -23,6 +23,7 @@ import { MatGoogleMapsAutocompleteModule } from '@angular-material-extensions/go
 import { UserFoundsComponent } from './components/user-info/components/user-founds/user-founds.component';
 //import { Forbidden1Directive } from './forbidden--1.directive';
 import { AddCategoryComponent } from './components/add-category/add-category.component';
+import { EditCategoryComponent } from './components/edit-category/edit-category.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { AddCategoryComponent } from './components/add-category/add-category.com
     UserFoundsComponent,
     //Forbidden1Directive,
    
-    AddCategoryComponent
+    AddCategoryComponent,
+    EditCategoryComponent
   ],
   imports: [
     BrowserModule,

@@ -19,7 +19,7 @@ export class UserFoundsComponent implements OnInit {
     });
    }
   ngOnInit() {
-    this.ProductService .getFounds(this.user.UserId).subscribe((res:Product[])=>{
+    this.ProductService.getFounds(this.user.UserId).subscribe((res:Product[])=>{
       if(res!=null)
       {
         this.founds=res;

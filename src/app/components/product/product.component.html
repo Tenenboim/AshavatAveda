@@ -19,6 +19,14 @@
 
   <label>שם מוצר:</label>
   <input type="text" [(ngModel)]="product.ProductName" name="productName" required #ProductName="ngModel"><br><br>
+  <!-- הודעות ולידציה -->
+  <div *ngIf="ProductName.invalid && (ProductName.dirty || ProductName.touched)"
+    class="alert alert-danger">
+
+  <div *ngIf="ProductName.errors.required">
+    חובה לציין שם מוצר
+  </div>
+</div>
   <label>תאור:</label>
   <input type="text" [(ngModel)]="product.ProductDescription" name="productDescription"><br><br>
   <!-- לא חייבתי לבחור משתמש כלשהוא -->
@@ -72,9 +80,9 @@
       </agm-rectangle>
     </agm-map>
     <hr>
-    <!-- <p *ngIf="selectedMarker">
+     <p *ngIf="selectedMarker">
       Lat: {{ selectedMarker.lat }} Lng: {{ selectedMarker.lng }}
-    </p> -->
+    </p>
 
   </ng-container>
 
@@ -124,12 +132,5 @@
   </select> -->
   <button type="submit">שמירה</button>
 
-  <!-- הודעות ולידציה -->
-  <div *ngIf="ProductName.invalid && (ProductName.dirty || ProductName.touched)"
-    class="alert alert-danger">
-
-  <div *ngIf="ProductName.errors.required">
-    חובה לציין שם מוצר
-  </div>
-</div>
+  
 </form>
