@@ -39,10 +39,10 @@
   <br>
   <label>מקום האבידה/מציאה:</label>
   <br>
-  <input type="radio" name="kindOfPlace" value="googleMap" (change)="getCurrentLocation() ;optionsOfPlaceAreChange()"
+  <input type="radio" name="kindOfPlace" value="googleMap" (change)="getCurrentLocation()"
     [(ngModel)]="kindOfPlace.options" />
   <label>ציין מיקום במפה</label><br>
-  <input type="radio" name="kindOfPlace" value="otherPlace" (change)="optionsOfPlaceAreChange()" [(ngModel)]="kindOfPlace.options">
+  <input type="radio" name="kindOfPlace" value="otherPlace"  [(ngModel)]="kindOfPlace.options">
   <label>אחר</label><br>
 
   <ng-container *ngIf="kindOfPlace.options == 'googleMap'">
@@ -131,6 +131,6 @@
     <option value="false">אני לא מעונין לקבל עדכונים למייל שלי</option><br><br>
   </select> -->
   <button type="submit">שמירה</button>
-
-  
 </form>
+<button *ngIf="UserRoleId!=3" [routerLink]="['/every-one-options']">חזרה לעמוד האפשרויות</button>
+<button *ngIf="UserRoleId==3" [routerLink]="['/user-info/',this.product.UserId]">חזרה לעמוד האישי</button>

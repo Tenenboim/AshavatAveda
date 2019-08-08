@@ -42,7 +42,7 @@ export class RegisterComponent implements OnInit {
        }
 
      }, (err: HttpErrorResponse) => {
-      alert(err.error.Message);
+      console.log(err.error.Message);
      });
   }
 
@@ -50,4 +50,5 @@ export class RegisterComponent implements OnInit {
     this.roleId = +localStorage.getItem('RoleId');
   }
 
+  
 }

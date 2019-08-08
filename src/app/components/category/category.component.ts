@@ -15,7 +15,7 @@ export class CategoryComponent implements OnInit {
 
   ngOnInit() {
     this.roleId=+localStorage.getItem('RoleId');
-    this.categoryService.getCategories().subscribe((res: Category[]) => {
+    this.categoryService.getAllCategories().subscribe((res: Category[]) => {
       if (res) {
         this.categories = res;
       }

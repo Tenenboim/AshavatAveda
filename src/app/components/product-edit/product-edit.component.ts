@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, AfterViewInit, NgZone } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, NgZone } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Product } from '../../models/product';
 import { Category } from 'src/app/models/category';
@@ -7,12 +7,10 @@ import { ParameterService } from '../../services/parameter.service';
 import { Parameter } from 'src/app/models/parameter';
 import { ProductService } from '../../services/product.service';
 import { UserService } from '../../services/user.service';
-import { User } from '../../models/user';
 import { CategoryService } from '../../services/category.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { NgForm } from '@angular/forms';
 import { ParametersWithParametersOfProduct } from 'src/app/models/parametersOfCategoryWithParametersOfProduct';
-import { Button } from 'protractor';
 import { Location, Appearance } from '@angular-material-extensions/google-maps-autocomplete';
 import PlaceResult = google.maps.places.PlaceResult;
 
@@ -24,9 +22,10 @@ import PlaceResult = google.maps.places.PlaceResult;
   styles: ['agm-map { height: 400px; /* height is required */ }']
 
 })
-export class ProductEditComponent implements OnInit, AfterViewInit {
+export class ProductEditComponent implements OnInit {
 
   product: Product = new Product();
+  productId:number;
   categories: Category[] = [];
   parametersAreExist: Parameter[] = [];
   ParameterOfProductAreExist: ParameterOfProduct[] = [];
@@ -58,50 +57,90 @@ export class ProductEditComponent implements OnInit, AfterViewInit {
   constructor(private route: ActivatedRoute, private CategoryService: CategoryService, private ParameterService: ParameterService
     , private ProductService: ProductService, private UserService: UserService,
     private ngZone: NgZone) {
-
-  }
-
-  ngOnInit() {
     this.route.params.subscribe(params => {
-      this.product = JSON.parse(params['product']);
+      this.productId =params['productId'];
     });
-    this.latitude = this.product.AddressPointX;
-    this.longitude = this.product.AddressPointY;
+  }
+  
+  ngOnInit() {
+   
+    this.getProduct();
+  }
+  
+  getProduct(){
+    this.UserService.showSpinner=true;
+    this.ProductService.getProduct(this.productId).subscribe((res:Product)=>{
+      if(res)
+      {
+        this.product=res;
+       this.makeThingsForgoogleMapsAndParameters()
+
+      }
+    },(err:HttpErrorResponse)=>{
+      console.log(err);
+    });
+  }
+  makeThingsForgoogleMapsAndParameters()
+  {
+    if (this.product.AddressPointX != null) {
+      this.latitude = this.product.AddressPointX;
+      this.longitude = this.product.AddressPointY;
+      this.zoom = 17;
+    }
+    else {
+      this.latitude = 32.084932;
+      this.longitude = 34.835226000000034;
+      this.zoom = 12;
+    }
     this.NewParameterOfProduct.push(new ParameterOfProduct());
     this.NewParameters.push(new Parameter());
+    
     //של מיקום המציאה להיות לפי מה שנבחר כלומר מפות או תאור מיקום חופשי checkbox השורות הבאות גורמות ל
     if (this.product.AddressDescription)
-      this.kindOfPlace.options = 'otherPlace';
-    else this.kindOfPlace.options = 'googleMap';
-    this.CategoryService.getCategories().subscribe((res: Category[]) => {
+    this.kindOfPlace.options = 'otherPlace';
+    else
+    this.kindOfPlace.options = 'googleMap';
+    
+    
+    setTimeout(() => {
+      
+      this.getAddressByCoord(this.latitude, this.longitude);
+    }, 2000);
+    this.getAllCategories();
+  }
+  getAllCategories(){
+    this.CategoryService.getAllCategories().subscribe((res: Category[]) => {
       if (res != null) {
         this.categories = res;
         this.StartCategory = this.categories.find(p => p.CategoryId == this.product.CategoryId);
-        if (this.StartCategory.ParentId) {
+        if (this.StartCategory.ParentId!=null) {
           this.mainCategoryID = this.StartCategory.ParentId;
         } else {
           this.mainCategoryID = this.product.CategoryId;
           this.product.CategoryId = -1;
         }
+        this.getProductParametersWithValue()
       }
     }, (err: HttpErrorResponse) => {
     });
-
-    //value שליחה לפונקציה שמחזירה מערך עם הפרמטרים הקשורים לקטגוריה של המוצר+ה
+  }
+  //value שליחה לפונקציה שמחזירה מערך עם הפרמטרים הקשורים לקטגוריה של המוצר+ה
+  getProductParametersWithValue(){
     this.ProductService.getProductParametersWithValue(this.product.ProductId).subscribe((res: ParametersWithParametersOfProduct[]) => {
       if (res.length) {
-        this.parametersOfCategoryWithParametersOfProduct = res;
-      }
-    }, (err: HttpErrorResponse) => {
+          this.parametersOfCategoryWithParametersOfProduct = res;
+          }
+          this.UserService.showSpinner=false;
+        }, (err: HttpErrorResponse) => {
       console.log(err);
     });
   }
 
+  
   addParameter() {
     this.NewParameters.push(new Parameter());
     this.NewParameterOfProduct.push(new ParameterOfProduct());
   }
-
   onCategoryChanged(isMain: boolean) {
 
     this.parametersOfCategoryWithParametersOfProduct = [];
@@ -128,14 +167,14 @@ export class ProductEditComponent implements OnInit, AfterViewInit {
   }
   // הפונקציה הבאה גורמת שלמוצר יהיה או תאור על מקום האבידה-אחר
   //או נקודות במפה ולא שתיהם יחד
-  optionsOfPlaceAreChange() {
-    if (this.kindOfPlace.options == 'googleMap')
-      this.product.AddressDescription = null;
-    else {
-      this.product.AddressPointX = null;
-      this.product.AddressPointY = null;
-    }
-  }
+  // optionsOfPlaceAreChange() {
+  //   if (this.kindOfPlace.options == 'googleMap')
+  //     this.product.AddressDescription = null;
+  //   else {
+  //     this.product.AddressPointX = null;
+  //     this.product.AddressPointY = null;
+  //   }
+  // }
   OnEditProduct(myForm: NgForm) {
     // עדכון קוד הפרמטר-פרמטרים קיימים בטבלת פרמטרים למוצר
     for (let i = 0; i < this.parametersAreExist.length; i++) {
@@ -151,6 +190,17 @@ export class ProductEditComponent implements OnInit, AfterViewInit {
       this.product.CategoryId = this.mainCategoryID;
     this.product.AddressPointX = this.latitude;
     this.product.AddressPointY = this.longitude;
+    // הבדיקה הבאה גורמת שלמוצר יהיה או תאור על מקום האבידה-אחר
+    //או נקודות במפה ולא שתיהם יחד
+    if (this.kindOfPlace.options == 'googleMap') {
+      this.product.AddressPointX = this.latitude;
+      this.product.AddressPointY = this.longitude;
+      this.product.AddressDescription = null;
+    }
+    else {
+      this.product.AddressPointX = null;
+      this.product.AddressPointY = null;
+    }
     this.ProductService.EditProduct(this.product,
       this.ParameterOfProductAreExist,
       this.NewParameters,
@@ -231,10 +281,9 @@ export class ProductEditComponent implements OnInit, AfterViewInit {
     this.zoom = 17;
   }
 
-  ngAfterViewInit(): void {
-  }
-
   getCurrentLocation() {
+   // this.getAddressByCoord(this.latitude, this.longitude);
+
     /*    setTimeout(() => {
          if (this.kindOfPlace.options == 'googleMap') {
            navigator.geolocation.getCurrentPosition(this.success, this.error, this.options);

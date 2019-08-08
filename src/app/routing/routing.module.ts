@@ -15,7 +15,8 @@ import {AddMokdanOrUserComponent} from '../components/add-mokdan-or-user/add-mok
 import {ProductEditComponent} from '../components/product-edit/product-edit.component';
 import {AddCategoryComponent} from '../components/add-category/add-category.component';
 import { EditCategoryComponent } from '../components/edit-category/edit-category.component';
-
+import { ParameterListComponent} from '../components/parameter-list/parameter-list.component';
+import {MyGuardGuard} from '../my-guard.guard';
 
 
 const routes: Routes = [
@@ -30,13 +31,16 @@ const routes: Routes = [
   },
   { path: 'user-list', component: UserListComponent },
   { path: 'product', component: ProductComponent },
-  { path: 'category', component: CategoryComponent },
-  { path: 'every-one-options', component: EveryOneOptionsComponent },
-  { path: 'user-edit/:user', component: UserEditComponent },
+  { path: 'category-list', component: CategoryComponent },
+  { path: 'every-one-options', component: EveryOneOptionsComponent ,canActivate:[MyGuardGuard]},
+  { path: 'user-edit/:userId', component: UserEditComponent },
+  //שליחת אוביקט
+  //{ path: 'user-edit/:user', component: UserEditComponent },
   { path: 'add-mokdan-or-user', component: AddMokdanOrUserComponent },
-  { path: 'product-edit/:product', component: ProductEditComponent },
+  { path: 'product-edit/:productId', component: ProductEditComponent },
   { path: 'add-category', component: AddCategoryComponent },
-  { path: 'edit-category', component: EditCategoryComponent }
+  { path: 'edit-category/:categoryId', component: EditCategoryComponent },
+  { path: 'parameter-list', component: ParameterListComponent }
  
 ];
 

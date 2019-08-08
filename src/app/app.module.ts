@@ -24,6 +24,8 @@ import { UserFoundsComponent } from './components/user-info/components/user-foun
 //import { Forbidden1Directive } from './forbidden--1.directive';
 import { AddCategoryComponent } from './components/add-category/add-category.component';
 import { EditCategoryComponent } from './components/edit-category/edit-category.component';
+import { ParameterListComponent } from './components/parameter-list/parameter-list.component';
+import { SpinnerComponent } from './components/spinner/spinner.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +45,9 @@ import { EditCategoryComponent } from './components/edit-category/edit-category.
     //Forbidden1Directive,
    
     AddCategoryComponent,
-    EditCategoryComponent
+    EditCategoryComponent,
+    ParameterListComponent,
+    SpinnerComponent
   ],
   imports: [
     BrowserModule,

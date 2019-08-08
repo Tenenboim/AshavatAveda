@@ -66,5 +66,8 @@ export class ProductService {
   getProductParametersWithValue(ProductId: number) {
     return this.http.get(url+ `api/product/getParametersWithValue/${ProductId}`);
   }
+  getProduct(ProductId:number){
+    return this.http.get(url+"api/product/getProduct?ProductId=" + ProductId);
+  }
 }
 

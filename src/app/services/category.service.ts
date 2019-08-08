@@ -11,16 +11,24 @@ export class CategoryService {
   
  
   constructor(private http:HttpClient) { }
-  getCategories()
+  getCategoryById(categoryId:number){
+    return this.http.get(url+"api/category/getCategoryById?CategoryId=" +categoryId);
+
+  }
+  getAllCategories()
   {
     return this.http.get(url + "api/category/getAllCategories")  ;
+  }
+  getAllAllCategories()
+  {
+    return this.http.get(url + "api/category/getAllAllCategories")  ;
   }
   AddCategory(category:Category)
   {
     return this.http.post(url+"api/category/AddCategory",category);
   }
   getCategoryNameByID(CategoryId: number) {
-   return this.http.get(url+"api/category/getCategoryNameByID"+CategoryId);
+   return this.http.get(url+"api/category/getCategoryNameByID?CategoryId="+CategoryId);
   }
   editCategory(Category:Category) {
   return this.http.post(url+"api/category/EditCategory",Category);

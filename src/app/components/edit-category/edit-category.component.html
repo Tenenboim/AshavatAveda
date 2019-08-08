@@ -5,3 +5,4 @@
   <label *ngIf="fatherNameCategory!=null">{{fatherNameCategory}}</label>
   <input type="submit" value="ערוך"  [disabled]="!EditCategoryForm.form.valid "> 
 </form>
+<button  [routerLink]="['/category-list']">חזרה לרשימת הקטגוריות</button>

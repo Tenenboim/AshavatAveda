@@ -1,4 +1,4 @@
-<table>
+<table *ngIf="founds.length>0">
     <th>שם</th>
     <th>תאור</th>
     <th>תאור מיקום המציאה</th>
@@ -7,7 +7,7 @@
     <td >{{product.ProductDescription}}</td>
     <td >{{product.AddressDescription}}</td>
     <td>
-      <button [routerLink]="['/product-edit',product | json]">עריכה</button>
+      <button [routerLink]="['/product-edit',product.ProductId]">עריכה</button>
   </td>
   </tr>
   </table>

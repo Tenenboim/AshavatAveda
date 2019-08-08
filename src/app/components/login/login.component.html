@@ -3,16 +3,24 @@
       <mat-label>הקש טלפון</mat-label>
     <input matInput type="text" color="accent"  name="UserPhone" [(ngModel)]="user.UserPhone" required #phone="ngModel">
   </mat-form-field>
-
+  <!-- הודעות ולידציה -->
+<div *ngIf="phone.invalid && (phone.dirty || phone.touched)
+&& phone.errors.required"
+class="alert alert-danger">
+חובה לציין טלפון
+</div>
+  <mat-form-field  appearance="outline" color="accent">
+    <mat-label>הקש סיסמא</mat-label>
+  <input matInput type="text" color="accent"  name="UserPassword" [(ngModel)]="user.UserPassword" required #password="ngModel">
+</mat-form-field>
+<!-- הודעות ולידציה -->
+<div *ngIf="password.invalid && (password.dirty || password.touched)
+ && password.errors.required"
+class="alert alert-danger">
+חובה לציין סיסמא
+</div>
     <button type="submit" mat-flat-button color="accent">כניסה</button>
 
   <button type="button" mat-flat-button color="accent" routerLink="/register" *ngIf="!isManager">משתמש חדש? הרשם עכשיו</button>
-<!-- הודעות ולידציה -->
-<div *ngIf="phone.invalid && (phone.dirty || phone.touched)"
-class="alert alert-danger">
 
-<div *ngIf="phone.errors.required">
-חובה לציין טלפון
-</div>
-</div>
 </form>

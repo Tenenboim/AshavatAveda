@@ -3,6 +3,7 @@ import {Category} from 'src/app/models/category';
 import {CategoryService} from 'src/app/services/category.service';
 import {Router} from '@angular/router';
 import { HttpErrorResponse } from '@angular/common/http';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-add-category',
@@ -20,7 +21,12 @@ categories:Category[]=[];
     this.CategoryService.AddCategory(this.category).subscribe((res:Category)=>{
       if(res)
       {
-        console.log(res);
+        Swal.fire({
+          type: 'success',
+          title: 'הקטגוריה נוספה בהצלחה',
+          showConfirmButton: false,
+          timer: 1500
+        })
         this.router.navigate(['/category']); 
       }
     }, (err: HttpErrorResponse) => {
@@ -31,7 +37,7 @@ categories:Category[]=[];
 
   ngOnInit() {
 
-    this.CategoryService.getCategories().subscribe((res: Category[]) => {
+    this.CategoryService.getAllCategories().subscribe((res: Category[]) => {
       if (res != null) {
 
         this.categories = res;

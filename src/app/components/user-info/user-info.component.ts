@@ -9,10 +9,12 @@ import {UserService} from 'src/app/services/user.service';
   styleUrls: ['./user-info.component.css']
 })
 export class UserInfoComponent implements OnInit {
-user:User=new User();
+userId:number;
+roleId:number=+localStorage.getItem("RoleId");
+userName:string=localStorage.getItem("UserName");
 constructor(route: ActivatedRoute,private UserService:UserService) {
   route.params.subscribe(params=>{
-  this.user.UserId=params['userId'];
+  this.userId=params['userId'];
   });
  }
 

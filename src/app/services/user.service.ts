@@ -6,11 +6,16 @@ const url = "http://localhost:65051/";
   providedIn: 'root'
 })
 export class UserService { 
-
+  //spinner המשתנה הבא מיועד ל 
+  //בשביל איקון שעובד כל עוד הקומפוננטה לא נבנתה
+  showSpinner:boolean=false;
   constructor(private http: HttpClient) { }
 
-  Login(phone: string) {
-    return this.http.get(url + "api/user/Login?UserPhone=" + phone);
+  getUserById(userId:number){
+    return this.http.get(url+"api/user/getUserbyId?userId="+userId);
+  }
+  Login(user: User) {
+    return this.http.post(url +"api/user/Login", user);
   } 
 
   Register(user: User) {

@@ -7,9 +7,10 @@
   <td >{{category.CategoryName}}</td>
  <td>{{category.ParentId}}</td>
  <td *ngIf="roleId==1">
-  <button [routerLink]="['/edit-category',category | json]">עריכה</button>
+  <button [routerLink]="['/edit-category',category.CategoryId]">עריכה</button>
 </td>
 </tr>
 </table>
 <button *ngIf="roleId==1" routerLink="/add-category">להוספת קטגוריה </button>
+<button [routerLink]="['/every-one-options']">חזרה לעמוד קודם</button>
 

@@ -1,3 +1,7 @@
+<label *ngIf="roleId==3">שלום לך {{userName}}</label>
 <button  [routerLink]="['user-losts']">אבידות</button>
 <button [routerLink]="['user-founds']">מציאות</button>
+<button [routerLink]="['/product']">הוסף חפץ</button>
+<button [routerLink]="['/user-edit',userId]">ערוך פרטיך</button>
+<button *ngIf="roleId!=3" [routerLink]="['/every-one-options']"> יציאה מהמשתמש</button>
 <router-outlet></router-outlet>
