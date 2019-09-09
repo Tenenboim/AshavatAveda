@@ -17,7 +17,7 @@ import {AddCategoryComponent} from '../components/add-category/add-category.comp
 import { EditCategoryComponent } from '../components/edit-category/edit-category.component';
 import { ParameterListComponent} from '../components/parameter-list/parameter-list.component';
 import {MyGuardGuard} from '../my-guard.guard';
-
+import{MatchesComponent} from '../components/matches/matches.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -40,7 +40,8 @@ const routes: Routes = [
   { path: 'product-edit/:productId', component: ProductEditComponent },
   { path: 'add-category', component: AddCategoryComponent },
   { path: 'edit-category/:categoryId', component: EditCategoryComponent },
-  { path: 'parameter-list', component: ParameterListComponent }
+  { path: 'parameter-list', component: ParameterListComponent },
+  { path: 'matches/:productId', component: MatchesComponent }
  
 ];
 

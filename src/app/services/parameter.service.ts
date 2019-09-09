@@ -18,4 +18,7 @@ export class ParameterService {
   getAllParameters() {
     return this.http.get(url + "api/parameter/getAllParameters");
   }
+  getProductParametersWithValue(ProductId: number) {
+    return this.http.get(url+ `api/parameter/getParametersWithValue/${ProductId}`);
+  }
 }

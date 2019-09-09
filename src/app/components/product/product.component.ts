@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter, AfterViewInit, NgZone } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, AfterViewInit,NgZone  } from '@angular/core';
 import { Product } from 'src/app/models/product';
 import { NgForm } from '@angular/forms';
 import { Category } from 'src/app/models/category';
@@ -13,7 +13,7 @@ import { User } from '../../models/user';
 import { Location, Appearance } from '@angular-material-extensions/google-maps-autocomplete';
 import PlaceResult = google.maps.places.PlaceResult;
 import Swal from 'sweetalert2';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-product',
   templateUrl: './product.component.html',
@@ -54,7 +54,7 @@ export class ProductComponent implements OnInit, AfterViewInit {
 
   constructor(private CategoryService: CategoryService, private ParameterService: ParameterService
     , private ProductService: ProductService, private UserService: UserService,
-    private ngZone: NgZone) {
+    private ngZone: NgZone,private router:Router) {
 
   }
 
@@ -102,7 +102,7 @@ export class ProductComponent implements OnInit, AfterViewInit {
     }, (err: HttpErrorResponse) => {
     });
     setTimeout(() => {
-      this.getAddressByCoord(31.046051, 34.85161199999993);
+      this.googleAddress=this.ProductService.getAddressByCoord(31.046051, 34.85161199999993);
     }, 700);
   }
   addParameter() {
@@ -159,14 +159,15 @@ export class ProductComponent implements OnInit, AfterViewInit {
       this.product.AddressPointX = null;
       this.product.AddressPointY = null;
     }
-    this.ProductService.AddProduct(this.product, this.ParameterOfProductAreExist, this.NewParameters, this.NewParameterOfProduct).subscribe((res: Product[]) => {
+    this.ProductService.AddProduct(this.product, this.ParameterOfProductAreExist, this.NewParameters, this.NewParameterOfProduct).subscribe((res: number) => {
       if (res != null) {
         Swal.fire({
           type: 'success',
           title: 'הפריט נוסף בהצלחה',
           showConfirmButton: false,
-          timer: 1500
-        })      }
+          timer: 1000
+        })  
+        this.router.navigate(['/matches',res]); }
 
     }, (err: HttpErrorResponse) => {
       console.log(err);
@@ -198,33 +199,38 @@ export class ProductComponent implements OnInit, AfterViewInit {
       lat: event.latitude,
       lng: event.longitude
     };
-    this.getAddressByCoord(event.latitude, event.longitude);
+    //this.getAddressByCoord(event.latitude, event.longitude);
+   this.googleAddress= this.ProductService.getAddressByCoord(event.latitude, event.longitude);
   }
 
   markerDragEnd(event) {
-    this.getAddressByCoord(event.coords.lat, event.coords.lng);
+  //  this.getAddressByCoord(event.coords.lat, event.coords.lng);
+  this.googleAddress=this.ProductService.getAddressByCoord(event.latitude, event.longitude);
+
   }
 
-  getAddressByCoord(lat: number, lng: number) {
-    let geocoder = new google.maps.Geocoder;
-    let latlng = new google.maps.LatLng(lat, lng);
+  // getAddressByCoord(lat: number, lng: number) {
+  //   console.log("lat= "+lat+" long= "+lng);
+    
+  //   let geocoder = new google.maps.Geocoder;
+  //   let latlng = new google.maps.LatLng(lat, lng);
 
-    let request: any = {
-      latLng: latlng
-    };
+  //   let request: any = {
+  //     latLng: latlng
+  //   };
 
-    geocoder.geocode(request, (results, status) => {
-      if (status == google.maps.GeocoderStatus.OK) {
-        if (results[0] != null) {
-          this.ngZone.run(() => {
-            this.googleAddress = results[0].formatted_address;
-          });
-        } else {
-          alert("No address available");
-        }
-      }
-    });
-  }
+  //   geocoder.geocode(request, (results, status) => {
+  //     if (status == google.maps.GeocoderStatus.OK) {
+  //       if (results[0] != null) {
+  //         this.ngZone.run(() => {
+  //           this.googleAddress = results[0].formatted_address;
+  //         });
+  //       } else {
+  //         alert("No address available");
+  //       }
+  //     }
+  //   });
+  // }
 
   // googleMap autocomplete
 

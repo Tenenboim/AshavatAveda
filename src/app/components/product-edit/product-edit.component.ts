@@ -126,7 +126,7 @@ export class ProductEditComponent implements OnInit {
   }
   //value שליחה לפונקציה שמחזירה מערך עם הפרמטרים הקשורים לקטגוריה של המוצר+ה
   getProductParametersWithValue(){
-    this.ProductService.getProductParametersWithValue(this.product.ProductId).subscribe((res: ParametersWithParametersOfProduct[]) => {
+    this.ParameterService.getProductParametersWithValue(this.product.ProductId).subscribe((res: ParametersWithParametersOfProduct[]) => {
       if (res.length) {
           this.parametersOfCategoryWithParametersOfProduct = res;
           }

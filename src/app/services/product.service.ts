@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable,NgZone  } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import {Product} from '../models/product';
 import {Parameter} from '../models/parameter';
@@ -9,9 +9,9 @@ const url = "http://localhost:65051/";
   providedIn: 'root'
 })
 export class ProductService {
-  
+  googleAddress: string;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,private ngZone: NgZone) { }
 
    AddProduct(product:Product,ParameterOfProductAreExist:ParameterOfProduct[]
     , NewParameters:Parameter[],NewParameterOfProduct:ParameterOfProduct[]) {
@@ -63,11 +63,35 @@ export class ProductService {
   {
     return this.http.get(url+"api/product/getFounds?userId=" + userId);
   }
-  getProductParametersWithValue(ProductId: number) {
-    return this.http.get(url+ `api/product/getParametersWithValue/${ProductId}`);
-  }
+  
   getProduct(ProductId:number){
     return this.http.get(url+"api/product/getProduct?ProductId=" + ProductId);
+  }
+  getMatches(ProductId:number){
+    return this.http.get(url+"api/product/getMatches?ProductId=" + ProductId);
+  }
+  getAddressByCoord(lat: number, lng: number) {
+    console.log("lat= "+lat+" long= "+lng);
+    
+    let geocoder = new google.maps.Geocoder;
+    let latlng = new google.maps.LatLng(lat, lng);
+
+    let request: any = {
+      latLng: latlng
+    };
+
+    geocoder.geocode(request, (results, status) => {
+      if (status == google.maps.GeocoderStatus.OK) {
+        if (results[0] != null) {
+          this.ngZone.run(() => {
+            this.googleAddress = results[0].formatted_address;
+          });
+        } else {
+          alert("No address available");
+        }
+      }
+    });
+    return this.googleAddress;
   }
 }
 
