@@ -8,3 +8,33 @@
     min-width: 0;
     width: 400px !important;
 }
+.mat-form-field-invalid.mat-form-field-outline-thick {
+    color: red !important;  
+}
+
+ .mat-form-field-outline-thick {
+    color: #084651 !important;
+}
+
+.mat-input-element {
+    caret-color: #084651 !important;
+}
+
+.mat-flat-button{
+background-color: #74d2ba !important;
+color: #084651 !important;
+font-weight: bold !important;
+font-size: 20px !important;
+border: 2px solid white !important;
+border-radius: 0 !important;
+}
+
+.body-wrapper{
+    background: #ffffff61;
+    padding: 2%;
+    border: 7px solid #0e819385;
+    min-width: 180%;
+    margin: auto;
+    min-height: 60vh;
+    text-align: center;
+}

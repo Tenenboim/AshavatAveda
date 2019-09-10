@@ -1,26 +1,42 @@
-<form #myForm="ngForm" (ngSubmit)="OnLogin(myForm)" (keydown.enter)="$event.preventDefault()">
-  <mat-form-field  appearance="outline" color="accent">
-      <mat-label>הקש טלפון</mat-label>
-    <input matInput type="text" color="accent"  name="UserPhone" [(ngModel)]="user.UserPhone" required #phone="ngModel">
-  </mat-form-field>
-  <!-- הודעות ולידציה -->
-<div *ngIf="phone.invalid && (phone.dirty || phone.touched)
+<div class="body-wrapper">
+  <img class="img" src="../../../assets/logo.png" alt="">
+  <form #myForm="ngForm" (ngSubmit)="OnLogin(myForm)" (keydown.enter)="$event.preventDefault()">
+    <div class="field-wrapper">
+      <mat-form-field appearance="outline" color="accent">
+        <mat-label>הקש טלפון</mat-label>
+        <input matInput type="text" color="accent" name="UserPhone" [(ngModel)]="user.UserPhone" required #phone="ngModel">
+        <mat-error *ngIf="phone.invalid && (phone.dirty || phone.touched)">
+          חובה לציין טלפון
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <!-- הודעות ולידציה -->
+    <!-- <div 
 && phone.errors.required"
 class="alert alert-danger">
-חובה לציין טלפון
-</div>
-  <mat-form-field  appearance="outline" color="accent">
-    <mat-label>הקש סיסמא</mat-label>
-  <input matInput type="text" color="accent"  name="UserPassword" [(ngModel)]="user.UserPassword" required #password="ngModel">
-</mat-form-field>
-<!-- הודעות ולידציה -->
-<div *ngIf="password.invalid && (password.dirty || password.touched)
- && password.errors.required"
-class="alert alert-danger">
-חובה לציין סיסמא
-</div>
-    <button type="submit" mat-flat-button color="accent">כניסה</button>
 
-  <button type="button" mat-flat-button color="accent" routerLink="/register" *ngIf="!isManager">משתמש חדש? הרשם עכשיו</button>
+</div> -->
+    <div class="field-wrapper">
 
-</form>
+      <mat-form-field appearance="outline" color="accent">
+        <mat-label>הקש סיסמא</mat-label>
+        <input matInput type="text" color="accent" name="UserPassword" [(ngModel)]="user.UserPassword" required
+          #password="ngModel">
+        <mat-error *ngIf="password.invalid && (password.dirty || password.touched)
+  && password.errors.required" class="alert alert-danger">
+          חובה לציין סיסמא
+        </mat-error>
+      </mat-form-field>
+    </div>
+    <!-- הודעות ולידציה -->
+    <div class="btn-wrapper">
+
+      <button type="submit" mat-flat-button color="accent">כניסה</button>
+    </div>
+    <!-- <div class="field-wrapper">
+
+      <button type="button" mat-flat-button color="accent" routerLink="/register" *ngIf="!isManager">משתמש חדש? הרשם
+        עכשיו</button>
+    </div> -->
+  </form>
+</div>

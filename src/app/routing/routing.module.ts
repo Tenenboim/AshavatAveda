@@ -29,18 +29,18 @@ const routes: Routes = [
      { path: 'user-founds', component: UserFoundsComponent },
     ]
   },
-  { path: 'user-list', component: UserListComponent },
+  { path: 'user-list', component: UserListComponent,canActivate:[MyGuardGuard] },
   { path: 'product', component: ProductComponent },
-  { path: 'category-list', component: CategoryComponent },
+  { path: 'category-list', component: CategoryComponent,canActivate:[MyGuardGuard] },
   { path: 'every-one-options', component: EveryOneOptionsComponent ,canActivate:[MyGuardGuard]},
   { path: 'user-edit/:userId', component: UserEditComponent },
   //שליחת אוביקט
   //{ path: 'user-edit/:user', component: UserEditComponent },
-  { path: 'add-mokdan-or-user', component: AddMokdanOrUserComponent },
+  { path: 'add-mokdan-or-user', component: AddMokdanOrUserComponent,canActivate:[MyGuardGuard] },
   { path: 'product-edit/:productId', component: ProductEditComponent },
-  { path: 'add-category', component: AddCategoryComponent },
+  { path: 'add-category', component: AddCategoryComponent,canActivate:[MyGuardGuard] },
   { path: 'edit-category/:categoryId', component: EditCategoryComponent },
-  { path: 'parameter-list', component: ParameterListComponent },
+  { path: 'parameter-list', component: ParameterListComponent ,canActivate:[MyGuardGuard]},
   { path: 'matches/:productId', component: MatchesComponent }
  
 ];

@@ -30,8 +30,7 @@ public roleId:number;
       Swal.fire({
         type: 'error',
         title: 'נכשל!',
-        text: 'משהו לא טוב קרה...',
-        footer: '<a href>Why do I have this issue?</a>'
+        text: 'משהו לא טוב קרה...'
       })
      }
     );

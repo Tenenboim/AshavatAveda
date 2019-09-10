@@ -1,0 +1,16 @@
+.body-wrapper{
+    width: 47%;
+    min-height: 60vh;
+}
+.img{width: 60%;
+    margin: auto;
+    display: flex;
+    margin-bottom: 10%;
+}
+.btn-wrapper{
+    margin-top: 5%
+}
+
+.field-wrapper{
+    margin-bottom: 5%
+}

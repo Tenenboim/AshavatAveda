@@ -25,7 +25,7 @@ import PlaceResult = google.maps.places.PlaceResult;
 export class ProductEditComponent implements OnInit {
 
   product: Product = new Product();
-  productId:number;
+  productId: number;
   categories: Category[] = [];
   parametersAreExist: Parameter[] = [];
   ParameterOfProductAreExist: ParameterOfProduct[] = [];
@@ -58,30 +58,28 @@ export class ProductEditComponent implements OnInit {
     , private ProductService: ProductService, private UserService: UserService,
     private ngZone: NgZone) {
     this.route.params.subscribe(params => {
-      this.productId =params['productId'];
+      this.productId = params['productId'];
     });
   }
-  
+
   ngOnInit() {
-   
+
     this.getProduct();
   }
-  
-  getProduct(){
-    this.UserService.showSpinner=true;
-    this.ProductService.getProduct(this.productId).subscribe((res:Product)=>{
-      if(res)
-      {
-        this.product=res;
-       this.makeThingsForgoogleMapsAndParameters()
+
+  getProduct() {
+    this.UserService.showSpinner = true;
+    this.ProductService.getProduct(this.productId).subscribe((res: Product) => {
+      if (res) {
+        this.product = res;
+        this.makeThingsForgoogleMapsAndParameters()
 
       }
-    },(err:HttpErrorResponse)=>{
+    }, (err: HttpErrorResponse) => {
       console.log(err);
     });
   }
-  makeThingsForgoogleMapsAndParameters()
-  {
+  makeThingsForgoogleMapsAndParameters() {
     if (this.product.AddressPointX != null) {
       this.latitude = this.product.AddressPointX;
       this.longitude = this.product.AddressPointY;
@@ -94,26 +92,28 @@ export class ProductEditComponent implements OnInit {
     }
     this.NewParameterOfProduct.push(new ParameterOfProduct());
     this.NewParameters.push(new Parameter());
-    
+
     //של מיקום המציאה להיות לפי מה שנבחר כלומר מפות או תאור מיקום חופשי checkbox השורות הבאות גורמות ל
     if (this.product.AddressDescription)
-    this.kindOfPlace.options = 'otherPlace';
+      this.kindOfPlace.options = 'otherPlace';
     else
-    this.kindOfPlace.options = 'googleMap';
-    
-    
+      this.kindOfPlace.options = 'googleMap';
+
+
     setTimeout(() => {
-      
-      this.getAddressByCoord(this.latitude, this.longitude);
+
+      //this.getAddressByCoord(this.latitude, this.longitude);
+      this.googleAddress = this.ProductService.getAddressByCoord(this.latitude, this.longitude);
+
     }, 2000);
     this.getAllCategories();
   }
-  getAllCategories(){
+  getAllCategories() {
     this.CategoryService.getAllCategories().subscribe((res: Category[]) => {
       if (res != null) {
         this.categories = res;
         this.StartCategory = this.categories.find(p => p.CategoryId == this.product.CategoryId);
-        if (this.StartCategory.ParentId!=null) {
+        if (this.StartCategory.ParentId != null) {
           this.mainCategoryID = this.StartCategory.ParentId;
         } else {
           this.mainCategoryID = this.product.CategoryId;
@@ -125,18 +125,18 @@ export class ProductEditComponent implements OnInit {
     });
   }
   //value שליחה לפונקציה שמחזירה מערך עם הפרמטרים הקשורים לקטגוריה של המוצר+ה
-  getProductParametersWithValue(){
+  getProductParametersWithValue() {
     this.ParameterService.getProductParametersWithValue(this.product.ProductId).subscribe((res: ParametersWithParametersOfProduct[]) => {
       if (res.length) {
-          this.parametersOfCategoryWithParametersOfProduct = res;
-          }
-          this.UserService.showSpinner=false;
-        }, (err: HttpErrorResponse) => {
+        this.parametersOfCategoryWithParametersOfProduct = res;
+      }
+      this.UserService.showSpinner = false;
+    }, (err: HttpErrorResponse) => {
       console.log(err);
     });
   }
 
-  
+
   addParameter() {
     this.NewParameters.push(new Parameter());
     this.NewParameterOfProduct.push(new ParameterOfProduct());
@@ -240,33 +240,37 @@ export class ProductEditComponent implements OnInit {
       lat: event.latitude,
       lng: event.longitude
     };
-    this.getAddressByCoord(event.latitude, event.longitude);
+    //this.getAddressByCoord(event.latitude, event.longitude);
+    this.googleAddress = this.ProductService.getAddressByCoord(event.latitude, event.longitude);
+
   }
 
   markerDragEnd(event) {
-    this.getAddressByCoord(event.coords.lat, event.coords.lng);
+    //this.getAddressByCoord(event.coords.lat, event.coords.lng);
+    this.googleAddress = this.ProductService.getAddressByCoord(event.coords.lat, event.coords.lng);
+
   }
 
-  getAddressByCoord(lat: number, lng: number) {
-    let geocoder = new google.maps.Geocoder;
-    let latlng = new google.maps.LatLng(lat, lng);
+  // getAddressByCoord(lat: number, lng: number) {
+  //   let geocoder = new google.maps.Geocoder;
+  //   let latlng = new google.maps.LatLng(lat, lng);
 
-    let request: any = {
-      latLng: latlng
-    };
+  //   let request: any = {
+  //     latLng: latlng
+  //   };
 
-    geocoder.geocode(request, (results, status) => {
-      if (status == google.maps.GeocoderStatus.OK) {
-        if (results[0] != null) {
-          this.ngZone.run(() => {
-            this.googleAddress = results[0].formatted_address;
-          });
-        } else {
-          alert("No address available");
-        }
-      }
-    });
-  }
+  //   geocoder.geocode(request, (results, status) => {
+  //     if (status == google.maps.GeocoderStatus.OK) {
+  //       if (results[0] != null) {
+  //         this.ngZone.run(() => {
+  //           this.googleAddress = results[0].formatted_address;
+  //         });
+  //       } else {
+  //         alert("No address available");
+  //       }
+  //     }
+  //   });
+  // }
 
   // googleMap autocomplete
 
@@ -282,7 +286,7 @@ export class ProductEditComponent implements OnInit {
   }
 
   getCurrentLocation() {
-   // this.getAddressByCoord(this.latitude, this.longitude);
+    // this.getAddressByCoord(this.latitude, this.longitude);
 
     /*    setTimeout(() => {
          if (this.kindOfPlace.options == 'googleMap') {

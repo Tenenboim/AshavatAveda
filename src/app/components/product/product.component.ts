@@ -103,6 +103,8 @@ export class ProductComponent implements OnInit, AfterViewInit {
     });
     setTimeout(() => {
       this.googleAddress=this.ProductService.getAddressByCoord(31.046051, 34.85161199999993);
+   // this.getAddressByCoord(31.046051, 34.85161199999993);
+
     }, 700);
   }
   addParameter() {
@@ -199,13 +201,13 @@ export class ProductComponent implements OnInit, AfterViewInit {
       lat: event.latitude,
       lng: event.longitude
     };
-    //this.getAddressByCoord(event.latitude, event.longitude);
+   // this.getAddressByCoord(event.latitude, event.longitude);
    this.googleAddress= this.ProductService.getAddressByCoord(event.latitude, event.longitude);
   }
 
   markerDragEnd(event) {
-  //  this.getAddressByCoord(event.coords.lat, event.coords.lng);
-  this.googleAddress=this.ProductService.getAddressByCoord(event.latitude, event.longitude);
+  // this.getAddressByCoord(event.coords.lat, event.coords.lng);
+  this.googleAddress=this.ProductService.getAddressByCoord(event.coords.lat, event.coords.lng);
 
   }
 
