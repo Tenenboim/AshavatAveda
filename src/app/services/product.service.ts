@@ -58,14 +58,17 @@ export class ProductService {
   getLosts(userId:number)
   {
     return this.http.get(url+"api/product/getLosts?userId=" + userId);
+    //AddressDescription: "אשל אברהם",AddressPointX: null,AddressPointY: null,CategoryId: 2,CleverAgent: true,DateFound: "2019-07-12T00:00:00",LostOrFound: true,ProductDescription: null,ProductId: 1,ProductName: "ספריה",UserId: 6,WasDone: false
   }
   getFounds(userId:number)
   {
     return this.http.get(url+"api/product/getFounds?userId=" + userId);
+    //AddressDescription: null,AddressPointX: 32.084932,AddressPointY: 34.835226000000034,CategoryId: 3,CleverAgent: false,DateFound: "2019-06-20T00:00:00",LostOrFound: false,ProductDescription: null,ProductId: 3,ProductName: "כסא מטבח",UserId: 6,WasDone: false,
   }
   
   getProduct(ProductId:number){
     return this.http.get(url+"api/product/getProduct?ProductId=" + ProductId);
+    //AddressDescription: "אשל אברהם"תAddressPointX: null,AddressPointY: null,CategoryId: 2,CleverAgent: true,DateFound: "2019-07-12T00:00:00",LostOrFound: true,ProductDescription: null,ProductId: 1,ProductName: "ספריה",UserId: 6,WasDone: false
   }
   getMatches(ProductId:number){
     return this.http.get(url+"api/product/getMatches?ProductId=" + ProductId);
@@ -92,6 +95,7 @@ export class ProductService {
       }
     });
     return this.googleAddress;
+    //בעל התניא 16 בני ברק ישראל
   }
 }
 

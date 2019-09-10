@@ -1,8 +1,8 @@
 <form #EditCategoryForm="ngForm" (ngSubmit)="OnEditCategory()">
   <label>שם קטגוריה: </label>
   <input type="text" #CategoryName name="CategoryName" [(ngModel)]="category.CategoryName" required/><br><br>
-  <label *ngIf="fatherNameCategory!=null">קטגורית אב:</label>
-  <label *ngIf="fatherNameCategory!=null">{{fatherNameCategory}}</label>
+  <label *ngIf="category.ParentId!=null">קטגורית אב:</label>
+  <label *ngIf="category.ParentId!=null">{{fatherNameCategory}}</label><br>
   <input type="submit" value="ערוך"  [disabled]="!EditCategoryForm.form.valid "> 
 </form>
 <button  [routerLink]="['/category-list']">חזרה לרשימת הקטגוריות</button>

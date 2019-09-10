@@ -14,11 +14,20 @@ export class ParameterService {
   constructor(private http: HttpClient) { }
   getParametersOfCategory(categoryId:number) {
     return this.http.get(url + "api/parameter/getParametersOfCategory?categoryId=" + categoryId);
+    //מתאים לשליחת categoryId=2
+    //CategoryId: 1,ParameterId: 1,ParameterName: "צבע",
+    //CategoryId: 2,ParameterId: 3,ParameterName: "רוחב",
+    //CategoryId: 2,ParameterId: 6,ParameterName: "סוג עץ"
   }
   getAllParameters() {
     return this.http.get(url + "api/parameter/getAllParameters");
+    //CategoryId: 3,ParameterId: 2,ParameterName: "אורך",
+     //CategoryId: 1,ParameterId: 1,ParameterName: "צבע",
+    //CategoryId: 2,ParameterId: 3,ParameterName: "רוחב",
+    //CategoryId: 2,ParameterId: 6,ParameterName: "סוג עץ"
   }
   getProductParametersWithValue(ProductId: number) {
     return this.http.get(url+ `api/parameter/getParametersWithValue/${ProductId}`);
+    //צבע:חום,רוחב:3 מטר,סוג עץ:פורמייקה
   }
 }

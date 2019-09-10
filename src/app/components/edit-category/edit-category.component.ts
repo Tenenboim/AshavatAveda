@@ -26,17 +26,20 @@ export class EditCategoryComponent implements OnInit {
       if(res)
       {
         this.category=res;
-      }
-    },(err:HttpErrorResponse)=>{
-      console.log(err);
-    });
-    if (this.category.ParentId != null)
-      this.CategoryService.getCategoryNameByID(this.category.ParentId).subscribe((res: string) => {
+        if (this.category.ParentId )
+     { 
+       this.CategoryService.getCategoryNameByID(this.category.ParentId).subscribe((res: string) => {
         if (res)
          { this.fatherNameCategory = res;}
       }, (err: HttpErrorResponse) => {
         console.log(err);
       });
+    }
+      }
+    },(err:HttpErrorResponse)=>{
+      console.log(err);
+    });
+    
   }
 
   OnEditCategory(myForm: NgForm) {

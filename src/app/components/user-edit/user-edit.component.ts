@@ -22,18 +22,7 @@ userId:number;
     //this.user=JSON.parse(params['user']);
     });
    }
-OnUpdateEditUser()
-{
-this.UserService.UpdateEditUser(this.user).subscribe((res:User)=>{
-if(res)
-{
-//console.log(res);
-//this.router.navigate(['/user-list']);
-}
-});
-}
- 
-ngOnInit() {
+   ngOnInit() {
     this.UserService.getUserById(this.userId).subscribe((res:User)=>{
       if(res)
       {
@@ -43,5 +32,18 @@ ngOnInit() {
       console.log(err);
     });
   }
+OnUpdateEditUser()
+{
+this.UserService.UpdateEditUser(this.user).subscribe((res:User)=>{
+if(res)
+{
+if(+localStorage.getItem("RoleId")==3)
+this.router.navigate(['/user-list']);
+this.router.navigate(['/user-list']);
+}
+});
+}
+ 
+
 
 }
