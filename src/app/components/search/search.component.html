@@ -1,0 +1,72 @@
+<!-- <form  #myForm="ngForm" (submit)="search">
+    <label for="lostOrFound"> בחר סוג:</label>
+    <select [(ngModel)]="product.LostOrFound" name="lostOrFound">
+      <option [ngValue]="true">אבידה</option>
+      <option [ngValue]="false">מציאה</option>
+    </select>
+  <label>קטגוריה</label>
+  <select name="CategoryId"  [(ngModel)]="product.CategoryId">
+      <ng-container *ngFor="let item of categories">
+        <option [value]="item.CategoryId">{{item.CategoryName}}</option>
+      </ng-container>
+    </select>
+    <label>שם מוצר:</label>
+    <input type="text" [(ngModel)]="product.ProductName" name="productName"><br><br>
+    <label>מקום האבידה/מציאה:</label>
+    <br>
+    <input type="radio" name="kindOfPlace" value="googleMap" (change)="getCurrentLocation()"
+      [(ngModel)]="kindOfPlace.options" />
+    <label>ציין מיקום במפה</label><br>
+    <input type="radio" name="kindOfPlace" value="otherPlace"  [(ngModel)]="kindOfPlace.options">
+    <label>אחר</label><br>
+  
+    <ng-container *ngIf="kindOfPlace.options == 'googleMap'">
+  
+      <mat-form-field
+       class="googleInput">
+        <input matInput matGoogleMapsAutocomplete 
+        [country]="il" 
+        [ngModel]="googleAddress"
+         name="googleAddress"
+          (onAutocompleteSelected)="onAutocompleteSelected($event)" 
+          (onLocationSelected)="onLocationSelected($event)">
+      </mat-form-field>
+  
+      <agm-map 
+      [latitude]="latitude" 
+          [longitude]="longitude"
+       [zoom]="zoom"
+        (mapClick)="addMarker($event.coords.lat, $event.coords.lng)">
+  
+        <agm-marker 
+        [latitude]="latitude" 
+        [longitude]="longitude"
+         [opacity]="1" 
+         [markerDraggable]="true" 
+         (markerClick)="selectMarker($event)"
+          (dragEnd)="markerDragEnd($event)">
+          <!-- markerDraggable - האם אפשר לגרור -->
+        </agm-marker>
+        <agm-rectangle 
+        [north]="max('lat')" 
+        [east]="max('lng')" 
+        [south]="min('lat')"
+         [west]="min('lng')">
+        </agm-rectangle>
+      </agm-map>
+      <hr>
+       <!-- <p *ngIf="selectedMarker">
+        Lat: {{ selectedMarker.lat }} Lng: {{ selectedMarker.lng }}
+      </p> -->
+  
+    </ng-container>
+  
+  
+    <div *ngIf="kindOfPlace.options=='otherPlace'">
+      <label>כתוב מיקום:</label>
+      <input type="text" name="otherPlace" [(ngModel)]="product.AddressDescription">
+    </div>
+    <div class="field-wrapper">
+        <button type="button" mat-flat-button color="accent" routerLink="/home" >חזרה לדף הבית</button>
+      </div>
+</form> -->
