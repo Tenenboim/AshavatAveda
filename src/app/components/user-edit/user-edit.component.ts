@@ -4,7 +4,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {NgForm}from '@angular/forms';
 import {UserService} from 'src/app/services/user.service';
 import { HttpErrorResponse } from '@angular/common/http';
-
+import { FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-user-edit',
@@ -15,6 +15,7 @@ export class UserEditComponent implements OnInit {
 public roleId:number=+localStorage.getItem('RoleId');;
 user:User=new User();
 userId:number;
+email = new FormControl('', [Validators.required, Validators.email]);
   constructor(public route: ActivatedRoute,private UserService:UserService,public router:Router) {
     route.params.subscribe(params=>{
       this.userId=params['userId'];
@@ -32,6 +33,12 @@ userId:number;
       console.log(err);
     });
   }
+  getErrorMessage() {
+    return this.email.hasError('required') ? 'אתה חייב להכניס ערך' :
+      this.email.hasError('email') ? 'מייל לא תקין' :
+        '';
+  }
+
 OnUpdateEditUser()
 {
 this.UserService.UpdateEditUser(this.user).subscribe((res:User)=>{

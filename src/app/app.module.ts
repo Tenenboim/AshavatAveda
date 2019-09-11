@@ -27,6 +27,7 @@ import { EditCategoryComponent } from './components/edit-category/edit-category.
 import { ParameterListComponent } from './components/parameter-list/parameter-list.component';
 import { SpinnerComponent } from './components/spinner/spinner.component';
 import { MatchesComponent } from './components/matches/matches.component';
+import { HomeComponent } from './components/home/home.component';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import { MatchesComponent } from './components/matches/matches.component';
     EditCategoryComponent,
     ParameterListComponent,
     SpinnerComponent,
-    MatchesComponent
+    MatchesComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
