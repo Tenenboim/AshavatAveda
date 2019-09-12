@@ -3,11 +3,15 @@
 class="mat-elevation-z8">
   <th >שם</th>
   <th >טלפון</th>
+  <th>תפקיד</th>
 <ng-container *ngFor="let user of users">
   <tr > 
-      <!-- *ngIf="roleId != 1" -->
+      <!-- *ngIf="roleId != 3" -->
+
   <td [routerLink]="['/user-info',user.UserId]">{{user.UserFullName}}</td>
   <td [routerLink]="['/user-info',user.UserId]">{{user.UserPhone}}</td>
+  <td [routerLink]="['/user-info',user.UserId]">{{user.RoleId}}</td>
+  <!--להפוך לשם מנהל/משתמש במקום מספר-->
   <td>
     <button *ngIf="user.RoleId!=1" [routerLink]="['/user-edit',user.UserId]">עריכת משתמש</button>
     <!-- שליחת אוביקט -->

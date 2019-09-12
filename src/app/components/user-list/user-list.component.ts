@@ -3,6 +3,7 @@ import { User } from 'src/app/models/user';
 import {UserService} from '../../services/user.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import {animate, state, style, transition, trigger} from '@angular/animations';
+import {Roles}from 'src/app/models/roles';
 
 @Component({
   selector: 'app-user-list',
