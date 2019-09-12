@@ -10,8 +10,9 @@
   <label>תת קטגוריה:</label>
   <select name="SubCategoryId" (change)="onCategoryChanged(false)" [(ngModel)]="product.CategoryId" min="1">
     <option value="-1" hidden>בחר:</option>
-    <ng-container *ngFor="let item of categories">
+    <ng-container *ngFor="let item of categories" >
       <option *ngIf="item.ParentId == mainCategoryID" [value]="item.CategoryId">{{item.CategoryName}}</option>
+      <!-- הודעה שחובה לבחור תת קטגוריה -->
     </ng-container>
   </select>
 
@@ -130,7 +131,7 @@
     <option value="true" >אני מעונין לקבל עדכונים למייל שלי</option>
     <option value="false">אני לא מעונין לקבל עדכונים למייל שלי</option><br><br>
   </select> -->
-  <button type="submit">שמירה</button>
+  <button type="submit" [disabled]="!myForm.form.valid">שמירה</button>
 </form>
 <button *ngIf="UserRoleId!=3" [routerLink]="['/every-one-options']">חזרה לעמוד האפשרויות</button>
 <button *ngIf="UserRoleId==3" [routerLink]="['/user-info/',this.product.UserId]">חזרה לעמוד האישי</button>
