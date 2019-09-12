@@ -9,6 +9,7 @@ const url = "http://localhost:65051/";
   providedIn: 'root'
 })
 export class ProductService {
+  
   googleAddress: string;
 
   constructor(private http: HttpClient,private ngZone: NgZone) { }
@@ -72,6 +73,10 @@ export class ProductService {
   }
   getMatches(ProductId:number){
     return this.http.get(url+"api/product/getMatches?ProductId=" + ProductId);
+    
+  }
+  getMatchesWithoutParameters(product: Product) {
+    this.http.post(url+"api/product/getMatchesWithoutParameters", product)
   }
   getAddressByCoord(lat: number, lng: number) {
     console.log("lat= "+lat+" long= "+lng);
@@ -97,5 +102,6 @@ export class ProductService {
     return this.googleAddress;
     //בעל התניא 16 בני ברק ישראל
   }
+  
 }
 

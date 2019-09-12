@@ -1,4 +1,4 @@
-<!-- <form  #myForm="ngForm" (submit)="search">
+<form  #myForm="ngForm" (submit)="search">
     <label for="lostOrFound"> בחר סוג:</label>
     <select [(ngModel)]="product.LostOrFound" name="lostOrFound">
       <option [ngValue]="true">אבידה</option>
@@ -21,7 +21,7 @@
     <label>אחר</label><br>
   
     <ng-container *ngIf="kindOfPlace.options == 'googleMap'">
-  
+  <!-- צריך לדאוג שמקום הההשלמה יהיה בולט שפה אפשר למלא כתובת -->
       <mat-form-field
        class="googleInput">
         <input matInput matGoogleMapsAutocomplete 
@@ -66,7 +66,12 @@
       <label>כתוב מיקום:</label>
       <input type="text" name="otherPlace" [(ngModel)]="product.AddressDescription">
     </div>
+    <label>תאריך אבידה/מציאה:</label>
+    <input type="date" [(ngModel)]="product.DateFound" name="Date"><br><br>
+  <div class="field-wrapper">
+    <button type="submit" mat-flat-button color="accent" >חפש התאמות</button>
+  </div>
     <div class="field-wrapper">
         <button type="button" mat-flat-button color="accent" routerLink="/home" >חזרה לדף הבית</button>
       </div>
-</form> -->
+</form> 

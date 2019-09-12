@@ -62,9 +62,8 @@ export class ProductComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.latitude = 32.084932;
     this.longitude = 34.835226000000034;
-
-
     this.zoom = 12;
+    
     this.NewParameterOfProduct.push(new ParameterOfProduct());
     this.NewParameters.push(new Parameter());
     //ברירת מחדל לא יהיה סוכן החכם 
