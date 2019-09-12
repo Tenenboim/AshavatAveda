@@ -2,12 +2,12 @@
 
   <label>שם: </label>
   <input type="text" #userFullName name="userFullName" [(ngModel)]="user.userFullName" required/><br><br>
-  <label>תעודת זהות:</label>
+  <label>סיסמא:</label>
   <input type="password" #userPassword name="userPassword" [(ngModel)]="user.userPassword" required/><br><br>
   <label>כתובת: </label>
   <input type="text" name="userAddress" [(ngModel)]="user.userAddress" /><br><br>
   <label>מייל: </label>
-  <input type="email" name="userEmail" [(ngModel)]="user.userEmail" /><br><br>
+  <input type="email" name="userEmail"    [(ngModel)]="user.userEmail" /><br><br>
   <label>טלפון: </label>
   <input type="text" #userPhone name="userPhone" [(ngModel)]="user.UserPhone" ng-model="noneSelected" required/><br><br>
   <!-- <div *ngIf="roleId != null && roleId == 1" >

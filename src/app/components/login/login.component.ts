@@ -59,7 +59,7 @@ export class LoginComponent implements OnInit {
       Swal.fire({
         type: 'error',
         title: 'נכשל!',
-        text: 'הטלפון נכון? נסה שוב...',
+        text: 'אחד או יותר מהפרטים שגויים-נסה שוב...',
       })
 
     });

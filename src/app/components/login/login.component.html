@@ -31,13 +31,13 @@ class="alert alert-danger">
     <!-- הודעות ולידציה -->
     <div class="btn-wrapper">
 
-      <button type="submit" mat-flat-button color="accent">כניסה</button>
+      <button type="submit" mat-flat-button color="accent" [disabled]="!myForm.form.valid">כניסה</button>
     </div>
+    
     <div class="field-wrapper">
 
       <button type="button" mat-flat-button color="accent" routerLink="/home" >חזרה לדף הבית</button>
     </div>
-
 
   </form>
 </div>

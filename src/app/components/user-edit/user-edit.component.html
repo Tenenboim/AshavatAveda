@@ -1,15 +1,17 @@
  <form #myForm="ngForm" (ngSubmit)="OnUpdateEditUser()">
     <label>שם: </label>
-    <input type="text" name="UserFullName" [(ngModel)]=user.UserFullName  value="{{user.UserFullName}}"/><br><br>
-    <label>תעודת זהות:</label>
-    <input type="number" name="UserPassword" [(ngModel)]="user.UserPassword" value="{{user.UserPassword}}" /><br><br>
+    <input type="text" name="UserFullName" [(ngModel)]=user.UserFullName required value="{{user.UserFullName}}"/><br><br>
+  <!-- להוסיף הודעה חובה לציין שם -->
+    <label>סיסמא:</label>
+    <input type="number" name="UserPassword" [(ngModel)]="user.UserPassword" required value="{{user.UserPassword}}" /><br><br>
     <label>כתובת: </label>
     <input type="text" name="UserAddress" [(ngModel)]="user.UserAddress" value="{{user.UserAddress}}"/><br><br>
     <label>מייל: </label>
     <input type="email" name="UserEmail" [(ngModel)]="user.UserEmail" value="{{user.UserEmail}}"/><br><br>
-  
+  <!--ולידציה על המייל-->
     <label>טלפון: </label>
-    <input type="text" name="UserPhone" [(ngModel)]="user.UserPhone" value="{{user.UserPhone}}"/><br><br>
+    <input type="text" name="UserPhone" [(ngModel)]="user.UserPhone" required value="{{user.UserPhone}}"/><br><br>
+    
     <div *ngIf="roleId != null && roleId == 1" >
       <input type="radio" name="RoleId" [value]="2" [(ngModel)]="user.RoleId"  />
       <!-- [checked]="u.RoleId==2?'checked':''" -->
@@ -18,7 +20,7 @@
       <input type="radio" name="RoleId" [value]="3" [(ngModel)]="user.RoleId" />
       <label for="3" >משתמש רגיל</label>
     </div>
-    <input type="submit" value="שמור" >
+    <input type="submit" value="שמור" [disabled]="!myForm.form.valid">
  </form>
  <button *ngIf="roleId==3" [routerLink]="['/user-info/'+user.UserId]">חזרה לדף האישי</button>
 <button *ngIf="roleId!=3" [routerLink]="['/user-list']">חזרה לרשימת המשתמשים</button>

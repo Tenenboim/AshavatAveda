@@ -19,13 +19,10 @@ import { ParameterListComponent} from '../components/parameter-list/parameter-li
 import {MyGuardGuard} from '../my-guard.guard';
 import{MatchesComponent} from '../components/matches/matches.component';
 import{HomeComponent}from '../components/home/home.component';
-import{SearchComponent}from '../components/search/search.component';
-
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent }, 
   { path: 'login', component: LoginComponent },
-  { path: 'search', component: SearchComponent },
  // { path: 'login/:isManager', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   {path: 'user-info/:userId', component: UserInfoComponent, children: [
