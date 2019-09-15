@@ -19,10 +19,13 @@ import { ParameterListComponent} from '../components/parameter-list/parameter-li
 import {MyGuardGuard} from '../my-guard.guard';
 import{MatchesComponent} from '../components/matches/matches.component';
 import{HomeComponent}from '../components/home/home.component';
+import{SearchComponent}from '../components/search/search.component';
+
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent }, 
   { path: 'login', component: LoginComponent },
+  { path: 'search', component: SearchComponent },  
  // { path: 'login/:isManager', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   {path: 'user-info/:userId', component: UserInfoComponent, children: [
@@ -42,7 +45,7 @@ const routes: Routes = [
   { path: 'add-category', component: AddCategoryComponent,canActivate:[MyGuardGuard] },
   { path: 'edit-category/:categoryId', component: EditCategoryComponent },
   { path: 'parameter-list', component: ParameterListComponent ,canActivate:[MyGuardGuard]},
-  { path: 'matches/:productId', component: MatchesComponent }
+  { path: 'matches/:product', component: MatchesComponent }
  
 ];
 

@@ -1,4 +1,4 @@
-<form  #myForm="ngForm" (submit)="search">
+<form  #myForm="ngForm"(submit)="search(myForm)">
     <label for="lostOrFound"> בחר סוג:</label>
     <select [(ngModel)]="product.LostOrFound" name="lostOrFound">
       <option [ngValue]="true">אבידה</option>
@@ -44,9 +44,9 @@
          [opacity]="1" 
          [markerDraggable]="true" 
          (markerClick)="selectMarker($event)"
-          (dragEnd)="markerDragEnd($event)"-->
+          (dragEnd)="markerDragEnd($event)"></agm-marker>
           <!-- markerDraggable - האם אפשר לגרור -->
-        </agm-marker>
+        
         <agm-rectangle 
         [north]="max('lat')" 
         [east]="max('lng')" 

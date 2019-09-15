@@ -28,6 +28,7 @@ import { ParameterListComponent } from './components/parameter-list/parameter-li
 import { SpinnerComponent } from './components/spinner/spinner.component';
 import { MatchesComponent } from './components/matches/matches.component';
 import { HomeComponent } from './components/home/home.component';
+import { SearchComponent } from './components/search/search.component';
 
 @NgModule({
   declarations: [
@@ -51,7 +52,8 @@ import { HomeComponent } from './components/home/home.component';
     ParameterListComponent,
     SpinnerComponent,
     MatchesComponent,
-    HomeComponent
+    HomeComponent,
+    SearchComponent
   ],
   imports: [
     BrowserModule,

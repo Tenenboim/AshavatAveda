@@ -76,7 +76,7 @@ export class ProductService {
     
   }
   getMatchesWithoutParameters(product: Product) {
-    this.http.post(url+"api/product/getMatchesWithoutParameters", product)
+    return this.http.post(url+"api/product/getMatchesWithoutParameters", product)
   }
   getAddressByCoord(lat: number, lng: number) {
     console.log("lat= "+lat+" long= "+lng);

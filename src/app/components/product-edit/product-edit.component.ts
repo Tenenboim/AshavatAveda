@@ -68,7 +68,7 @@ export class ProductEditComponent implements OnInit {
   }
 
   getProduct() {
-    this.UserService.showSpinner = true;
+    //this.UserService.showSpinner = true;
     this.ProductService.getProduct(this.productId).subscribe((res: Product) => {
       if (res) {
         this.product = res;
@@ -99,14 +99,14 @@ export class ProductEditComponent implements OnInit {
     else
       this.kindOfPlace.options = 'googleMap';
 
-
+      this.getAllCategories();
     setTimeout(() => {
 
       //this.getAddressByCoord(this.latitude, this.longitude);
       this.googleAddress = this.ProductService.getAddressByCoord(this.latitude, this.longitude);
 
     }, 2000);
-    this.getAllCategories();
+   
   }
   getAllCategories() {
     this.CategoryService.getAllCategories().subscribe((res: Category[]) => {
@@ -130,7 +130,7 @@ export class ProductEditComponent implements OnInit {
       if (res.length) {
         this.parametersOfCategoryWithParametersOfProduct = res;
       }
-      this.UserService.showSpinner = false;
+    //  this.UserService.showSpinner = false;
     }, (err: HttpErrorResponse) => {
       console.log(err);
     });
