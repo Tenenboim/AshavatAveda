@@ -10,6 +10,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 })
 export class CategoryComponent implements OnInit {
   categories:Category[]=[];
+  subCategories:Category[]=[];
   public roleId:number;
   constructor(public categoryService:CategoryService) { }
 
@@ -23,5 +24,14 @@ export class CategoryComponent implements OnInit {
         console.log(err.error.Message);
     });  
   }
-
+  openSubCategory(categoryId:number)
+  {
+    this.subCategories=[];
+    this.categories.forEach(p=>{
+      if(p.ParentId&&p.ParentId==categoryId)
+      {
+        this.subCategories.push(p);
+      }
+    });
+  }
 }

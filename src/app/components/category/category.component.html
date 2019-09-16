@@ -1,16 +1,29 @@
 <table>
   <th>קוד</th>
   <th>שם</th>
-  <th>קוד קטגורית אב</th>
-<tr *ngFor="let category of categories"> 
+  <!-- <th>קוד קטגורית אב</th> -->
+<ng-container *ngFor="let category of categories">
+<tr *ngIf="!category.ParentId"> 
   <td >{{category.CategoryId}}</td>
   <td >{{category.CategoryName}}</td>
- <td>{{category.ParentId}}</td>
- <td *ngIf="roleId==1">
+ <td><!--  *ngIf="roleId==1"> -->
   <button [routerLink]="['/edit-category',category.CategoryId]">עריכה</button>
 </td>
+<td> <button (click)="openSubCategory(category.CategoryId)">תתי קטגוריות</button></td>
+
 </tr>
+</ng-container>
 </table>
 <button *ngIf="roleId==1" routerLink="/add-category">להוספת קטגוריה </button>
 <button [routerLink]="['/every-one-options']">חזרה לעמוד קודם</button>
-
+<table *ngIf="subCategories.length">
+  <th>קוד</th>
+  <th>שם</th> 
+<tr *ngFor="let subCategory of subCategories"> 
+  <td >{{subCategory.CategoryId}}</td>
+  <td >{{subCategory.CategoryName}}</td>
+ <td >
+  <button [routerLink]="['/edit-category',subCategory.CategoryId]">עריכה</button>
+</td>
+</tr>
+</table>

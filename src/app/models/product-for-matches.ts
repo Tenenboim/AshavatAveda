@@ -11,6 +11,7 @@ public AddressDescription?:string,
 public DateFound?:Date,
 public LostOrFound ?:boolean,
 public UserPhone?: string,
-public UserEmail?: string
+public UserEmail?: string,
+public UserAddress?: string,
 ){}
 }

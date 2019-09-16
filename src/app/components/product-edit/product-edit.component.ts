@@ -13,7 +13,7 @@ import { NgForm } from '@angular/forms';
 import { ParametersWithParametersOfProduct } from 'src/app/models/parametersOfCategoryWithParametersOfProduct';
 import { Location, Appearance } from '@angular-material-extensions/google-maps-autocomplete';
 import PlaceResult = google.maps.places.PlaceResult;
-
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-product-edit',
@@ -56,7 +56,7 @@ export class ProductEditComponent implements OnInit {
 
   constructor(private route: ActivatedRoute, private CategoryService: CategoryService, private ParameterService: ParameterService
     , private ProductService: ProductService, private UserService: UserService,
-    private ngZone: NgZone) {
+    private ngZone: NgZone,private router:Router) {
     this.route.params.subscribe(params => {
       this.productId = params['productId'];
     });
@@ -204,11 +204,11 @@ export class ProductEditComponent implements OnInit {
     this.ProductService.EditProduct(this.product,
       this.ParameterOfProductAreExist,
       this.NewParameters,
-      this.NewParameterOfProduct, this.parametersOfCategoryWithParametersOfProduct).subscribe((res: Product[]) => {
+      this.NewParameterOfProduct, this.parametersOfCategoryWithParametersOfProduct).subscribe((res: Product) => {
         if (res != null) {
-          console.log(res);
-        }
-
+          this.ProductService.product=res;
+          this.router.navigate(['/matches']);
+         }
       }, (err: HttpErrorResponse) => {
         console.log(err);
       });

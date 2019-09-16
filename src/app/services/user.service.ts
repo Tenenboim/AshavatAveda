@@ -5,7 +5,10 @@ const url = "http://localhost:65051/";
 @Injectable({
   providedIn: 'root'
 })
-export class UserService { 
+export class UserService {
+  sendMail(formValues:string[]) {
+    return true;
+  } 
   //spinner המשתנה הבא מיועד ל 
   //בשביל איקון שעובד כל עוד הקומפוננטה לא נבנתה
   showSpinner:boolean=false;

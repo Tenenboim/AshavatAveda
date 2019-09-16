@@ -160,7 +160,7 @@ export class ProductComponent implements OnInit, AfterViewInit {
       this.product.AddressPointX = null;
       this.product.AddressPointY = null;
     }
-    this.ProductService.AddProduct(this.product, this.ParameterOfProductAreExist, this.NewParameters, this.NewParameterOfProduct).subscribe((res: number) => {
+    this.ProductService.AddProduct(this.product, this.ParameterOfProductAreExist, this.NewParameters, this.NewParameterOfProduct).subscribe((res: Product) => {
       if (res != null) {
         Swal.fire({
           type: 'success',
@@ -168,7 +168,8 @@ export class ProductComponent implements OnInit, AfterViewInit {
           showConfirmButton: false,
           timer: 1000
         })  
-        this.router.navigate(['/matches',res]); }
+        this.ProductService.product=res;
+        this.router.navigate(['/matches']); }
 
     }, (err: HttpErrorResponse) => {
       console.log(err);

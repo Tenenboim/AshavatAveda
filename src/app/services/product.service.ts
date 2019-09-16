@@ -11,7 +11,7 @@ const url = "http://localhost:65051/";
 export class ProductService {
   
   googleAddress: string;
-
+product:Product = new Product();
   constructor(private http: HttpClient,private ngZone: NgZone) { }
 
    AddProduct(product:Product,ParameterOfProductAreExist:ParameterOfProduct[]

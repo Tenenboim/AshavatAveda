@@ -1,17 +1,24 @@
+<h1>ההתאמות שנמצאו לחיפושך</h1>
 <table *ngIf="matches.length>0">
-  <th>שם</th>
+  <th>שם החפץ</th>
   <th>קטגוריה</th>
-  <th> תאריך האבידה/המציאה</th>
   <th>שם בעל החפץ</th>
   <th>טלפון בעל החפץ</th>
-  <th> מייל בעל החפץ</th>
-  <th>מקום</th>
-<tr *ngFor="let product of matches"> 
+  <th *ngIf="flag==true">תאור החפץ</th>
+  <th *ngIf="flag==true">תאריך</th>
+  <th *ngIf="flag==true">מקום</th>
+  <th></th>
+<tr *ngFor="let product of matches; let index = index"> 
   <td>{{product.ProductName}}</td>
-  <td >{{product.ProductDescription}}</td>
-  <td >{{product.AddressDescription}}</td>
-  <td>
-    <button [routerLink]="['/product-edit',product.ProductId]">עריכה</button>
+  <td>{{product.CategoryName}}</td>
+  <td>{{product.UserName}}</td>
+  <td>{{product.UserPhone}}</td>
+  <td *ngIf="flag==true">{{product.ProductDescription}}</td>
+  <td *ngIf="flag==true">{{product.DateFound}}</td>
+  <td *ngIf="flag==true">{{addressesProduct[index]}}</td>
+  <td></td>
+  <td *ngIf="product.UserEmail!=null&&allowToSendEmail==true">
+    <button (click)="sendEmail(product.UserEmail)">שלח מייל לבעל החפץ</button>
 </td>
 </tr>
 </table>

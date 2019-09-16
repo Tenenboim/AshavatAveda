@@ -5,6 +5,8 @@ import{User} from '../../../../models/user';
 import{Product} from '../../../../models/product';
 import { HttpErrorResponse } from '@angular/common/http';
 import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
+
 @Component({
   selector: 'app-user-losts',
   templateUrl: './user-losts.component.html',
@@ -13,7 +15,8 @@ import Swal from 'sweetalert2';
 export class UserLostsComponent implements OnInit {
   user:User=new User();
   losts:Product[]=[];
-  constructor(route: ActivatedRoute,private ProductService:ProductService) {
+  constructor(route: ActivatedRoute,private ProductService:ProductService
+    ,private router:Router) {
     route.parent.params.subscribe(params=>{
     this.user.UserId=params['userId'];
     });
@@ -36,5 +39,8 @@ export class UserLostsComponent implements OnInit {
       
     });
   }
-
+  showMatches(product:Product){
+    this.ProductService.product=product;
+    this.router.navigate(['/matches']);
+  }
 }

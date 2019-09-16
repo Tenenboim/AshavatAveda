@@ -9,7 +9,6 @@ import Swal from 'sweetalert2';
 import { Location, Appearance } from '@angular-material-extensions/google-maps-autocomplete';
 import PlaceResult = google.maps.places.PlaceResult;
 import { NgForm } from '@angular/forms';
-
 @Component({
   selector: 'app-search',
   templateUrl: './search.component.html',
@@ -79,7 +78,8 @@ export class SearchComponent implements OnInit {
       this.product.AddressPointX = null;
       this.product.AddressPointY = null;
     }
-    this.router.navigate(['/matches',this.product]);
+    this.ProductService.product=this.product;
+    this.router.navigate(['/matches']);
     // this.ProductService.getMatchesWithoutParameters(this.product).subscribe((res: Product[]) => {
     //   if (res != null) {
     //    {}

@@ -45,7 +45,7 @@ const routes: Routes = [
   { path: 'add-category', component: AddCategoryComponent,canActivate:[MyGuardGuard] },
   { path: 'edit-category/:categoryId', component: EditCategoryComponent },
   { path: 'parameter-list', component: ParameterListComponent ,canActivate:[MyGuardGuard]},
-  { path: 'matches/:product', component: MatchesComponent }
+  { path: 'matches', component: MatchesComponent }
  
 ];
 

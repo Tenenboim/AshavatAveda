@@ -8,11 +8,16 @@ import { Observable } from 'rxjs';
 export class MyGuardGuard implements CanActivate {
   roleId: number = +localStorage.getItem("RoleId");
   userId: number = +localStorage.getItem("UserID");
+  parameter:number=0;
+
   constructor(private router: Router) { }
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
-    switch (next.routeConfig.path) {
+      if(next.url[1])
+      this.parameter=Number(next.url[1].path);
+
+      switch (next.url[0].toString()) {
       case 'every-one-options':
         {
           if (this.roleId == 3) {
