@@ -1,4 +1,8 @@
-<input type="button" [routerLink]="['/login']" value="כניסה"/>
-<input type="button" [routerLink]="['/register']" value="הרשמה"/>
-<input type="button"[routerLink]="['/search']" value="חיפוש במאגר"/>
+
+<div class="body-wrapper">
+  <img class="img" src="../../../assets/logo.png" alt="">
+<button mat-flat-button class="home-btn home-right-btn" color="primary"  [routerLink]="['/login']" >כניסה</button>
+<button mat-flat-button class="home-btn home-center-btn" color="primary"  [routerLink]="['/register']" >הרשמה</button>
+<button mat-flat-button class="home-btn home-left-btn" color="primary" [routerLink]="['/search']" >חיפוש במאגר</button>
+</div>
 

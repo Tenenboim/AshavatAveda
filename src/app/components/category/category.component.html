@@ -1,29 +1,87 @@
-<table>
+<div class="body-wrapper">
+  <img class="img" src="../../../assets/logo.png" alt="" />
+
+  <div class="tables-wrapper">
+    <div class="example-table-container">
+      <table mat-table [dataSource]="getParentCategories()" class="mat-elevation-z8">
+
+        <ng-container matColumnDef="code">
+          <th mat-header-cell *matHeaderCellDef>קוד</th>
+          <td mat-cell *matCellDef="let element">{{ element.CategoryId }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef>שם</th>
+          <td mat-cell *matCellDef="let element">{{ element.CategoryName }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="edit">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let element">
+            <button class="category-action" mat-flat-button color="primary"
+              [routerLink]="['/edit-category', element.CategoryId]">
+              עריכה
+            </button>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="subCategory">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let element">
+            <button class="category-action" mat-flat-button color="primary"
+              (click)="openSubCategory(element.CategoryId)">
+              תתי קטגוריות
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+    </div>
+
+    <div class="example-table-container" *ngIf="subCategories.length">
+      <table mat-table [dataSource]="subCategories" class="mat-elevation-z8">
+
+        <ng-container matColumnDef="code">
+          <th mat-header-cell *matHeaderCellDef>קוד</th>
+          <td mat-cell *matCellDef="let element">{{ element.CategoryId }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef>שם</th>
+          <td mat-cell *matCellDef="let element">{{ element.CategoryName }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="edit">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let element">
+            <button class="category-action" mat-flat-button color="primary"
+              [routerLink]="['/edit-category', element.CategoryId]">
+              עריכה
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumnsSubC"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumnsSubC"></tr>
+      </table>
+    </div>
+  </div>
+
+  <button mat-flat-button color="primary" *ngIf="roleId == 1" routerLink="/add-category">להוספת קטגוריה</button>
+  <button mat-flat-button color="primary" [routerLink]="['/every-one-options']">חזרה לעמוד קודם</button>
+  <!-- <table *ngIf="subCategories.length">
   <th>קוד</th>
   <th>שם</th>
-  <!-- <th>קוד קטגורית אב</th> -->
-<ng-container *ngFor="let category of categories">
-<tr *ngIf="!category.ParentId"> 
-  <td >{{category.CategoryId}}</td>
-  <td >{{category.CategoryName}}</td>
- <td><!--  *ngIf="roleId==1"> -->
-  <button [routerLink]="['/edit-category',category.CategoryId]">עריכה</button>
-</td>
-<td> <button (click)="openSubCategory(category.CategoryId)">תתי קטגוריות</button></td>
-
-</tr>
-</ng-container>
-</table>
-<button *ngIf="roleId==1" routerLink="/add-category">להוספת קטגוריה </button>
-<button [routerLink]="['/every-one-options']">חזרה לעמוד קודם</button>
-<table *ngIf="subCategories.length">
-  <th>קוד</th>
-  <th>שם</th> 
-<tr *ngFor="let subCategory of subCategories"> 
-  <td >{{subCategory.CategoryId}}</td>
-  <td >{{subCategory.CategoryName}}</td>
- <td >
-  <button [routerLink]="['/edit-category',subCategory.CategoryId]">עריכה</button>
-</td>
-</tr>
-</table>
+  <tr *ngFor="let subCategory of subCategories">
+    <td>{{ subCategory.CategoryId }}</td>
+    <td>{{ subCategory.CategoryName }}</td>
+    <td>
+      <button  [routerLink]="['/edit-category', subCategory.CategoryId]">
+        עריכה
+      </button>
+    </td>
+  </tr>
+</table> -->
+</div>

@@ -2,7 +2,7 @@
 {
     background: url('../assets/back.jpg');
     height: 98vh;
-    background-size: contain;
+    background-size: cover;
     background-repeat: no-repeat;
     display: flex;
     justify-content: center;

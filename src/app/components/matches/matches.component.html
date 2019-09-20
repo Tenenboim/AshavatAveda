@@ -1,25 +1,120 @@
-<h1>ההתאמות שנמצאו לחיפושך</h1>
-<table *ngIf="matches.length>0">
-  <th>שם החפץ</th>
-  <th>קטגוריה</th>
-  <th>שם בעל החפץ</th>
-  <th>טלפון בעל החפץ</th>
-  <th *ngIf="flag==true">תאור החפץ</th>
-  <th *ngIf="flag==true">תאריך</th>
-  <th *ngIf="flag==true">מקום</th>
-  <th></th>
-<tr *ngFor="let product of matches; let index = index"> 
-  <td>{{product.ProductName}}</td>
-  <td>{{product.CategoryName}}</td>
-  <td>{{product.UserName}}</td>
-  <td>{{product.UserPhone}}</td>
-  <td *ngIf="flag==true">{{product.ProductDescription}}</td>
-  <td *ngIf="flag==true">{{product.DateFound}}</td>
-  <td *ngIf="flag==true">{{addressesProduct[index]}}</td>
-  <td></td>
-  <td *ngIf="product.UserEmail!=null&&allowToSendEmail==true">
-    <button (click)="sendEmail(product.UserEmail)">שלח מייל לבעל החפץ</button>
-</td>
-</tr>
-</table>
+<!-- <div class="body-wrapper">
+  <img class="img" src="../../../assets/logo.png" alt="" />
+  <h1 class="page-title">ההתאמות שנמצאו לחיפושך</h1>
+  <table *ngIf="matches.length > 0">
+    <th>שם החפץ</th>
+    <th>קטגוריה</th>
+    <th>שם בעל החפץ</th>
+    <th>טלפון בעל החפץ</th>
+    <th *ngIf="flag == true">תאור החפץ</th>
+    <th *ngIf="flag == true">תאריך</th>
+    <th *ngIf="flag == true">מקום</th>
+    <th></th>
+    <tr *ngFor="let product of matches; let index = index">
+      <td>{{ product.ProductName }}</td>
+      <td>{{ product.CategoryName }}</td>
+      <td>{{ product.UserName }}</td>
+      <td>{{ product.UserPhone }}</td>
+      <td *ngIf="flag == true">{{ product.ProductDescription }}</td>
+      <td *ngIf="flag == true">{{ product.DateFound }}</td>
+      <td *ngIf="flag == true">{{ addressesProduct[index] }}</td>
+      <td></td>
+      <td *ngIf="product.UserEmail != null && allowToSendEmail == true">
+        <button (click)="sendEmail(product.UserEmail)">
+          שלח מייל לבעל החפץ
+        </button>
+      </td>
+    </tr>
+  </table>
+</div> -->
 
+<div class="body-wrapper">
+  <img class="img" src="../../../assets/logo.png" alt="" />
+  <h1 class="page-title">ההתאמות שנמצאו לחיפושך</h1>
+
+  <div class="tables-wrapper" *ngIf="matches.length">
+    <div class="example-table-container">
+      <table mat-table [dataSource]="matches" class="mat-elevation-z8">
+        <ng-container matColumnDef="product">
+          <th mat-header-cell *matHeaderCellDef>שם החפץ</th>
+          <td mat-cell *matCellDef="let element">{{ element.ProductName }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="category">
+          <th mat-header-cell *matHeaderCellDef>קטגוריה</th>
+          <td mat-cell *matCellDef="let element">{{ element.CategoryName }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef>שם בעל החפץ</th>
+          <td mat-cell *matCellDef="let element">{{ element.UserName }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="phone">
+          <th mat-header-cell *matHeaderCellDef>טלפון בעל החפץ</th>
+          <td mat-cell *matCellDef="let element">{{ element.UserPhone }}</td>
+        </ng-container>
+        <ng-container matColumnDef="description">
+          <th mat-header-cell *matHeaderCellDef>
+            תאור החפץ
+          </th>
+
+          <td mat-cell *matCellDef="let element">
+            {{ element.ProductDescription }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="date">
+          <th mat-header-cell *matHeaderCellDef>תאריך</th>
+          <td mat-cell *matCellDef="let element">
+            <ng-container *ngIf="flag == true"
+              >{{ element.DateFound | date: "dd/MM/yyyy" }}
+            </ng-container>
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="place">
+          <th mat-header-cell *matHeaderCellDef>
+            טלפון בעל החפץ
+          </th>
+          <td mat-cell *matCellDef="let element">
+            {{ addressesProduct[index] }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="email">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let element">
+            <ng-container
+              *ngIf="element.UserEmail != null && allowToSendEmail == true"
+            >
+              <button
+                class="category-action"
+                mat-flat-button
+                color="primary"
+                (click)="sendEmail(product.UserEmail)"
+              >
+                שלח מייל לבעל החפץ
+              </button>
+            </ng-container>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+      </table>
+    </div>
+  </div>
+
+  <button
+    mat-flat-button
+    color="primary"
+    *ngIf="roleId == 1"
+    routerLink="/add-category"
+  >
+    להוספת קטגוריה
+  </button>
+  <button mat-flat-button color="primary" [routerLink]="['/every-one-options']">
+    חזרה לעמוד קודם
+  </button>
+</div>

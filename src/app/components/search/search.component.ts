@@ -1,25 +1,27 @@
-import { Component, OnInit } from '@angular/core';
-import { Product } from '../../models/product';
-import { ProductService } from '../../services/product.service';
-import { CategoryService } from '../../services/category.service';
-import { Category } from '../../models/category';
-import { HttpErrorResponse } from '@angular/common/http';
-import { Router } from '@angular/router';
-import Swal from 'sweetalert2';
-import { Location, Appearance } from '@angular-material-extensions/google-maps-autocomplete';
+import { Component, OnInit } from "@angular/core";
+import { Product } from "../../models/product";
+import { ProductService } from "../../services/product.service";
+import { CategoryService } from "../../services/category.service";
+import { Category } from "../../models/category";
+import { HttpErrorResponse } from "@angular/common/http";
+import { Router } from "@angular/router";
+import Swal from "sweetalert2";
+import {
+  Location,
+  Appearance
+} from "@angular-material-extensions/google-maps-autocomplete";
 import PlaceResult = google.maps.places.PlaceResult;
-import { NgForm } from '@angular/forms';
+import { NgForm } from "@angular/forms";
 @Component({
-  selector: 'app-search',
-  templateUrl: './search.component.html',
-  styleUrls: ['./search.component.css'],
-  styles: ['agm-map { height: 400px; /* height is required */ }']
+  selector: "app-search",
+  templateUrl: "./search.component.html",
+  styleUrls: ["./search.component.css"]
 })
 export class SearchComponent implements OnInit {
   product: Product = new Product();
   roleId = +localStorage.getItem("RoleId");
   categories: Category[] = [];
-  kindOfPlace = { options: '' };
+  kindOfPlace = { options: "" };
   // agm
   // link: https://alligator.io/angular/angular-google-maps/
   lat = 43.879078;
@@ -28,7 +30,7 @@ export class SearchComponent implements OnInit {
   zoom = 2;
   markers = [
     // These are all just random coordinates from https://www.random.org/geographic-coordinates/
-    { lat: 22.33159, lng: 105.63233, alpha: 1 },
+    { lat: 22.33159, lng: 105.63233, alpha: 1 }
   ];
 
   // mat  googlemap autocomplete
@@ -37,49 +39,56 @@ export class SearchComponent implements OnInit {
   public longitude: number;
   googleAddress: string;
 
-
-  constructor(private ProductService: ProductService, private CategoryService: CategoryService,private router:Router) { }
+  constructor(
+    private ProductService: ProductService,
+    private CategoryService: CategoryService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this.product.LostOrFound = false;
-    this.kindOfPlace.options = 'googleMap';
+    this.kindOfPlace.options = "googleMap";
     this.latitude = 32.084932;
     this.longitude = 34.835226000000034;
     this.zoom = 12;
 
-    this.CategoryService.getAllAllCategories().subscribe((res: Category[]) => {
-      if (res) {
-        this.categories = res;
-        //עדכון שבהתחלה הקטגוריה תהיה כל הקטגוריות
-        this.product.CategoryId = 1;
+    this.CategoryService.getAllAllCategories().subscribe(
+      (res: Category[]) => {
+        if (res) {
+          this.categories = res;
+          //עדכון שבהתחלה הקטגוריה תהיה כל הקטגוריות
+          this.product.CategoryId = 1;
+        }
+      },
+      (err: HttpErrorResponse) => {
+        Swal.fire({
+          type: "error",
+          title: "בעיה זמנית- אין קטגוריות!",
+          text: "נסה שוב מאוחר יותר..."
+        });
       }
-    }, (err: HttpErrorResponse) => {
-      Swal.fire({
-        type: 'error',
-        title: 'בעיה זמנית- אין קטגוריות!',
-        text: 'נסה שוב מאוחר יותר...',
-      })
-    })
+    );
     setTimeout(() => {
-      this.googleAddress = this.ProductService.getAddressByCoord(31.046051, 34.85161199999993);
+      this.googleAddress = this.ProductService.getAddressByCoord(
+        31.046051,
+        34.85161199999993
+      );
       // this.getAddressByCoord(31.046051, 34.85161199999993);
-
     }, 2000);
   }
   search(myForm: NgForm) {
     // הבדיקה הבאה גורמת שלמוצר יהיה או תאור על מקום האבידה-אחר
     //או נקודות במפה ולא שתיהם יחד
-    if (this.kindOfPlace.options == 'googleMap') {
+    if (this.kindOfPlace.options == "googleMap") {
       this.product.AddressPointX = this.latitude;
       this.product.AddressPointY = this.longitude;
       this.product.AddressDescription = null;
-    }
-    else {
+    } else {
       this.product.AddressPointX = null;
       this.product.AddressPointY = null;
     }
-    this.ProductService.product=this.product;
-    this.router.navigate(['/matches']);
+    this.ProductService.product = this.product;
+    this.router.navigate(["/matches"]);
     // this.ProductService.getMatchesWithoutParameters(this.product).subscribe((res: Product[]) => {
     //   if (res != null) {
     //    {}
@@ -89,7 +98,7 @@ export class SearchComponent implements OnInit {
     //   console.log(err);
     // });
   }
-    //מכאן כל הפונקציות הקשורות למפות גוגל ולהשלמה אוטומטית של גוגל
+  //מכאן כל הפונקציות הקשורות למפות גוגל ולהשלמה אוטומטית של גוגל
   private setCurrentPosition() {
     /*    if ('geolocation' in navigator) {
          navigator.geolocation.getCurrentPosition((position) => {
@@ -102,11 +111,11 @@ export class SearchComponent implements OnInit {
   //   this.markers.push({ lat, lng, alpha: 0.4 });
   // }
 
-  max(coordType: 'lat' | 'lng'): number {
+  max(coordType: "lat" | "lng"): number {
     return Math.max(...this.markers.map(marker => marker[coordType]));
   }
 
-  min(coordType: 'lat' | 'lng'): number {
+  min(coordType: "lat" | "lng"): number {
     return Math.min(...this.markers.map(marker => marker[coordType]));
   }
 
@@ -115,19 +124,24 @@ export class SearchComponent implements OnInit {
       lat: event.latitude,
       lng: event.longitude
     };
-   // this.getAddressByCoord(event.latitude, event.longitude);
-   this.googleAddress= this.ProductService.getAddressByCoord(event.latitude, event.longitude);
+    // this.getAddressByCoord(event.latitude, event.longitude);
+    this.googleAddress = this.ProductService.getAddressByCoord(
+      event.latitude,
+      event.longitude
+    );
   }
 
   markerDragEnd(event) {
-  // this.getAddressByCoord(event.coords.lat, event.coords.lng);
-  this.googleAddress=this.ProductService.getAddressByCoord(event.coords.lat, event.coords.lng);
-
+    // this.getAddressByCoord(event.coords.lat, event.coords.lng);
+    this.googleAddress = this.ProductService.getAddressByCoord(
+      event.coords.lat,
+      event.coords.lng
+    );
   }
 
   // getAddressByCoord(lat: number, lng: number) {
   //   console.log("lat= "+lat+" long= "+lng);
-    
+
   //   let geocoder = new google.maps.Geocoder;
   //   let latlng = new google.maps.LatLng(lat, lng);
 
@@ -151,18 +165,17 @@ export class SearchComponent implements OnInit {
   // googleMap autocomplete
 
   onAutocompleteSelected(result: PlaceResult) {
-    console.log('onAutocompleteSelected: ', result);
+    console.log("onAutocompleteSelected: ", result);
   }
 
   onLocationSelected(location: Location) {
-    console.log('onLocationSelected: ', location);
+    console.log("onLocationSelected: ", location);
     this.latitude = location.latitude;
     this.longitude = location.longitude;
     this.zoom = 17;
   }
 
-  ngAfterViewInit(): void {
-  }
+  ngAfterViewInit(): void {}
 
   getCurrentLocation() {
     //   /*    setTimeout(() => {
@@ -200,5 +213,4 @@ export class SearchComponent implements OnInit {
   preventSubmit(event) {
     event.preventDefault();
   }
-  
 }

@@ -1,24 +1,80 @@
-<div class="body-wrapper"> <table mat-table 
- multiTemplateDataRows
-class="mat-elevation-z8">
-  <th >שם</th>
-  <th >טלפון</th>
-  <th>תפקיד</th>
-<ng-container *ngFor="let user of users">
-  <tr > 
-      <!-- *ngIf="roleId != 3" -->
+<div class="body-wrapper">
+  <img class="img" src="../../../assets/logo.png" alt="" />
+  <div class="page-title">רשימת משתמשים</div>
+  <div class="example-table-container">
+    <table mat-table [dataSource]="users" class="mat-elevation-z8">
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef>שם</th>
+        <td
+          mat-cell
+          *matCellDef="let element"
+          [routerLink]="['/user-info', element.UserId]"
+        >
+          {{ element.UserFullName }}
+        </td>
+      </ng-container>
 
-  <td [routerLink]="['/user-info',user.UserId]">{{user.UserFullName}}</td>
-  <td [routerLink]="['/user-info',user.UserId]">{{user.UserPhone}}</td>
-  <td [routerLink]="['/user-info',user.UserId]">{{user.RoleId}}</td>
-  <!--להפוך לשם מנהל/משתמש במקום מספר-->
-  <td>
-    <button *ngIf="user.RoleId!=1" [routerLink]="['/user-edit',user.UserId]">עריכת משתמש</button>
-    <!-- שליחת אוביקט -->
-    <!-- <button *ngIf="user.RoleId!=1" [routerLink]="['/user-edit',user | json]">עריכת משתמש</button> -->
-  </td>
- </tr>
-</ng-container>
-</table>
-<button [routerLink]="['/every-one-options']">חזרה לעמוד קודם</button>
+      <ng-container matColumnDef="phone">
+        <th mat-header-cell *matHeaderCellDef>טלפון</th>
+        <td
+          mat-cell
+          *matCellDef="let element"
+          [routerLink]="['/user-info', element.UserId]"
+        >
+          {{ element.UserPhone }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="password">
+        <th mat-header-cell *matHeaderCellDef>סיסמא</th>
+        <td
+          mat-cell
+          *matCellDef="let element"
+          [routerLink]="['/user-info', element.UserId]"
+        >
+          {{ element.UserPassword }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="role">
+        <th mat-header-cell *matHeaderCellDef>קוד תפקיד</th>
+        <td
+          mat-cell
+          *matCellDef="let element"
+          [routerLink]="['/user-info', element.UserId]"
+        >
+          {{ element.RoleId }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="edit">
+        <th mat-header-cell *matHeaderCellDef></th>
+        <td mat-cell *matCellDef="let element">
+          <button
+            *ngIf="element.RoleId != 1"
+            class="category-action"
+            mat-flat-button
+            color="primary"
+            [routerLink]="['/user-edit', element.UserId]"
+          >
+            עריכה
+          </button>
+        </td>
+      </ng-container>
+
+      <!--להפוך לשם מנהל/משתמש במקום מספר-->
+      <!-- שליחת אוביקט -->
+      <!-- <button *ngIf="user.RoleId!=1" [routerLink]="['/user-edit',user | json]">עריכת משתמש</button> -->
+      <tr mat-header-row *matHeaderRowDef="displayColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayColumns"></tr>
+    </table>
+  </div>
+  <button
+    class="btn"
+    mat-flat-button
+    color="primary"
+    [routerLink]="['/every-one-options']"
+  >
+    חזרה לעמוד קודם
+  </button>
 </div>

@@ -6,9 +6,7 @@ const url = "http://localhost:65051/";
   providedIn: 'root'
 })
 export class UserService {
-  sendMail(formValues:string[]) {
-    return true;
-  } 
+ 
   //spinner המשתנה הבא מיועד ל 
   //בשביל איקון שעובד כל עוד הקומפוננטה לא נבנתה
   showSpinner:boolean=false;
@@ -47,4 +45,8 @@ export class UserService {
   {
     return this.http.post(url+"api/user/AddMokdanOrUser",user);
   }
+  sendMail(formValues: string[]) {
+    return this.http.post(url + "api/user/sendEmailToProductUser", formValues);
+  } 
+
 }

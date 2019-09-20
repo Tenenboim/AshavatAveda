@@ -19,8 +19,6 @@ import { Router } from '@angular/router';
   selector: 'app-product-edit',
   templateUrl: './product-edit.component.html',
   styleUrls: ['./product-edit.component.css'],
-  styles: ['agm-map { height: 400px; /* height is required */ }']
-
 })
 export class ProductEditComponent implements OnInit {
 
@@ -79,6 +77,7 @@ export class ProductEditComponent implements OnInit {
       console.log(err);
     });
   }
+
   makeThingsForgoogleMapsAndParameters() {
     if (this.product.AddressPointX != null) {
       this.latitude = this.product.AddressPointX;
@@ -90,8 +89,6 @@ export class ProductEditComponent implements OnInit {
       this.longitude = 34.835226000000034;
       this.zoom = 12;
     }
-    this.NewParameterOfProduct.push(new ParameterOfProduct());
-    this.NewParameters.push(new Parameter());
 
     //של מיקום המציאה להיות לפי מה שנבחר כלומר מפות או תאור מיקום חופשי checkbox השורות הבאות גורמות ל
     if (this.product.AddressDescription)

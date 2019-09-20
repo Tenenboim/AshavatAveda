@@ -1,77 +1,153 @@
-<form  #myForm="ngForm"(submit)="search(myForm)">
-    <label for="lostOrFound"> בחר סוג:</label>
-    <select [(ngModel)]="product.LostOrFound" name="lostOrFound">
-      <option [ngValue]="true">אבידה</option>
-      <option [ngValue]="false">מציאה</option>
-    </select>
-  <label>קטגוריה</label>
-  <select name="CategoryId"  [(ngModel)]="product.CategoryId">
-      <ng-container *ngFor="let item of categories">
-        <option [value]="item.CategoryId">{{item.CategoryName}}</option>
-      </ng-container>
-    </select>
-    <label>שם מוצר:</label>
-    <input type="text" [(ngModel)]="product.ProductName" name="productName"><br><br>
-    <label>מקום האבידה/מציאה:</label>
-    <br>
-    <input type="radio" name="kindOfPlace" value="googleMap" (change)="getCurrentLocation()"
-      [(ngModel)]="kindOfPlace.options" />
-    <label>ציין מיקום במפה</label><br>
-    <input type="radio" name="kindOfPlace" value="otherPlace"  [(ngModel)]="kindOfPlace.options">
-    <label>אחר</label><br>
-  
-    <ng-container *ngIf="kindOfPlace.options == 'googleMap'">
-  <!-- צריך לדאוג שמקום הההשלמה יהיה בולט שפה אפשר למלא כתובת -->
-      <mat-form-field
-       class="googleInput">
-        <input matInput matGoogleMapsAutocomplete 
-        [country]="il" 
-        [ngModel]="googleAddress"
-         name="googleAddress"
-          (onAutocompleteSelected)="onAutocompleteSelected($event)" 
-          (onLocationSelected)="onLocationSelected($event)">
-      </mat-form-field>
-  
-      <agm-map 
-      [latitude]="latitude" 
-          [longitude]="longitude"
-       [zoom]="zoom"
-        (mapClick)="addMarker($event.coords.lat, $event.coords.lng)">
-  
-        <agm-marker 
-        [latitude]="latitude" 
-        [longitude]="longitude"
-         [opacity]="1" 
-         [markerDraggable]="true" 
-         (markerClick)="selectMarker($event)"
-          (dragEnd)="markerDragEnd($event)"></agm-marker>
-          <!-- markerDraggable - האם אפשר לגרור -->
-        
-        <agm-rectangle 
-        [north]="max('lat')" 
-        [east]="max('lng')" 
-        [south]="min('lat')"
-         [west]="min('lng')">
-        </agm-rectangle>
-      </agm-map>
-      <hr>
-       <!-- <p *ngIf="selectedMarker">
+<div class="body-wrapper">
+  <img class="img" src="../../../assets/logo.png" alt="" />
+  <form
+    dir="rtl"
+    #myForm="ngForm"
+    (submit)="ngForm.valid ? search(myForm) : ''"
+    (keydown.enter)="$event.preventDefault()"
+  >
+    <div class="form">
+      <div class="right-section section">
+        <mat-form-field appearance="outline" color="primary">
+          <mat-label for="lostOrFound"> בחר סוג:</mat-label>
+          <mat-select [(ngModel)]="product.LostOrFound" name="lostOrFound">
+            <mat-option [value]="true">אבידה</mat-option>
+            <mat-option [value]="false">מציאה</mat-option>
+          </mat-select>
+        </mat-form-field>
+        <br />
+        <mat-form-field appearance="outline" color="primary">
+          <mat-select name="CategoryId" [(ngModel)]="product.CategoryId">
+            <mat-label>קטגוריה</mat-label>
+            <ng-container *ngFor="let item of categories">
+              <mat-option [value]="item.CategoryId">{{
+                item.CategoryName
+              }}</mat-option>
+            </ng-container>
+          </mat-select>
+        </mat-form-field>
+        <br />
+      </div>
+
+      <div class="center-section section">
+        <mat-form-field appearance="outline" color="primary">
+          <mat-label>שם מוצר:</mat-label>
+          <input
+            matInput
+            type="text"
+            [(ngModel)]="product.ProductName"
+            name="productName"
+          />
+        </mat-form-field>
+        <mat-form-field appearance="outline" color="primary">
+          <mat-label>תאריך אבידה/מציאה:</mat-label>
+          <input
+            matInput
+            type="date"
+            [(ngModel)]="product.DateFound"
+            name="Date"
+          />
+        </mat-form-field>
+        <br />
+      </div>
+
+      <div class="left-section section">
+        <label>מקום האבידה/מציאה:</label>
+        <mat-radio-group [(ngModel)]="kindOfPlace.options" name="ggg">
+          <mat-radio-button
+            color="primary"
+            name="kindOfPlace"
+            value="googleMap"
+          >
+            ציין מיקום במפה
+          </mat-radio-button>
+
+          <mat-radio-button
+            color="primary"
+            name="kindOfPlacegg"
+            value="otherPlace"
+            >אחר</mat-radio-button
+          >
+        </mat-radio-group>
+        <br />
+        <ng-container *ngIf="kindOfPlace.options == 'googleMap'">
+          <!-- צריך לדאוג שמקום הההשלמה יהיה בולט שפה אפשר למלא כתובת -->
+          <mat-form-field
+            class="googleInput"
+            appearance="outline"
+            color="primary"
+          >
+            <input
+              matInput
+              matGoogleMapsAutocomplete
+              [country]="il"
+              [ngModel]="googleAddress"
+              name="googleAddress"
+              (onAutocompleteSelected)="onAutocompleteSelected($event)"
+              (onLocationSelected)="onLocationSelected($event)"
+            />
+          </mat-form-field>
+
+          <div class="map-wrapper">
+            <agm-map
+              [latitude]="latitude"
+              [longitude]="longitude"
+              [zoom]="zoom"
+              (mapClick)="addMarker($event.coords.lat, $event.coords.lng)"
+            >
+              <agm-marker
+                [latitude]="latitude"
+                [longitude]="longitude"
+                [opacity]="1"
+                [markerDraggable]="true"
+                (markerClick)="selectMarker($event)"
+                (dragEnd)="markerDragEnd($event)"
+              ></agm-marker>
+              <!-- markerDraggable - האם אפשר לגרור -->
+
+              <agm-rectangle
+                [north]="max('lat')"
+                [east]="max('lng')"
+                [south]="min('lat')"
+                [west]="min('lng')"
+              >
+              </agm-rectangle>
+            </agm-map>
+          </div>
+          <!-- <p *ngIf="selectedMarker">
         Lat: {{ selectedMarker.lat }} Lng: {{ selectedMarker.lng }}
       </p> -->
-  
-    </ng-container>
-  
-  
-    <div *ngIf="kindOfPlace.options=='otherPlace'">
-      <label>כתוב מיקום:</label>
-      <input type="text" name="otherPlace" [(ngModel)]="product.AddressDescription">
-    </div>
-    <label>תאריך אבידה/מציאה:</label>
-    <input type="date" [(ngModel)]="product.DateFound" name="Date"><br><br>
-  <div class="field-wrapper">
-    <button type="submit" mat-flat-button color="accent" >חפש התאמות</button>
-  </div>
-    <div class="field-wrapper">
-        <button type="button" mat-flat-button color="accent" routerLink="/home" >חזרה לדף הבית</button>
+        </ng-container>
+
+        <div *ngIf="kindOfPlace.options == 'otherPlace'">
+          <mat-form-field appearance="outline" color="primary">
+            <mat-label>כתוב מיקום:</mat-label>
+            <input
+              matInput
+              type="text"
+              name="otherPlace"
+              [(ngModel)]="product.AddressDescription"
+            />
+          </mat-form-field>
+        </div>
       </div>
-</form> 
+    </div>
+    <div>
+      <div class="field-wrapper">
+        <button type="submit" mat-flat-button color="primary">
+          חפש התאמות
+        </button>
+      </div>
+      <div class="field-wrapper">
+        <button
+          type="button"
+          mat-flat-button
+          color="primary"
+          routerLink="/home"
+        >
+          חזרה לדף הבית
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

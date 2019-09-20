@@ -1,137 +1,406 @@
-<!-- (keydown.enter)="$event.preventDefault()"גורם שרק לחיצה על כפתור שלח יערוך את המוצר -->
-<form dir="rtl" #myForm="ngForm" (submit)="OnAddProduct(myForm)" (keydown.enter)="$event.preventDefault()">
-  <label>קטגוריה:</label>
-  <select name="CategoryId" (change)="onCategoryChanged(true)" [(ngModel)]="mainCategoryID">
-    <ng-container *ngFor="let item of categories">
-      <option *ngIf="!item.ParentId" [value]="item.CategoryId">{{item.CategoryName}}</option>
-    </ng-container>
-  </select>
-  <br>
-  <label>תת קטגוריה:</label>
-  <select name="SubCategoryId" (change)="onCategoryChanged(false)" [(ngModel)]="product.CategoryId" min="1">
-    <option value="-1" hidden>בחר:</option>
-    <ng-container *ngFor="let item of categories" >
-      <option *ngIf="item.ParentId == mainCategoryID" [value]="item.CategoryId">{{item.CategoryName}}</option>
-      <!-- הודעה שחובה לבחור תת קטגוריה -->
-    </ng-container>
-  </select>
+<div class="body-wrapper">
+  <img class="img" src="../../../assets/logo.png" alt="" />
 
-  <br>
+  <!-- (keydown.enter)="$event.preventDefault()"גורם שרק לחיצה על כפתור שלח יערוך את המוצר -->
 
-  <label>שם מוצר:</label>
-  <input type="text" [(ngModel)]="product.ProductName" name="productName" required #ProductName="ngModel"><br><br>
-  <!-- הודעות ולידציה -->
-  <div *ngIf="ProductName.invalid && (ProductName.dirty || ProductName.touched)"
-    class="alert alert-danger">
+  <form
+    dir="rtl"
+    #myForm="ngForm"
+    (submit)="ngForm.valid ? OnAddProduct(myForm) : ''"
+    (keydown.enter)="$event.preventDefault()"
+  >
+    <div class="form">
+      <div class="right-section section">
+        <mat-form-field appearance="outline" color="primary">
+          <mat-label>קטגוריה:</mat-label>
+          <mat-select
+            name="CategoryId"
+            (change)="onCategoryChanged(true)"
+            [(ngModel)]="mainCategoryID"
+          >
+            <ng-container *ngFor="let item of categories">
+              <mat-option *ngIf="!item.ParentId" [value]="item.CategoryId">
+                {{ item.CategoryName }}</mat-option
+              >
+            </ng-container>
+          </mat-select>
+        </mat-form-field>
+        <br />
+        <mat-form-field appearance="outline" color="primary">
+          <mat-label>תת קטגוריה:</mat-label>
+          <mat-select
+            required
+            name="SubCategoryId"
+            (change)="onCategoryChanged(false)"
+            [(ngModel)]="product.CategoryId"
+            #subCategory="ngModel"
+          >
+            <ng-container *ngFor="let item of categories">
+              <mat-option
+                *ngIf="item.ParentId == mainCategoryID"
+                [value]="item.CategoryId"
+              >
+                {{ item.CategoryName }}
+              </mat-option>
+            </ng-container>
+          </mat-select>
+          <mat-error
+            *ngIf="
+              subCategory.invalid &&
+              (subCategory.dirty || subCategory.touched) &&
+              subCategory.errors.required
+            "
+            class="alert alert-danger"
+          >
+            חובה לבחור תת קטגוריה!</mat-error
+          >
+        </mat-form-field>
+        <br />
 
-  <div *ngIf="ProductName.errors.required">
-    חובה לציין שם מוצר
-  </div>
-</div>
-  <label>תאור:</label>
-  <input type="text" [(ngModel)]="product.ProductDescription" name="productDescription"><br><br>
-  <!-- לא חייבתי לבחור משתמש כלשהוא -->
-  <select *ngIf="UserList!=null" [(ngModel)]="product.UserId" name="UserId" >
-    <option value="-1" hidden>בחר את בעל החפץ:</option>
-    <ng-container *ngFor="let item of UserList">
-      <option [value]="item.UserId">ת"ז:{{item.UserPassword}}, שם: {{item.UserFullName}}</option>
-    </ng-container>
-  </select>
-  <br>
-  <label>מקום האבידה/מציאה:</label>
-  <br>
-  <input type="radio" name="kindOfPlace" value="googleMap" (change)="getCurrentLocation()"
-    [(ngModel)]="kindOfPlace.options" />
-  <label>ציין מיקום במפה</label><br>
-  <input type="radio" name="kindOfPlace" value="otherPlace"  [(ngModel)]="kindOfPlace.options">
-  <label>אחר</label><br>
+        <mat-form-field appearance="outline" color="primary">
+          <mat-label>שם מוצר:</mat-label>
+          <input
+            required
+            matInput
+            type="text"
+            [(ngModel)]="product.ProductName"
+            name="productName"
+            #ProductName="ngModel"
+          />
+          <mat-error
+            *ngIf="
+              ProductName.invalid && (ProductName.dirty || ProductName.touched)
+            "
+            class="alert alert-danger"
+          >
+            חובה לציין שם מוצר
+          </mat-error>
+        </mat-form-field>
+        <br />
 
-  <ng-container *ngIf="kindOfPlace.options == 'googleMap'">
+        <mat-form-field appearance="outline" color="primary">
+          <mat-label>תאור:</mat-label>
+          <input
+            matInput
+            type="text"
+            [(ngModel)]="product.ProductDescription"
+            name="productDescription"
+          />
+        </mat-form-field>
+        <br />
+        <mat-form-field
+          *ngIf="UserList != null"
+          appearance="outline"
+          color="primary"
+        >
+          <mat-label>בחר את בעל החפץ:</mat-label>
+          <mat-select
+            required
+            [(ngModel)]="product.UserId"
+            name="UserId"
+            #productUser="ngModel"
+          >
+            <ng-container *ngFor="let item of UserList">
+              <mat-option [value]="item.UserId">
+                סיסמא:{{ item.UserPassword }}, שם: {{ item.UserFullName }}
+              </mat-option>
+            </ng-container>
+          </mat-select>
+          <mat-error
+            *ngIf="
+              productUser.invalid &&
+              (productUser.dirty || productUser.touched) &&
+              productUser.errors.required
+            "
+            class="alert alert-danger"
+          >
+            חובה לבחור את בעל החפץ
+          </mat-error>
+        </mat-form-field>
+        <br />
+      </div>
+      <!-- <label>מקום האבידה/מציאה:</label>
+    <br />
+    <input
+      type="radio"
+      name="kindOfPlace"
+      value="googleMap"
+      (change)="getCurrentLocation()"
+      [(ngModel)]="kindOfPlace.options"
+    />
+    <label>ציין מיקום במפה</label><br />
+    <input
+      type="radio"
+      name="kindOfPlace"
+      value="otherPlace"
+      [(ngModel)]="kindOfPlace.options"
+    />
+    <label>אחר</label><br />
 
-    <mat-form-field
-     class="googleInput">
-      <input matInput matGoogleMapsAutocomplete 
-      [country]="il" 
-      [ngModel]="googleAddress"
-       name="googleAddress"
-        (onAutocompleteSelected)="onAutocompleteSelected($event)" 
-        (onLocationSelected)="onLocationSelected($event)">
-    </mat-form-field>
+    <ng-container *ngIf="kindOfPlace.options == 'googleMap'">
+      <mat-form-field class="googleInput">
+        <input
+          matInput
+          matGoogleMapsAutocomplete
+          [country]="il"
+          [ngModel]="googleAddress"
+          name="googleAddress"
+          (onAutocompleteSelected)="onAutocompleteSelected($event)"
+          (onLocationSelected)="onLocationSelected($event)"
+        />
+      </mat-form-field>
 
-    <agm-map 
-    [latitude]="latitude" 
+      <agm-map
+        [latitude]="latitude"
         [longitude]="longitude"
-     [zoom]="zoom"
-      (mapClick)="addMarker($event.coords.lat, $event.coords.lng)">
+        [zoom]="zoom"
+        (mapClick)="addMarker($event.coords.lat, $event.coords.lng)"
+      >
+        <agm-marker
+          [latitude]="latitude"
+          [longitude]="longitude"
+          [opacity]="1"
+          [markerDraggable]="true"
+          (markerClick)="selectMarker($event)"
+          (dragEnd)="markerDragEnd($event)"
+        >
+          markerDraggable - האם אפשר לגרור
+        </agm-marker>
+        <agm-rectangle
+          [north]="max('lat')"
+          [east]="max('lng')"
+          [south]="min('lat')"
+          [west]="min('lng')"
+        >
+        </agm-rectangle>
+      </agm-map>
+      <hr />
+        
+   
+    </ng-container>
 
-      <agm-marker 
-      [latitude]="latitude" 
-      [longitude]="longitude"
-       [opacity]="1" 
-       [markerDraggable]="true" 
-       (markerClick)="selectMarker($event)"
-        (dragEnd)="markerDragEnd($event)">
-        <!-- markerDraggable - האם אפשר לגרור -->
-      </agm-marker>
-      <agm-rectangle 
-      [north]="max('lat')" 
-      [east]="max('lng')" 
-      [south]="min('lat')"
-       [west]="min('lng')">
-      </agm-rectangle>
-    </agm-map>
-    <hr>
-     <!-- <p *ngIf="selectedMarker">
-      Lat: {{ selectedMarker.lat }} Lng: {{ selectedMarker.lng }}
-    </p> -->
+    <div *ngIf="kindOfPlace.options == 'otherPlace'">
+      <label>כתוב מיקום:</label>
+      <input
+        type="text"
+        name="otherPlace"
+        [(ngModel)]="product.AddressDescription"
+      />
+    </div> -->
+      <div class="center-section section">
+        <mat-form-field appearance="outline" color="primary">
+          <mat-label>תאריך אבידה/מציאה:</mat-label>
+          <input
+            required
+            matInput
+            type="date"
+            [(ngModel)]="product.DateFound"
+            name="Date"
+            #Date="ngModel"
+          />
+          <mat-error
+            *ngIf="Date.invalid && (Date.dirty || Date.touched)"
+            class="alert alert-danger"
+          >
+            חובה לציין תאריך
+          </mat-error>
+        </mat-form-field>
+        <br />
 
-  </ng-container>
+        <mat-form-field appearance="outline" color="primary">
+          <mat-label> בחר סוג:</mat-label>
+          <mat-select
+            required
+            [(ngModel)]="product.LostOrFound"
+            name="lostOrFound"
+          >
+            <mat-option [value]="true">אבידה</mat-option>
+            <mat-option [value]="false">מציאה</mat-option>
+          </mat-select>
+          <mat-error>שדה חובה</mat-error>
+        </mat-form-field>
+        <br />
+        <div *ngIf="parametersAreExist != null">
+          <!-- פרמטרים קיימים: -->
+          <div *ngFor="let item of parametersAreExist; let i = index">
+            <mat-form-field appearance="outline" color="primary">
+              <mat-label>{{ item.ParameterName }}</mat-label>
+              <input
+                matInput
+                name="parameterExistValue-{{ i }}"
+                [(ngModel)]="ParameterOfProductAreExist[i].Value"
+                type="text"
+              />
+            </mat-form-field>
+            <br /><br />
+          </div>
+        </div>
+        <div>
+          <button
+            mat-button
+            color="primary"
+            type="button"
+            (click)="addParameter()"
+          >
+            הוספת פרמטר חדש+
+          </button>
+          <!-- <label>הוספת פרמטר חדש: </label> -->
 
-
-  <div *ngIf="kindOfPlace.options=='otherPlace'">
-    <label>כתוב מיקום:</label>
-    <input type="text" name="otherPlace" [(ngModel)]="product.AddressDescription">
-  </div>
-  <label>תאריך אבידה/מציאה:</label>
-  <input type="date" [(ngModel)]="product.DateFound" name="Date"><br><br>
-  <label for="lostOrFound"> בחר סוג:</label>
-  <select [(ngModel)]="product.LostOrFound" name="lostOrFound">
-    <option [ngValue]="true">אבידה</option>
-    <option [ngValue]="false">מציאה</option>
-
-  </select>
-  <div *ngIf="parametersAreExist!=null">
-    <!-- פרמטרים קיימים: -->
-    <div *ngFor="let item of parametersAreExist; let i = index">
-      <label>{{item.ParameterName}}</label>
-      <input name="parameterExistValue-{{i}}" [(ngModel)]="ParameterOfProductAreExist[i].Value" type="text">
-
-      <br><br>
-    </div>
-  </div>
-  <div>
-    <button type="button" (click)="addParameter()">+</button>
-    <label>הוספת פרמטר חדש: </label>
-    <div *ngFor="let item of NewParameters; let index = index">
-      <label for="NewParameters-{{index}}-Name">שם</label>
-      <input name="NewParameters-{{index}}-Name" [(ngModel)]="item.ParameterName" type="text">
-
-      <label for="NewParametersd-{{index}}-Value">ערך</label>
-      <input name="NewParameters-{{index}}-Value" [(ngModel)]="NewParameterOfProduct[index].Value" type="text"> <br>
-
-    </div>
-  </div>
-
-  <!-- הגדרת סוכן חכם   -->
-  <!-- <label>בחר אפשרות:</label> -->
-
-  <input type="checkbox" name="cleverAgent" [(ngModel)]="product.CleverAgent">
-  <label>אני מעונין לקבל עדכונים למייל שלי</label>
-  <!-- <select name="test-r" [(ngModel)]="product.CleverAgent" >
+          <div *ngFor="let item of NewParameters; let index = index">
+            <mat-form-field appearance="outline" color="primary">
+              <mat-label>שם</mat-label>
+              <input
+                matInput
+                color="primary"
+                name="NewParameters-{{ index }}-Name"
+                [(ngModel)]="item.ParameterName"
+                type="text"
+              />
+            </mat-form-field>
+            <mat-form-field appearance="outline" color="primary">
+              <mat-label>ערך</mat-label>
+              <input
+                matInput
+                color="primary"
+                name="NewParameters-{{ index }}-Value"
+                [(ngModel)]="NewParameterOfProduct[index].Value"
+                type="text"
+              />
+              <br />
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+      <!-- הגדרת סוכן חכם   -->
+      <!-- <label>בחר אפשרות:</label> -->
+      <div class="left-section section">
+        <mat-checkbox
+          color="primary"
+          name="cleverAgent"
+          [(ngModel)]="product.CleverAgent"
+        >
+          אני מעונין לקבל עדכונים למייל שלי</mat-checkbox
+        >
+        <!-- <select name="test-r" [(ngModel)]="product.CleverAgent" >
     <option value="true" >אני מעונין לקבל עדכונים למייל שלי</option>
     <option value="false">אני לא מעונין לקבל עדכונים למייל שלי</option><br><br>
   </select> -->
-  <button type="submit" [disabled]="!myForm.form.valid">שמירה</button>
-</form>
-<button *ngIf="UserRoleId!=3" [routerLink]="['/every-one-options']">חזרה לעמוד האפשרויות</button>
-<button *ngIf="UserRoleId==3" [routerLink]="['/user-info/',this.product.UserId]">חזרה לעמוד האישי</button>
+
+        <div class="left-section section">
+          <label *ngIf="product.LostOrFound == true">מקום האבידה:</label>
+          <label *ngIf="product.LostOrFound == false">מקום המציאה:</label>
+
+          <mat-radio-group [(ngModel)]="kindOfPlace.options" name="ggg">
+            <mat-radio-button
+              color="primary"
+              name="kindOfPlace"
+              value="googleMap"
+              (change)="getCurrentLocation()"
+            >
+              ציין מיקום במפה
+            </mat-radio-button>
+
+            <mat-radio-button
+              color="primary"
+              name="kindOfPlacegg"
+              value="otherPlace"
+              >אחר</mat-radio-button
+            >
+          </mat-radio-group>
+          <br />
+
+          <ng-container *ngIf="kindOfPlace.options == 'googleMap'">
+            <mat-form-field
+              appearance="outline"
+              class="googleInput"
+              color="primary"
+            >
+              <input
+                matInput
+                required
+                matGoogleMapsAutocomplete
+                [country]="il"
+                [ngModel]="googleAddress"
+                name="googleAddress"
+                (onAutocompleteSelected)="onAutocompleteSelected($event)"
+                (onLocationSelected)="onLocationSelected($event)"
+              />
+              <mat-error> חובה לציין כתובת</mat-error>
+            </mat-form-field>
+
+            <div class="map-wrapper">
+              <agm-map
+                [latitude]="latitude"
+                [longitude]="longitude"
+                [zoom]="zoom"
+                (mapClick)="addMarker($event.coords.lat, $event.coords.lng)"
+              >
+                <agm-marker
+                  [latitude]="latitude"
+                  [longitude]="longitude"
+                  [opacity]="1"
+                  [markerDraggable]="true"
+                  (markerClick)="selectMarker($event)"
+                  (dragEnd)="markerDragEnd($event)"
+                >
+                  <!-- markerDraggable - האם אפשר לגרור -->
+                </agm-marker>
+                <agm-rectangle
+                  [north]="max('lat')"
+                  [east]="max('lng')"
+                  [south]="min('lat')"
+                  [west]="min('lng')"
+                >
+                </agm-rectangle>
+              </agm-map>
+            </div>
+            <hr />
+            <!-- <p *ngIf="selectedMarker">
+                Lat: {{ selectedMarker.lat }} Lng: {{ selectedMarker.lng }}
+              </p> -->
+          </ng-container>
+
+          <div *ngIf="kindOfPlace.options == 'otherPlace'">
+            <mat-form-field appearance="outline" color="primary">
+              <mat-label>כתוב מיקום:</mat-label>
+              <input
+                required
+                matInput
+                type="text"
+                name="otherPlace"
+                [(ngModel)]="product.AddressDescription"
+              />
+            </mat-form-field>
+            <mat-error>חובה לציין כתובת</mat-error>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button
+      class="btn"
+      mat-flat-button
+      color="primary"
+      [disabled]="!myForm.form.valid"
+      type="submit"
+    >
+      שמירה
+    </button>
+    <!-- <button type="submit" [disabled]="!myForm.form.valid">שמירה</button> -->
+    <button
+      mat-flat-button
+      color="primary"
+      *ngIf="UserRoleId != 3"
+      [routerLink]="['/every-one-options']"
+    >
+      חזרה לעמוד האפשרויות
+    </button>
+    <button
+      mat-flat-button
+      color="primary"
+      *ngIf="UserRoleId == 3"
+      [routerLink]="['/user-info/', this.product.UserId]"
+    >
+      חזרה לעמוד האישי
+    </button>
+  </form>
+</div>

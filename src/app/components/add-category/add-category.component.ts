@@ -49,7 +49,7 @@ categories:Category[]=[];
     }, (err: HttpErrorResponse) => {
     });
     //השורה הבאה גורמת שבהתחלה יהיה בחר בסלקט של האב קטגוריה
-    this.category.ParentId=-1;
+    // this.category.ParentId=-1;
   }
 
 }

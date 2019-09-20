@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { User } from 'src/app/models/user';
-import {UserService} from '../../services/user.service';
+import { UserService } from '../../services/user.service';
 import { HttpErrorResponse } from '@angular/common/http';
-import {animate, state, style, transition, trigger} from '@angular/animations';
-import {Roles}from 'src/app/models/roles';
+import { animate, state, style, transition, trigger } from '@angular/animations';
+import { Roles } from 'src/app/models/roles';
 
 @Component({
   selector: 'app-user-list',
@@ -11,20 +11,18 @@ import {Roles}from 'src/app/models/roles';
   styleUrls: ['./user-list.component.css']
 })
 export class UserListComponent implements OnInit {
-users:User[]=[];
-public roleId:number;
-  constructor(private UserService:UserService) { }
+  users: User[] = [];
+  displayColumns = ["name", "phone", "password", "role", "edit"];
+  public roleId: number = +localStorage.getItem('RoleId');
+  constructor(private UserService: UserService) { }
 
   ngOnInit() {
-    this.roleId = +localStorage.getItem('RoleId');
-    this.UserService.UserList().subscribe((res:User[])=>{
-   if(res)
-   {
-    this.users=res;
-   }
-    },(err: HttpErrorResponse) => {
-    alert(err.error.Message);
-   
+    this.UserService.UserList().subscribe((res: User[]) => {
+      if (res) {
+        this.users = res;
+      }
+    }, (err: HttpErrorResponse) => {
+      alert(err.error.Message);
     });
   }
 

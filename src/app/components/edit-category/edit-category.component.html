@@ -1,9 +1,25 @@
-<form #EditCategoryForm="ngForm" (ngSubmit)="OnEditCategory()">
-  <label>שם קטגוריה: </label>
-  <input type="text" #CategoryName name="CategoryName" [(ngModel)]="category.CategoryName" required/><br><br>
-  <!--הודעה לציין שם קטגוריה-->
-  <label *ngIf="category.ParentId!=null">קטגורית אב:</label>
-  <label *ngIf="category.ParentId!=null">{{fatherNameCategory}}</label><br>
-  <input type="submit" value="ערוך"  [disabled]="!EditCategoryForm.form.valid "> 
-</form>
-<button  [routerLink]="['/category-list']">חזרה לרשימת הקטגוריות</button>
+<div class="body-wrapper">
+  <img class="img" src="../../../assets/logo.png" alt="">
+  <div class="page-title">עריכת קטגוריה</div>
+  <br /><br /><br /><br />
+  <form #EditCategoryForm="ngForm" (ngSubmit)="OnEditCategory()">
+    <mat-form-field appearance="outline" color="primary">
+      <mat-label>שם קטגוריה: </mat-label>
+      <input type="text" matInput color="primary" #CategoryName="ngModel" name="CategoryName"
+        [(ngModel)]="category.CategoryName" required />
+      <mat-error *ngIf="CategoryName.invalid && (CategoryName.dirty || CategoryName.touched)"
+        class="alert alert-danger">
+        חובה לציין שם
+      </mat-error>
+     
+    </mat-form-field>
+<br /><br />
+<!-- <mat-form-field appearance="outline" color="primary"> -->
+    <mat-label *ngIf="category.ParentId!=null">קטגורית אב:</mat-label>
+    <mat-label *ngIf="category.ParentId!=null">{{fatherNameCategory}}</mat-label>
+<!-- </mat-form-field> -->
+    <br /><br />
+    <button class="btn" mat-flat-button type="submit" [disabled]="!EditCategoryForm.form.valid ">ערוך</button>
+  </form>
+  <button class="btn" mat-flat-button [routerLink]="['/category-list']">חזרה לרשימת הקטגוריות</button>
+</div>
