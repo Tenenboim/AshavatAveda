@@ -6,8 +6,7 @@
 <button mat-flat-button color="primary" [routerLink]="['/add-mokdan-or-user']" *ngIf="roleId==1">הוספת מוקדן</button><br><br>
 <h1>אבדות מציאות</h1>
 <button mat-flat-button color="primary" [routerLink]="['/user-info',0]">צפיה באבדות/מציאות</button><br><br>
-<!-- <button mat-flat-button color="primary" [routerLink]="['/product']">להוספת מוצר</button> -->
-<button mat-flat-button color="primary" (click)="directToAddProduct()">הוסף חפץ</button><br><br>
+<button mat-flat-button color="primary" [routerLink]="['/product']">הוסף חפץ</button>
 <button mat-flat-button color="primary" *ngIf="roleId==1" [routerLink]="['/category-list']">צפיה ברשימת הקטגוריות</button><br><br>
 <button mat-flat-button color="primary" *ngIf="roleId==1"  [routerLink]="['/parameter-list']"> צפיה ברשימת הפרמטרים</button>
 <!--<button routerLink="/user-list">צפיה ברשימת משתמשים</button><br><br>!-->

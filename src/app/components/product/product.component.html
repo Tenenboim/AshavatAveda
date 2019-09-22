@@ -102,7 +102,7 @@
           >
             <ng-container *ngFor="let item of UserList">
               <mat-option [value]="item.UserId">
-                סיסמא:{{ item.UserPassword }}, שם: {{ item.UserFullName }}
+              {{ item.UserFullName }} ,{{ item.UserPassword }} 
               </mat-option>
             </ng-container>
           </mat-select>
@@ -119,74 +119,7 @@
         </mat-form-field>
         <br />
       </div>
-      <!-- <label>מקום האבידה/מציאה:</label>
-    <br />
-    <input
-      type="radio"
-      name="kindOfPlace"
-      value="googleMap"
-      (change)="getCurrentLocation()"
-      [(ngModel)]="kindOfPlace.options"
-    />
-    <label>ציין מיקום במפה</label><br />
-    <input
-      type="radio"
-      name="kindOfPlace"
-      value="otherPlace"
-      [(ngModel)]="kindOfPlace.options"
-    />
-    <label>אחר</label><br />
-
-    <ng-container *ngIf="kindOfPlace.options == 'googleMap'">
-      <mat-form-field class="googleInput">
-        <input
-          matInput
-          matGoogleMapsAutocomplete
-          [country]="il"
-          [ngModel]="googleAddress"
-          name="googleAddress"
-          (onAutocompleteSelected)="onAutocompleteSelected($event)"
-          (onLocationSelected)="onLocationSelected($event)"
-        />
-      </mat-form-field>
-
-      <agm-map
-        [latitude]="latitude"
-        [longitude]="longitude"
-        [zoom]="zoom"
-        (mapClick)="addMarker($event.coords.lat, $event.coords.lng)"
-      >
-        <agm-marker
-          [latitude]="latitude"
-          [longitude]="longitude"
-          [opacity]="1"
-          [markerDraggable]="true"
-          (markerClick)="selectMarker($event)"
-          (dragEnd)="markerDragEnd($event)"
-        >
-          markerDraggable - האם אפשר לגרור
-        </agm-marker>
-        <agm-rectangle
-          [north]="max('lat')"
-          [east]="max('lng')"
-          [south]="min('lat')"
-          [west]="min('lng')"
-        >
-        </agm-rectangle>
-      </agm-map>
-      <hr />
-        
-   
-    </ng-container>
-
-    <div *ngIf="kindOfPlace.options == 'otherPlace'">
-      <label>כתוב מיקום:</label>
-      <input
-        type="text"
-        name="otherPlace"
-        [(ngModel)]="product.AddressDescription"
-      />
-    </div> -->
+     
       <div class="center-section section">
         <mat-form-field appearance="outline" color="primary">
           <mat-label>תאריך אבידה/מציאה:</mat-label>
