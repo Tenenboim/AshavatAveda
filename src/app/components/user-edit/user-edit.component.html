@@ -106,12 +106,17 @@
     </mat-form-field>
 
     <div *ngIf="roleId != null && roleId == 1">
-      <input type="radio" name="RoleId" [value]="2" [(ngModel)]="user.RoleId" />
-      <!-- [checked]="u.RoleId==2?'checked':''" -->
-      <label for="2">מוקדן</label>
-      <br /><br />
-      <input type="radio" name="RoleId" [value]="3" [(ngModel)]="user.RoleId" />
-      <label for="3">משתמש רגיל</label>
+      <mat-radio-group [(ngModel)]="user.RoleId" name="ggg">
+        <mat-radio-button color="primary" name="RoleId" [value]="2"
+          >מוקדן</mat-radio-button
+        >
+        <!-- [checked]="u.RoleId==2?'checked':''" -->
+
+        <br /><br />
+        <mat-radio-button color="primary" name="RoleId" [value]="3"
+          >משתמש רגיל</mat-radio-button
+        >
+      </mat-radio-group>
     </div>
     <button class="btn" mat-flat-button [disabled]="!myForm.form.valid">
       שמור

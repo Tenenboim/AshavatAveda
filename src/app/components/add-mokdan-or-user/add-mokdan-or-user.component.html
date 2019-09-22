@@ -1,66 +1,127 @@
 <div class="body-wrapper">
-  <img class="img" src="../../../assets/logo.png" alt="">
+  <img class="img" src="../../../assets/logo.png" alt="" />
   <div class="page-title">הוספה</div>
   <form #AddMokdanOrUserForm="ngForm" (ngSubmit)="OnAddMokdanOrUser()">
     <mat-form-field appearance="outline" color="primary">
-    <mat-label>שם:</mat-label>
-    <input type="text" matInput color="primary" #UserFullName="ngModel" name="UserFullName"
-      [(ngModel)]="user.UserFullName" required />
-    <mat-error *ngIf="UserFullName.invalid && (UserFullName.dirty || UserFullName.touched)" class="alert alert-danger">
-      חובה לציין שם
-    </mat-error>
+      <mat-label>שם:</mat-label>
+      <input
+        type="text"
+        matInput
+        color="primary"
+        #UserFullName="ngModel"
+        name="UserFullName"
+        [(ngModel)]="user.UserFullName"
+        required
+      />
+      <mat-error
+        *ngIf="
+          UserFullName.invalid && (UserFullName.dirty || UserFullName.touched)
+        "
+        class="alert alert-danger"
+      >
+        חובה לציין שם
+      </mat-error>
     </mat-form-field>
 
     <mat-form-field appearance="outline" color="primary">
-    <mat-label>סיסמא:</mat-label>
-    <input type="password" matInput color="primary" #UserPassword="ngModel" name="UserPassword"
-      [(ngModel)]="user.UserPassword" required />
-    <mat-error *ngIf="UserPassword.invalid && (UserPassword.dirty || UserPassword.touched)" class="alert alert-danger">
-      חובה לציין סיסמא
-    </mat-error>
-    <!-- <br /><br /> -->
+      <mat-label>סיסמא:</mat-label>
+      <input
+        type="password"
+        matInput
+        color="primary"
+        #UserPassword="ngModel"
+        name="UserPassword"
+        [(ngModel)]="user.UserPassword"
+        required
+      />
+      <mat-error
+        *ngIf="
+          UserPassword.invalid && (UserPassword.dirty || UserPassword.touched)
+        "
+        class="alert alert-danger"
+      >
+        חובה לציין סיסמא
+      </mat-error>
+      <br />
     </mat-form-field>
 
     <mat-form-field appearance="outline" color="primary">
-    <mat-label>כתובת: </mat-label>
-    <input type="text" matInput color="primary" name="UserAddress" [(ngModel)]="user.UserAddress" />
+      <mat-label>כתובת: </mat-label>
+      <input
+        type="text"
+        matInput
+        color="primary"
+        name="UserAddress"
+        [(ngModel)]="user.UserAddress"
+      />
 
-    <!-- <br /><br /> -->
+      <br />
     </mat-form-field>
 
     <mat-form-field appearance="outline" color="primary">
-    <mat-label>מייל: </mat-label>
-    <input type="email" matInput color="primary" ngModel email name="UserEmail" [(ngModel)]="user.UserEmail" />
-    <mat-error  class="alert alert-danger">
-      מייל לא חוקי
-    </mat-error>
-    <!-- <br /><br /> -->
+      <mat-label>מייל: </mat-label>
+      <input
+        type="email"
+        matInput
+        color="primary"
+        ngModel
+        email
+        name="UserEmail"
+        [(ngModel)]="user.UserEmail"
+      />
+      <mat-error class="alert alert-danger">
+        מייל לא חוקי
+      </mat-error>
+      <br />
     </mat-form-field>
 
     <mat-form-field appearance="outline" color="primary">
-    <mat-label>טלפון: </mat-label>
-    <input type="text" matInput color="primary" #UserPhone="ngModel" name="UserPhone" [(ngModel)]="user.UserPhone"
-      required />
-    <mat-error *ngIf="UserPhone.invalid && (UserPhone.dirty || UserPhone.touched)" class="alert alert-danger">
-      חובה לציין טלפון
-    </mat-error>
-    <!-- <br /><br /> -->
+      <mat-label>טלפון: </mat-label>
+      <input
+        type="text"
+        matInput
+        color="primary"
+        #UserPhone="ngModel"
+        name="UserPhone"
+        [(ngModel)]="user.UserPhone"
+        required
+      />
+      <mat-error
+        *ngIf="UserPhone.invalid && (UserPhone.dirty || UserPhone.touched)"
+        class="alert alert-danger"
+      >
+        חובה לציין טלפון
+      </mat-error>
+      <br />
     </mat-form-field>
 
-    <!-- <mat-form-field appearance="outline" color="primary"> -->
     <div *ngIf="roleId != null && roleId == 1">
-      <input type="radio" name="RoleId" [value]="2" [(ngModel)]="user.RoleId" />
-      <mat-label for="2">מוקדן</mat-label>
-      <br><br>
-      <input type="radio" name="RoleId" [value]="3" [(ngModel)]="user.RoleId" />
-      <mat-label for="3">משתמש רגיל</mat-label>
-    </div>
-    
-    <!-- <br /><br /> -->
-    <!-- </mat-form-field> -->
-    <br /><br />
-    <button class="btn" mat-flat-button type="submit" [disabled]="!AddMokdanOrUserForm.form.valid">הוסף</button>
+      <mat-radio-group [(ngModel)]="user.RoleId" name="ggg">
+        <mat-radio-button color="primary" name="RoleId" [value]="2"
+          >מוקדן</mat-radio-button
+        >
+        <!-- <mat-label for="2">מוקדן</mat-label> -->
 
+        <mat-radio-button color="primary" name="RoleId" [value]="3"
+          >משתמש רגיל</mat-radio-button
+        >
+
+        <!-- <mat-label for="3">משתמש רגיל</mat-label> -->
+      </mat-radio-group>
+    </div>
+    <!-- <br /><br /> -->
+
+    <br /><br />
+    <button
+      class="btn"
+      mat-flat-button
+      type="submit"
+      [disabled]="!AddMokdanOrUserForm.form.valid"
+    >
+      הוסף
+    </button>
   </form>
-  <button class="btn" mat-flat-button [routerLink]="['/every-one-options']">חזרה לעמוד קודם</button>
+  <button class="btn" mat-flat-button [routerLink]="['/every-one-options']">
+    חזרה לעמוד קודם
+  </button>
 </div>

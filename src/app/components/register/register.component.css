@@ -1,0 +1,28 @@
+/* .body-wrapper {
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  margin: 3%;
+} */
+
+/* .img {
+  margin-bottom: 2%;
+  width: 14%;
+}*/
+
+.btn {
+  margin-top: 10%;
+} 
+.body-wrapper {
+  width: 40%;
+  min-height: 76vh;
+}
+.img {
+  width: 60%;
+  margin-bottom: 2%;
+}
+.page-title {
+  margin-bottom: 7%;
+}

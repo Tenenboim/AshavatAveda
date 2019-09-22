@@ -10,7 +10,7 @@
         class="alert alert-danger">
         חובה לציין שם
       </mat-error>
-      <!-- <br /><br /> -->
+      <br />
     </mat-form-field>
     <mat-form-field appearance="outline" color="primary">
       <mat-label>סיסמא:</mat-label>
@@ -20,14 +20,14 @@
         class="alert alert-danger">
         חובה לציין סיסמא
       </mat-error>
-      <!-- <br /><br /> -->
+    <br />
     </mat-form-field>
     <mat-form-field appearance="outline" color="primary">
       <mat-label>כתובת: </mat-label>
       <input type="text" matInput color="primary" #userAdress="ngModel" name="userAddress"
         [(ngModel)]="user.userAddress" />
     </mat-form-field>
-    <br /><br />
+    <br />
     <mat-form-field appearance="outline" color="primary">
       <mat-label>מייל: </mat-label>
       <input type="email" matInput color="primary" ngModel email name="userEmail" [(ngModel)]="user.userEmail" />
@@ -35,7 +35,7 @@
         מייל לא חוקי
       </mat-error>
     </mat-form-field>
-    <br /><br />
+    <br />
     <mat-form-field appearance="outline" color="primary">
       <mat-label>טלפון: </mat-label>
       <input type="text" matInput color="primary" #userPhone="ngModel" name="userPhone" [(ngModel)]="user.UserPhone"
@@ -53,7 +53,7 @@
       checked="checked" />
     <label for="3" >משתמש רגיל</label>
   </div> -->
-  <br /><br />
+  <br />
     <button class="btn" mat-flat-button type="submit" [disabled]="!RegisterForm.form.valid">הרשמה</button>
     <button class="btn" mat-flat-button routerLink="/login">חזרה לעמוד כניסה</button>
   </form>
